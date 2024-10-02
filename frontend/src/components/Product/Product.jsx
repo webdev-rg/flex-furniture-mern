@@ -110,7 +110,7 @@ export const Product = () => {
             <div className="flex flex-col gap-3 py-10">
               <h2 className="text-2xl font-semibold">SKU: <span className="font-normal text-[#848484]">0093</span></h2>
               <h2 className="text-2xl font-semibold">Brands: <span className="font-normal text-[#848484]">Creative Design</span></h2>
-              <h2 className="text-2xl font-semibold">Tags: <span className="font-bold text-[#848484]">Furniture, Trending, Wood</span></h2>
+              <h2 className="text-2xl font-semibold">Tags: <span className="font-normal text-[#848484]">Furniture, Trending, Wood</span></h2>
             </div>
           </div>
         </div>

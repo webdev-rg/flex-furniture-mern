@@ -11,7 +11,7 @@ export const Header = () => {
         </Link>
       </div>
       <div className="h-full flex items-center">
-        <button className="px-10 py-4 bg-red-600 text-2xl text-white font-bold tracking-wide rounded-2xl">
+        <button className="px-10 py-4 bg-red-600 hover:bg-red-500 transition-all duration-300 text-2xl text-white font-bold tracking-wide rounded-2xl">
           Logout
         </button>
       </div>

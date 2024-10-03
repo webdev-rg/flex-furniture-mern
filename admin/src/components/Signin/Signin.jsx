@@ -51,6 +51,7 @@ export const Signin = ({ isLoggedIn }) => {
               theme: "light",
             });
           } else if (data.message === "Login Succesful") {
+            isLoggedIn(true);
             toast.success(`${data.message}`, {
               position: "top-center",
               autoClose: 3000,
@@ -61,7 +62,6 @@ export const Signin = ({ isLoggedIn }) => {
               progress: undefined,
               theme: "light",
             });
-            isLoggedIn(true);
             setTimeout(() => {
               navigate("/admin-dashboard");
             }, 3000);

@@ -52,19 +52,19 @@ export const Signin = ({ isLoggedIn }) => {
             });
           } else if (data.message === "Login Succesful") {
             isLoggedIn(true);
-            toast.success(`${data.message}`, {
-              position: "top-center",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-            setTimeout(() => {
-              navigate("/admin-dashboard");
-            }, 3000);
+            // toast.success(`${data.message}`, {
+            //   position: "top-center",
+            //   autoClose: 3000,
+            //   hideProgressBar: false,
+            //   closeOnClick: true,
+            //   pauseOnHover: true,
+            //   draggable: true,
+            //   progress: undefined,
+            //   theme: "light",
+            // });
+            navigate("/admin-dashboard");
+            // setTimeout(() => {
+            // }, 3000);
           }
         })
         .catch((err) => console.error(err));

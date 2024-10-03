@@ -50,7 +50,7 @@ export const Signin = ({ isLoggedIn }) => {
               progress: undefined,
               theme: "light",
             });
-          } else {
+          } else if (data.message === "Login Succesful") {
             toast.success(`${data.message}`, {
               position: "top-center",
               autoClose: 3000,

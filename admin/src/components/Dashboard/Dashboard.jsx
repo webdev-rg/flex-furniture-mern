@@ -7,11 +7,10 @@ import {
   TbUsers,
 } from "react-icons/tb";
 
-export const Dashboard = () => {
-  
+export const Dashboard = ({ isLoggedIn }) => {
   return (
     <>
-      <Header />
+      <Header isLoggedIn={isLoggedIn} />
       <div className="w-full h-screen pt-32 flex justify-between">
         <div className="w-[20%] border-r border-r-flex-furniture-100">
           <div className="w-full h-full p-10 flex flex-col gap-5">

@@ -24,11 +24,14 @@ export const Signup = () => {
     e.preventDefault();
 
     try {
-      await fetch("http://localhost:1901/api/adminsignup", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ adminData }),
-      })
+      await fetch(
+        "https://flex-furniture-server.onrender.com/api/adminsignup",
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify({ adminData }),
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
           if (data.message === "Admin already exists") {

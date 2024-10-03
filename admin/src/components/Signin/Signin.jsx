@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const Signin = () => {
+export const Signin = ({ isLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -18,11 +18,14 @@ export const Signin = () => {
     }
 
     try {
-      await fetch("http://localhost:1901/api/adminsignin", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      })
+      await fetch(
+        "https://flex-furniture-server.onrender.com/api/adminsignin",
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.message === "Incorrect Email") {
@@ -48,20 +51,20 @@ export const Signin = () => {
               theme: "light",
             });
           } else {
-            // toast.success(`${data.message}`, {
-            //   position: "top-center",
-            //   autoClose: 3000,
-            //   hideProgressBar: false,
-            //   closeOnClick: true,
-            //   pauseOnHover: true,
-            //   draggable: true,
-            //   progress: undefined,
-            //   theme: "light",
-            // });
-            localStorage.setItem("adminLoggedIn", true);
-            navigate("/admin-dashboard");
-            // setTimeout(() => {
-            // }, 3000);
+            toast.success(`${data.message}`, {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            isLoggedIn(true);
+            setTimeout(() => {
+              navigate("/admin-dashboard");
+            }, 3000);
           }
         })
         .catch((err) => console.error(err));

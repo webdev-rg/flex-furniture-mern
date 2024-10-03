@@ -12,12 +12,11 @@ export const Signup = () => {
 
     try {
       await axios
-        .post("http://localhost:1901/api/createadmin", {
+        .post("https://flex-furniture-server.onrender.com/api/createadmin", {
           email,
           password,
         })
         .then((data) => console.log(data));
-      // console.log(admin);
     } catch (error) {
       console.log(error);
     }

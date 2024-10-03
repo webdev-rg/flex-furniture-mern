@@ -13,11 +13,11 @@ export const Home = () => {
           />
         </div>
         <div className="flex items-center justify-center gap-16">
-          <Link to="/admin-login">
-            <button className="px-10 py-4 bg-flex-furniture-600 text-3xl text-white font-semibold tracking-wide rounded-xl hover:bg-flex-furniture-500 transition-all duration-300">Login</button>
+          <Link to="/admin-signin">
+            <button className="px-10 py-4 bg-flex-furniture-600 text-3xl text-white font-semibold tracking-wide rounded-xl hover:bg-flex-furniture-500 transition-all duration-300">Signin</button>
           </Link>
-          <Link to="/admin-register">
-            <button className="px-10 py-4 bg-flex-furniture-600 text-3xl text-white font-semibold tracking-wide rounded-xl hover:bg-flex-furniture-500 transition-all duration-300">Register</button>
+          <Link to="/admin-signup">
+            <button className="px-10 py-4 bg-flex-furniture-600 text-3xl text-white font-semibold tracking-wide rounded-xl hover:bg-flex-furniture-500 transition-all duration-300">Signup</button>
           </Link>
         </div>
       </div>

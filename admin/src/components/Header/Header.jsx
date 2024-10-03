@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 export const Header = () => {
   return (
-    <header className="w-full h-32 px-32 fixed top-0 left-0 flex items-center justify-between">
+    <header className="w-full h-32 px-10 fixed top-0 left-0 flex items-center justify-between border-b border-b-flex-furniture-100">
       <div className="h-full flex items-center">
-        <Link to="/admin">
+        <Link to="/admin-dashboard">
           <img src={logo} className="w-96" alt="admin-logo" />
         </Link>
       </div>

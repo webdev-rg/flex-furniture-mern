@@ -70,8 +70,12 @@ export const Product = () => {
                 $1009 <span className="text-4xl text-red-600">-15%</span>
               </h1>
               <p className="text-2xl leading-relaxed text-[#848484]">
-                Aliquam condimentum dictum gravida. Sed eu odio id lorem
-                fermentum faucibus. Cras tempor semper ligula.
+                The Wood Outdoor Adirondack Chair is a classic, stylish outdoor
+                seating option known for its comfort and timeless design.
+                Crafted from durable, weather-resistant wood like cedar or
+                acacia, this chair features a slanted seat, wide armrests, and a
+                high, gently reclined backrest, making it perfect for lounging
+                in outdoor spaces like patios, gardens, or decks.
               </p>
               <div className="w-full flex items-center gap-10">
                 <div className="flex items-center">
@@ -108,9 +112,21 @@ export const Product = () => {
               </div>
             </div>
             <div className="flex flex-col gap-3 py-10">
-              <h2 className="text-2xl font-semibold">SKU: <span className="font-normal text-[#848484]">0093</span></h2>
-              <h2 className="text-2xl font-semibold">Brands: <span className="font-normal text-[#848484]">Creative Design</span></h2>
-              <h2 className="text-2xl font-semibold">Tags: <span className="font-normal text-[#848484]">Furniture, Trending, Wood</span></h2>
+              <h2 className="text-2xl font-semibold">
+                SKU: <span className="font-normal text-[#848484]">0093</span>
+              </h2>
+              <h2 className="text-2xl font-semibold">
+                Brands:{" "}
+                <span className="font-normal text-[#848484]">
+                  Creative Design
+                </span>
+              </h2>
+              <h2 className="text-2xl font-semibold">
+                Tags:{" "}
+                <span className="font-normal text-[#848484]">
+                  Furniture, Trending, Wood
+                </span>
+              </h2>
             </div>
           </div>
         </div>

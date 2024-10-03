@@ -3,3 +3,18 @@ Add New Product
 Product List
 User List
 Orders
+
+Product Schema
+
+name
+rating
+stock
+price
+description
+category
+images: [
+  image: {data: Buffer, contentType: String},
+  image: {data: Buffer, contentType: String},
+  image: {data: Buffer, contentType: String},
+  image: {data: Buffer, contentType: String},
+]

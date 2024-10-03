@@ -12,40 +12,49 @@ app.use(cors());
 app.use(express.json());
 
 //? Admin API
-app.post("/api/createadmin", async (req, res) => {
-  console.log("Request body:", req.body);
-
-  const { email, password } = req.body;
-
-  console.log("Received request to create admin with email:", email);
+//* Admin Signup
+app.post("/api/adminsignup", async (req, res) => {
+  const { adminData } = req.body;
 
   try {
-    const existingAdmin = await adminModel.findOne({ adminEmail: email });
+    const existingAdmin = await adminModel.findOne({ email: adminData.email });
     if (existingAdmin) {
-      return res.status(400).json({ message: "Admin already exists" });
+      return res.status(400).send({ message: "Admin already exists" });
     }
 
     const data = await adminModel({
-      adminEmail: email,
-      adminPassword: password,
+      firstName: adminData.firstName,
+      lastName: adminData.lastName,
+      email: adminData.email,
+      password: adminData.password,
     });
 
     await data.save();
-
-    console.log("Admin Created Successfully");
-    res.status(200).json({ message: "Admin Created Successfully" });
+    res.status(200).send({ message: "Admin Created Successfully" });
   } catch (error) {
     console.error("Error Creating Admin:", error);
-    res.status(500).json({ message: "Error creating admin" });
+    res.status(500).send({ message: "Error creating admin" });
   }
 });
 
-app.get("/api/getadmin", async (req, res) => {
+//* Admin Signin
+app.post("/api/adminsignin", async (req, res) => {
+  console.log(req.body);
+  const { email, password } = req.body;
+
   try {
-    const adminData = await adminModel.find({});
-    res.status(200).send(adminData);
+    const adminData = await adminModel.findOne({ email: email });
+    if (!adminData) {
+      return res.status(404).send({ message: "Incorrect Email" });
+    }
+    if (adminData.password !== password) {
+      return res.status(401).send({ message: "Incorrect Password" });
+    }
+    // console.log(adminData);
+    res.status(200).send({ message: "Login Successful" });
   } catch (error) {
     console.error(error);
+    res.status(500);
   }
 });
 

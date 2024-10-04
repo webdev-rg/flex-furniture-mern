@@ -20,7 +20,7 @@ app.post("/api/adminsignup", async (req, res) => {
   try {
     const existingAdmin = await adminModel.findOne({ email: adminData.email });
     if (existingAdmin) {
-      return res.status(400).send({ message: "Admin already exists" });
+      return res.status(400).send({ message: "Email already exists" });
     }
 
     const data = await adminModel({
@@ -31,10 +31,10 @@ app.post("/api/adminsignup", async (req, res) => {
     });
 
     await data.save();
-    res.status(200).send({ message: "Admin Created Successfully" });
+    res.status(200).send({ message: "Admin Registration Successfully" });
   } catch (error) {
-    console.error("Error Creating Admin:", error);
-    res.status(500).send({ message: "Error creating admin" });
+    console.error("Admin registration failed...:", error);
+    res.status(500).send({ message: "Admin registration failed..." });
   }
 });
 
@@ -46,10 +46,13 @@ app.post("/api/adminsignin", async (req, res) => {
   try {
     const adminData = await adminModel.findOne({ email: email });
     if (!adminData) {
-      return res.status(404).send({ message: "Incorrect Email" });
+      return res.status(404).send({ message: "Admin not found" });
+    }
+    if(adminData.email !== email) {
+      return res.status(401).send({ message: "Incorrect email" });
     }
     if (adminData.password !== password) {
-      return res.status(401).send({ message: "Incorrect Password" });
+      return res.status(401).send({ message: "Incorrect password" });
     }
     // console.log(adminData);
     res.status(200).send({

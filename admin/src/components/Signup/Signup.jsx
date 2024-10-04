@@ -32,7 +32,10 @@ export const Signup = () => {
           body: JSON.stringify({ adminData }),
         }
       )
-        .then((response) => response.json())
+        .then((response) => {
+          console.log(response);
+          return response.json();
+        })
         .then((data) => {
           if (data.message === "Admin already exists") {
             toast.info(`${data.message}`, {

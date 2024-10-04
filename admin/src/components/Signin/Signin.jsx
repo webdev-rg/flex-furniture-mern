@@ -18,60 +18,51 @@ export const Signin = ({ isLoggedIn }) => {
     }
 
     try {
-      await fetch(
+      const response = await fetch(
         "https://flex-furniture-server.onrender.com/api/adminsignin",
         {
           method: "POST",
           headers: { "Content-type": "application/json" },
           body: JSON.stringify({ email, password }),
         }
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.message === "Incorrect Email") {
-            toast.error(`${data.message}`, {
-              position: "top-center",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          } else if (data.message === "Incorrect Password") {
-            toast.error(`${data.message}`, {
-              position: "top-center",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          } else if (data.message === "Login Succesful") {
-            isLoggedIn(true);
-            // toast.success(`${data.message}`, {
-            //   position: "top-center",
-            //   autoClose: 3000,
-            //   hideProgressBar: false,
-            //   closeOnClick: true,
-            //   pauseOnHover: true,
-            //   draggable: true,
-            //   progress: undefined,
-            //   theme: "light",
-            // });
-            navigate("/admin-dashboard");
-            // setTimeout(() => {
-            // }, 3000);
-          }
-        })
-        .catch((err) => console.error(err));
+      );
+
+      const data = await response.json();
+
+      if (
+        data.message === "Incorrect Email" ||
+        data.message === "Incorrect Password"
+      ) {
+        toast.error(`${data.message}`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else if (data.message === "Login Successful") {
+        isLoggedIn(true); // Correctly update the state
+        localStorage.setItem("adminLoggedIn", "true"); // Directly set in localStorage
+        toast.success(`${data.message}`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        navigate("/admin-dashboard");
+      }
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <>
       <ToastContainer />

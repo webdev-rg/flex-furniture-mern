@@ -48,7 +48,7 @@ export const Signin = ({ isLoggedIn }) => {
         localStorage.setItem("adminLoggedIn", "true"); // Directly set in localStorage
         toast.success(`${data.message}`, {
           position: "top-center",
-          autoClose: 3000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -56,7 +56,9 @@ export const Signin = ({ isLoggedIn }) => {
           progress: undefined,
           theme: "light",
         });
-        navigate("/admin-dashboard");
+        setTimeout(() => {
+          navigate("/admin-dashboard");
+        }, 2000)
       }
     } catch (error) {
       console.error(error);

@@ -37,7 +37,7 @@ export const Signup = () => {
           return response.json();
         })
         .then((data) => {
-          if (data.message === "Admin already exists") {
+          if (data.message === "Email already exists") {
             toast.info(`${data.message}`, {
               position: "top-center",
               autoClose: 3000,
@@ -54,7 +54,7 @@ export const Signup = () => {
               email: "",
               password: "",
             });
-          } else if (data.message === "Admin Created Successfully") {
+          } else if (data.message === "Admin Registration Successfully") {
             toast.success(`${data.message}`, {
               position: "top-center",
               autoClose: 3000,
@@ -71,7 +71,7 @@ export const Signup = () => {
               email: "",
               password: "",
             });
-          } else if (data.message === "Error creating admin") {
+          } else if (data.message === "Admin registration failed...") {
             toast.error(`${data.message}`, {
               position: "top-center",
               autoClose: 3000,

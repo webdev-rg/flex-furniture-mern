@@ -18,15 +18,19 @@ export const Signin = ({ isLoggedIn }) => {
     }
 
     try {
-      const response = await fetch("https://flex-furniture-server.onrender.com/api/adminsignin", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        "https://flex-furniture-server.onrender.com/api/adminsignin",
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await response.json();
 
       if (
+        data.message === "Admin not found" ||
         data.message === "Incorrect Email" ||
         data.message === "Incorrect Password"
       ) {

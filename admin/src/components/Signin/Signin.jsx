@@ -18,7 +18,7 @@ export const Signin = ({ isLoggedIn }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:1901/api/adminsignin", {
+      const response = await fetch("https://flex-furniture-server.onrender.com/api/adminsignin", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ email, password }),

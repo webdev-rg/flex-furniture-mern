@@ -18,14 +18,11 @@ export const Signin = ({ isLoggedIn }) => {
     }
 
     try {
-      const response = await fetch(
-        "https://flex-furniture-server.onrender.com/api/adminsignin",
-        {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const response = await fetch("http://localhost:1901/api/adminsignin", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
       const data = await response.json();
 
@@ -46,6 +43,7 @@ export const Signin = ({ isLoggedIn }) => {
       } else if (data.message === "Login Successful") {
         isLoggedIn(true); // Correctly update the state
         localStorage.setItem("adminLoggedIn", "true"); // Directly set in localStorage
+        localStorage.setItem("adminData", JSON.stringify(data.dataa));
         toast.success(`${data.message}`, {
           position: "top-center",
           autoClose: 2000,
@@ -58,7 +56,7 @@ export const Signin = ({ isLoggedIn }) => {
         });
         setTimeout(() => {
           navigate("/admin-dashboard");
-        }, 2000)
+        }, 2000);
       }
     } catch (error) {
       console.error(error);

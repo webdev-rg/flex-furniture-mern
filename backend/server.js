@@ -14,6 +14,7 @@ app.use(express.json());
 //? Admin API
 //* Admin Signup
 app.post("/api/adminsignup", async (req, res) => {
+  console.log("Incoming data:", req.body);
   const { adminData } = req.body;
 
   try {
@@ -51,7 +52,10 @@ app.post("/api/adminsignin", async (req, res) => {
       return res.status(401).send({ message: "Incorrect Password" });
     }
     // console.log(adminData);
-    res.status(200).send({ message: "Login Successful" });
+    res.status(200).send({
+      message: "Login Successful",
+      dataa: adminData,
+    });
   } catch (error) {
     console.error(error);
     res.status(500);

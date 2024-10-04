@@ -46,10 +46,7 @@ app.post("/api/adminsignin", async (req, res) => {
   try {
     const adminData = await adminModel.findOne({ email: email });
     if (!adminData) {
-      return res.status(404).send({ message: "Admin not found" });
-    }
-    if(adminData.email !== email) {
-      return res.status(401).send({ message: "Incorrect email" });
+      return res.status(404).send({ message: "Incorrect Email" });
     }
     if (adminData.password !== password) {
       return res.status(401).send({ message: "Incorrect password" });

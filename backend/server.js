@@ -121,6 +121,27 @@ app.get("/api/getcategoryimage/:id", async (req, res) => {
   }
 });
 
+app.delete("/api/deletecategory/:id", async (req, res) => {
+  try {
+    const findCategory = await categoryModel.findOne({
+      _id: req.params.id,
+    });
+
+    if (!findCategory) {
+      return res.status(404).send({ message: "Category not found" });
+    }
+
+    const deleteCategory = await categoryModel.deleteOne(findCategory);
+
+    if (deleteCategory) {
+      return res.status(200).send({ message: "Category deleted successfully" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: "Category deletion failed" });
+    console.log(error);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });

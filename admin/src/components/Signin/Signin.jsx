@@ -30,7 +30,6 @@ export const Signin = ({ isLoggedIn }) => {
       const data = await response.json();
 
       if (
-        data.message === "Admin not found" ||
         data.message === "Incorrect Email" ||
         data.message === "Incorrect Password"
       ) {
@@ -45,8 +44,8 @@ export const Signin = ({ isLoggedIn }) => {
           theme: "light",
         });
       } else if (data.message === "Login Successful") {
-        isLoggedIn(true); // Correctly update the state
-        localStorage.setItem("adminLoggedIn", "true"); // Directly set in localStorage
+        isLoggedIn(true);
+        localStorage.setItem("adminLoggedIn", "true");
         localStorage.setItem("adminData", JSON.stringify(data.dataa));
         toast.success(`${data.message}`, {
           position: "top-center",

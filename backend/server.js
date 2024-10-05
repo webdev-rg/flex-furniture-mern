@@ -66,28 +66,60 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 //? Category API
+//* Add Category
 app.post(
   "/api/addcategory",
   upload.single("categoryImage"),
   async (req, res) => {
-    console.log(req.file); // This should log the file info
+    const { name } = req.body;
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
     const category = await categoryModel({
-      categoryName: req.body.name,
-      categoryImage: req.file.buffer,
+      name: name,
+      image: req.file.buffer,
       contentType: req.file.mimetype,
     });
     try {
       await category.save();
-      res.status(200).json({ message: "Category Created Successfully" });
+      res.status(200).send({ message: "Category Created Successfully" });
+      console.log(category);
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: "Erro creating category" });
+      res.status(500).send({ message: "Category creation failed.." });
     }
   }
 );
+
+//* Get Categories
+app.get("/api/getcategories", async (req, res) => {
+  try {
+    const categories = await categoryModel.find({}, { image: 0 });
+    if (!categories) {
+      return res.status(404).send({ message: "No category found" });
+    }
+    res.status(200).send(categories);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal server error" });
+  }
+});
+
+app.get("/api/getcategoryimage/:id", async (req, res) => {
+  try {
+    const categoryImage = await categoryModel.findById(req.params.id);
+    if (!categoryImage) {
+      return res.status(404).send({ message: "No image found" });
+    }
+    const base64Image = Buffer.from(categoryImage.image).toString("base64");
+    const imageDataUrl = `data:${categoryImage.contentType};base64,${base64Image}`;
+
+    res.status(200).json({ imageDataUrl });
+  } catch (error) {
+    res.status(500).send("Error fetching image");
+    console.error(error);
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);

@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const CategorySchema = new mongoose.Schema({
-  categoryName: {
+  name: {
     type: String,
     required: true,
   },
-  categoryImage: { type: Buffer },
+  image: { type: Buffer },
   contentType: String,
   productCount: { type: Number, default: 0 },
 });

@@ -28,7 +28,7 @@ export const Categories = () => {
         data.map(async (item) => {
           try {
             const imageBlobRes = await fetch(
-              `https://flex-furniture-server.onrender.com/getcategoryimage/${item._id}`
+              `https://flex-furniture-server.onrender.com/api/getcategoryimage/${item._id}`
             );
 
             if (!imageBlobRes.ok) {

@@ -89,17 +89,18 @@ export const Categories = () => {
             </h1>
           </div>
         ) : (
-          <div className="w-full h-full mt-10 grid grid-cols-2 gap-10 overflow-y-auto">
+          <div className="w-full h-full mt-10 grid grid-cols-2 gap-5 overflow-y-auto">
             {categories.map((item) => {
               return (
-                <Category
-                  key={item._id}
-                  id={item._id}
-                  name={item.name}
-                  productCount={item.productCount}
-                  image={item.imageURL}
-                  getCategories={handleGetCategories}
-                />
+                <div key={item._id} className="flex flex-col h-full">
+                  <Category
+                    id={item._id}
+                    name={item.name}
+                    productCount={item.productCount}
+                    image={item.imageURL}
+                    getCategories={handleGetCategories}
+                  />
+                </div>
               );
             })}
           </div>

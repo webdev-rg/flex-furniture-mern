@@ -9,10 +9,13 @@ export const Categories = () => {
 
   const handleGetCategories = async () => {
     try {
-      const response = await fetch("http://localhost:1901/api/getcategories", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await fetch(
+        "https://flex-furniture-server.onrender.com/api/getcategories",
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       const data = await response.json();
 
       if (!data || data.message === "No category found") {
@@ -25,7 +28,7 @@ export const Categories = () => {
         data.map(async (item) => {
           try {
             const imageBlobRes = await fetch(
-              `http://localhost:1901/api/getcategoryimage/${item._id}`
+              `https://flex-furniture-server.onrender.com/getcategoryimage/${item._id}`
             );
 
             if (!imageBlobRes.ok) {
@@ -116,7 +119,7 @@ const Category = ({ id, name, productCount, image, getCategories }) => {
   const handleDeleteCategory = async (categoryId) => {
     try {
       const response = await fetch(
-        `http://localhost:1901/api/deletecategory/${categoryId}`,
+        `https://flex-furniture-server.onrender.com/api/deletecategory/${categoryId}`,
         {
           method: "DELETE",
         }
@@ -218,10 +221,13 @@ const CategoryForm = ({ setIsCategoryForm, getCategories }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:1901/api/addcategory", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://flex-furniture-server.onrender.com/api/addcategory",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
       const data = await response.json();
 
       if (data.message === "Category Created Successfully") {

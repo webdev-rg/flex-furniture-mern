@@ -8,6 +8,7 @@ import {
   TbLayoutDashboard,
 } from "react-icons/tb";
 import { Categories } from "../Categories/Categories";
+import { AddProductForm } from "../AddProductForm/AddProductForm";
 
 export const Dashboard = ({ isLoggedIn }) => {
   const dashboardHeight = {
@@ -28,7 +29,10 @@ export const Dashboard = ({ isLoggedIn }) => {
         adminData={adminData}
         setAdminData={setAdminData}
       />
-      <div style={dashboardHeight} className="w-full pt-32 flex justify-between">
+      <div
+        // style={dashboardHeight}
+        className="w-full h-screen pt-32 flex justify-between"
+      >
         <div className="w-[20%] border-r border-r-flex-furniture-100">
           <div className="w-full h-full p-10 flex flex-col gap-5">
             <div
@@ -105,6 +109,8 @@ export const Dashboard = ({ isLoggedIn }) => {
             </div>
           ) : activeTab === "add-new-category" ? (
             <Categories />
+          ) : activeTab === "add-new-product" ? (
+            <AddProductForm />
           ) : (
             ""
           )}

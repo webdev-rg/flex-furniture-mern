@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
+const sharp = require("sharp");
 require("./config");
 const adminModel = require("./models/adminModel");
 const categoryModel = require("./models/categoryModel");
@@ -75,9 +76,13 @@ app.post(
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
+    const compressedImage = await sharp(req.file.buffer)
+      .resize({ width: 300 })
+      .png({ quanlity: 80, compressionLevel: 8 })
+      .toBuffer();
     const category = await categoryModel({
       name: name,
-      image: req.file.buffer,
+      image: compressedImage,
       contentType: req.file.mimetype,
     });
     try {

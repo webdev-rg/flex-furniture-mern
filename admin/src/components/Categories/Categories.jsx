@@ -24,26 +24,28 @@ export const Categories = () => {
         return;
       }
 
-      const categoriesWithImages = data.map(async (item) => {
-        try {
-          const imageBlobRes = await fetch(
-            `https://flex-furniture-server.onrender.com/api/getcategoryimage/${item._id}`
-          );
+      const categoriesWithImages = await Promise.all(
+        data.map(async (item) => {
+          try {
+            const imageBlobRes = await fetch(
+              `https://flex-furniture-server.onrender.com/api/getcategoryimage/${item._id}`
+            );
 
-          if (!imageBlobRes.ok) {
-            throw new Error(`Error fetching image for category ${item._id}`);
+            if (!imageBlobRes.ok) {
+              throw new Error(`Error fetching image for category ${item._id}`);
+            }
+
+            const imageBlobData = await imageBlobRes.json();
+            return { ...item, imageURL: imageBlobData.imageDataUrl };
+          } catch (error) {
+            console.error(
+              `Error fetching image for category ${item._id}:`,
+              error
+            );
+            return { ...item, imageURL: null };
           }
-
-          const imageBlobData = await imageBlobRes.json();
-          return { ...item, imageURL: imageBlobData.imageDataUrl };
-        } catch (error) {
-          console.error(
-            `Error fetching image for category ${item._id}:`,
-            error
-          );
-          return { ...item, imageURL: null };
-        }
-      });
+        })
+      );
 
       setCategories(categoriesWithImages);
       setLoading(false); // End loading after data is set

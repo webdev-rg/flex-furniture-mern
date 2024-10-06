@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { LuMinus } from "react-icons/lu";
 import { GoHeart } from "react-icons/go";
 import { RiFacebookLine, RiTwitterLine, RiInstagramLine } from "react-icons/ri";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+
 export const Product = () => {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
   return (
     <>
       <div className="w-full pt-40 px-32">
         <div className="w-full flex justify-between py-20">
-          <div className="w-[55%] flex justify-between gap-5">
-            <div className="w-[16%] flex flex-col gap-5">
+          <div className="w-[50%] flex flex-col gap-10">
+            {/* <div className="w-[16%] flex flex-col gap-5">
               <div className="w-full h-48">
                 <img
                   src="/images/chair.jpg"
@@ -43,9 +53,88 @@ export const Product = () => {
             </div>
             <div className="w-full">
               <img src="/images/chair.jpg" className="w-full" alt="" />
+            </div> */}
+            <div>
+              <Swiper
+                style={{
+                  "--swiper-navigation-color": "#020d19",
+                  "--swiper-pagination-color": "#020d19",
+                }}
+                spaceBetween={10}
+                navigation={true}
+                thumbs={{
+                  swiper:
+                    thumbsSwiper && !thumbsSwiper.destroyed
+                      ? thumbsSwiper
+                      : null,
+                }}
+                modules={[FreeMode, Navigation, Thumbs]}
+                loop={true}
+              >
+                <SwiperSlide>
+                  <img
+                    src="/images/chair.jpg"
+                    className="w-full h-full object-cover"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    src="/images/chair-2.jpg"
+                    className="w-full h-full object-cover"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    src="/images/chair-3.jpg"
+                    className="w-full h-full object-cover"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    src="/images/chair-4.jpg"
+                    className="w-full h-full object-cover"
+                  />
+                </SwiperSlide>
+              </Swiper>
+            </div>
+            <div>
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                spaceBetween={15}
+                slidesPerView={4}
+                freeMode={true}
+                // watchSlidesProgress={true}
+                modules={[FreeMode, Navigation, Thumbs]}
+                loop={true}
+              >
+                <SwiperSlide>
+                  <img
+                    className="w-full h-60 object-cover"
+                    src="/images/chair.jpg"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    className="w-full h-60 object-cover"
+                    src="/images/chair-2.jpg"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    className="w-full h-60 object-cover"
+                    src="/images/chair-3.jpg"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    className="w-full h-60 object-cover"
+                    src="/images/chair-4.jpg"
+                  />
+                </SwiperSlide>
+              </Swiper>
             </div>
           </div>
-          <div className="w-[45%] h-full px-20">
+          <div className="w-[50%] h-full px-20">
             <div className="w-full h-full flex flex-col gap-10 pb-10 border-b">
               <h1 className="text-5xl font-medium">
                 Wood Outdoor Adirondack Chair

@@ -36,16 +36,16 @@ export const Header = () => {
 
         <nav className="h-full flex items-center">
           <ul className="h-full flex items-center gap-10">
-            <li className="text-2xl px-3 py-1 text-[#666] hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
+            <li className="text-2xl px-3 py-1 text-gray-400 hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
               <NavLink to="/">Home</NavLink>
             </li>
-            <li className="text-2xl px-3 py-1 text-[#666] hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
+            <li className="text-2xl px-3 py-1 text-gray-400 hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
               <NavLink to={`/shop/product-category/allproducts`}>Shop</NavLink>
             </li>
-            <li className="text-2xl px-3 py-1 text-[#666] hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
+            <li className="text-2xl px-3 py-1 text-gray-400 hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
               <NavLink to="/about">AboutUs</NavLink>
             </li>
-            <li className="text-2xl px-3 py-1 text-[#666] hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
+            <li className="text-2xl px-3 py-1 text-gray-400 hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
               <NavLink to="contact">Contact</NavLink>
             </li>
           </ul>
@@ -54,24 +54,24 @@ export const Header = () => {
         <div className="h-full flex items-center gap-10">
           <div>
             <CiSearch
-              className="text-4xl text-[#020d19] hover:text-slate-400 transition-all duration-300 cursor-pointer"
+              className="text-4xl text-flex-furniture-950 hover:text-gray-400 transition-all duration-300 cursor-pointer"
               onClick={handleOpenSearchBar}
             />
           </div>
           <div className="relative">
             <Link to="/signin">
-              <CiUser className="text-4xl text-[#020d19] hover:text-slate-400 transition-all duration-300 cursor-pointer" />
+              <CiUser className="text-4xl text-flex-furniture-950 hover:text-gray-400 transition-all duration-300 cursor-pointer" />
             </Link>
           </div>
           <div className="relative">
-            <CiHeart className="text-4xl text-[#020d19] hover:text-slate-400 transition-all duration-300 cursor-pointer" />
-            <div className="absolute -top-3 -right-4 w-7 h-7 flex items-center justify-center bg-[#020d19] rounded-full">
+            <CiHeart className="text-4xl text-flex-furniture-950 hover:text-gray-400 transition-all duration-300 cursor-pointer" />
+            <div className="absolute -top-3 -right-4 w-7 h-7 flex items-center justify-center bg-flex-furniture-950 rounded-full">
               <span className="text-xl text-white">0</span>
             </div>
           </div>
           <div className="relative">
-            <CiShoppingCart className="text-4xl text-[#020d19] hover:text-slate-400 transition-all duration-300 cursor-pointer" />
-            <div className="absolute -top-3 -right-4 w-7 h-7 flex items-center justify-center bg-[#020d19] rounded-full">
+            <CiShoppingCart className="text-4xl text-flex-furniture-950 hover:text-gray-400 transition-all duration-300 cursor-pointer" />
+            <div className="absolute -top-3 -right-4 w-7 h-7 flex items-center justify-center bg-flex-furniture-950 rounded-full">
               <span className="text-xl text-white">0</span>
             </div>
           </div>

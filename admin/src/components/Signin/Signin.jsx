@@ -46,7 +46,7 @@ export const Signin = ({ isLoggedIn }) => {
       } else if (data.message === "Login Successful") {
         isLoggedIn(true);
         localStorage.setItem("adminLoggedIn", "true");
-        localStorage.setItem("adminData", JSON.stringify(data.dataa));
+        localStorage.setItem("adminData", JSON.stringify(data.admin));
         toast.success(`${data.message}`, {
           position: "top-center",
           autoClose: 2000,

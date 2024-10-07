@@ -55,7 +55,7 @@ app.post("/api/adminsignin", async (req, res) => {
     // console.log(adminData);
     res.status(200).send({
       message: "Login Successful",
-      dataa: adminData,
+      admin: adminData,
     });
   } catch (error) {
     console.error(error);

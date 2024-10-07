@@ -11,7 +11,7 @@ import paymentImg from "/images/payment.png";
 export const Footer = () => {
   return (
     <>
-      <div className="w-full py-20 px-10 flex justify-center">
+      <div className="w-full py-20 px-10 flex justify-center border-t">
         <div className="w-full flex flex-col items-center justify-center gap-10 text-center">
           <h1 className="sm:text-5xl text-4xl font-bold tracking-wide">
             SIGNUP FOR EMAILS

@@ -32,7 +32,7 @@ export const Home = () => {
         <div className="w-full h-full grid sm:grid-cols-2 grid-cols-1">
           <div className="w-full h-full relative">
             <div className="h-full px-10 absolute left-0 top-0 md:flex md:items-center z-10 swiper-button-prev hidden">
-              <BsChevronLeft className="text-7xl text-flex-furniture-950 hover:text-flex-furniture-500 transition-all duration-300 ease-in-out cursor-pointer" />
+              <BsChevronLeft className="text-7xl text-flex-furniture-950 cursor-pointer" />
             </div>
             <Swiper
               className="w-full h-full bg-[#f8f8f8]"
@@ -144,7 +144,7 @@ export const Home = () => {
               </SwiperSlide>
             </Swiper>
             <div className="h-full px-10 absolute right-0 top-0 md:flex md:items-center z-10 swiper-button-next hidden">
-              <BsChevronRight className="text-7xl text-flex-furniture-950 hover:text-flex-furniture-500 transition-all duration-300 ease-in-out cursor-pointer" />
+              <BsChevronRight className="text-7xl text-flex-furniture-950 cursor-pointer" />
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ import { Contact } from "./components/Contact/Contact";
 import { Signin } from "./components/Signin/Signin";
 import { Signup } from "./components/Signup/Signup";
 import { Product } from "./components/Product/Product";
+import { SignInWithEmail } from "./components/Signin/SignInWithEmail";
 
 export const App = () => {
   return (
@@ -16,11 +17,15 @@ export const App = () => {
           <Route path="" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="shop/product-category/:category" element={<Shop />} />
-          <Route path="shop/product/:productname/:productid" element={<Product />} />
+          <Route
+            path="shop/product/:productname/:productid"
+            element={<Product />}
+          />
           <Route path="contact" element={<Contact />} />
-          <Route path="signin" element={<Signin />} />
+          <Route path="signin" element={<Signin />}>
+            <Route path="email" element={<SignInWithEmail />} />
+          </Route>
           <Route path="signup" element={<Signup />} />
-          {/* <Route path="product-category/:category" element={<ProductByCategory />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>

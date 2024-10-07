@@ -5,6 +5,9 @@ const sharp = require("sharp");
 require("./config");
 const adminModel = require("./models/adminModel");
 const categoryModel = require("./models/categoryModel");
+const userModel = require("./models/userModel");
+
+const { sendOTP, generateOTP } = require("./sendEmail");
 
 const app = express();
 const PORT = 1901;
@@ -144,6 +147,40 @@ app.delete("/api/deletecategory/:id", async (req, res) => {
   } catch (error) {
     res.status(500).send({ message: "Category deletion failed" });
     console.log(error);
+  }
+});
+
+//? Users API
+//* Signup User
+
+app.post("/api/usersignup", async (req, res) => {
+  console.log(req.body);
+  const { user } = req.body;
+
+  try {
+    const existingUser = await userModel.findOne({ email: user.email });
+
+    if (!existingUser) {
+      const otp = generateOTP();
+      const otpExpirationTime = new Date(Date.now() + 10 * 60 * 1000);
+
+      const data = userModel({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        otp: otp,
+        otpExpiration: otpExpirationTime,
+      });
+
+      await data.save();
+      await sendOTP(user.email, otp);
+      res.status(200).send({ message: "OTP has sent to your email" });
+    } else {
+      return res.status(400).send({ message: "Email already exists" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Registration failed..." });
   }
 });
 

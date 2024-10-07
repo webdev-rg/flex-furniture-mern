@@ -8,6 +8,7 @@ import { Signin } from "./components/Signin/Signin";
 import { Signup } from "./components/Signup/Signup";
 import { Product } from "./components/Product/Product";
 import { SignInWithEmail } from "./components/Signin/SignInWithEmail";
+import { Verification } from "./components/Verification/Verification";
 
 export const App = () => {
   return (
@@ -22,10 +23,9 @@ export const App = () => {
             element={<Product />}
           />
           <Route path="contact" element={<Contact />} />
-          <Route path="signin" element={<Signin />}>
-            <Route path="email" element={<SignInWithEmail />} />
-          </Route>
+          <Route path="signin" element={<Signin />} />
           <Route path="signup" element={<Signup />} />
+          <Route path="verification" element={<Verification />} />
         </Route>
       </Routes>
     </BrowserRouter>

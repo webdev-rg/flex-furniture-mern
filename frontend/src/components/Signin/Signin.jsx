@@ -1,57 +1,47 @@
 import React from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { MdAlternateEmail } from "react-icons/md";
 
 export const Signin = () => {
-  const location = useLocation();
-
   return (
     <div className="w-full h-screen pt-40 sm:px-0 px-5">
-      <div className="w-full h-full flex flex-col items-center justify-between">
-        {location.pathname === "/signin/email" ? (
-          <Outlet />
-        ) : (
-          <div className="w-[45rem]">
-            <div className="w-full mb-10">
-              <h1 className="text-5xl text-flex-furniture-950 font-bold text-center mb-5">
-                Sign In to Flex Furniture
-              </h1>
-            </div>
+      <div className="w-full h-full flex flex-col items-center justify-center">
+        <div>
+          <h1 className="text-4xl text-flex-furniture-950 font-semibold">
+            Sign In with Flex Furniture
+          </h1>
+        </div>
+        <div className="w-[40rem]">
+          <form className="w-full flex flex-col gap-10 mt-10">
             <div className="w-full flex flex-col gap-5">
-              <div className="w-full h-24 flex items-center justify-center gap-3 px-10 text-center bg-slate-100 rounded-2xl">
-                <img
-                  src="images/google.png"
-                  className="w-10"
-                  alt="googlel-logo"
-                />
-                <h1 className="text-3xl text-flex-furniture-950 font-semibold">
-                  Signin with Google
-                </h1>
-              </div>
-              <div className="w-full h-24 flex items-center justify-center gap-3 px-10 text-center bg-slate-100 rounded-2xl">
-                <img
-                  src="/images/facebook.png"
-                  className="w-10"
-                  alt="facebook-logo"
-                />
-                <h1 className="text-3xl text-flex-furniture-950 font-semibold">
-                  Signin with Facebook
-                </h1>
-              </div>
-            </div>
-            <div className="w-full my-10 text-center">
-              <Link
-                to="email"
-                className="text-3xl text-flex-furniture-950 font-semibold hover:text-gray-400 transition-all duration-200 ease-in-out"
+              <label
+                htmlFor="email"
+                className="text-3xl text-flex-furniture-950 font-semibold"
               >
-                Continue with email
-              </Link>
+                Email
+              </label>
+              <div className="w-full h-24 relative">
+                <MdAlternateEmail className="absolute top-1/2 -translate-y-1/2 left-5 text-3xl" />
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Enter Your Email"
+                  className="w-full h-full px-16 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-slate-200 rounded-2xl focus:border-flex-furniture-950 valid:border-flex-furniture-950 transition-all duration-300 ease-in-out"
+                  required
+                />
+              </div>
             </div>
-          </div>
-        )}
-
-        <div className="w-full border-t py-10">
-          <div className="text-center">
-            <p className="text-3xl text-flex-furniture-950">
+            <div className="w-full h-24">
+              <input
+                type="submit"
+                value="Sign In"
+                className="w-full h-full border border-flex-furniture-950 text-flex-furniture-950 text-3xl font-semibold rounded-2xl cursor-pointer hover:bg-flex-furniture-950 hover:text-white transition-all duration-300 ease-in-out"
+              />
+            </div>
+          </form>
+          <div className="w-full mt-10 py-10 border-t border-t-slate-200 text-center absolute bottom-0 left-1/2 -translate-x-1/2">
+            <p className="text-2xl text-flex-furniture-950">
               Don't have an account?{" "}
               <Link
                 to="/signup"

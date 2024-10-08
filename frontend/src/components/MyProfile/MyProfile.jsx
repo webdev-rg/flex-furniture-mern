@@ -2,8 +2,10 @@ import React, { useContext, useState } from "react";
 import { UserDetail } from "./UserDetail";
 import { Data } from "../DataProvider/DataProvider";
 import { useNavigate } from "react-router-dom";
+import { Data } from "../DataProvider/DataProvider";
 
 export const MyProfile = () => {
+  const { URL } = useContext(Data);
   const [activeTab, setActiveTab] = useState("my-profile");
   const { setIsUserLoggedIn } = useContext(Data);
   const navigate = useNavigate();
@@ -113,7 +115,7 @@ export const MyProfile = () => {
             </div>
           </div>
           <div className="w-[75%] h-full bg-white rounded-2xl">
-            {activeTab === "my-profile" ? <UserDetail /> : ""}
+            {activeTab === "my-profile" ? <UserDetail URL={URL} /> : ""}
           </div>
         </div>
       </div>

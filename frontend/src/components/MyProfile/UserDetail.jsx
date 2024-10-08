@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Loading } from "../Loading/Loading";
 
-export const UserDetail = () => {
+export const UserDetail = ({ URL }) => {
   const userData = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);

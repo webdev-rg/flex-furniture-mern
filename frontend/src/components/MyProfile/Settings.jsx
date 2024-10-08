@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const Settings = ({ setIsUserLoggedIn }) => {
+export const Settings = ({ setIsUserLoggedIn, URL }) => {
   const [email, setEmail] = useState("");
   const userData = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ export const Settings = ({ setIsUserLoggedIn }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:1901/api/deleteuser", {
+      const response = await fetch(`${URL}/api/deleteuser`, {
         method: "DELETE",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ email }),

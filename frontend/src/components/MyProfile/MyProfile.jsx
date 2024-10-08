@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { UserDetail } from "./UserDetail";
-import { Data } from "../DataProvider/DataProvider";
 import { useNavigate } from "react-router-dom";
 import { Data } from "../DataProvider/DataProvider";
 

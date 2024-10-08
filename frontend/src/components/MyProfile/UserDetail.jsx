@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Loading } from "../Loading/Loading";
+import { Data } from "../DataProvider/DataProvider";
 
 export const UserDetail = () => {
+  const { URL } = useContext(Data);
   const userData = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const handleGetUser = async () => {
     try {
-      const response = await fetch("http://localhost:1901/api/userdetails", {
+      const response = await fetch(`${URL}/api/userdetails`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ email: userData.email }),

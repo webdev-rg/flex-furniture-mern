@@ -5,14 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { Data } from "../DataProvider/DataProvider";
 
 export const MyProfile = () => {
-  const { URL } = useContext(Data);
   const [activeTab, setActiveTab] = useState("my-profile");
-  const { setIsUserLoggedIn } = useContext(Data);
+  const { setIsUserLoggedIn, URL } = useContext(Data);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     setIsUserLoggedIn(false);
-    localStorage.removeItem("user")
+    localStorage.removeItem("user");
     navigate("/");
   };
 

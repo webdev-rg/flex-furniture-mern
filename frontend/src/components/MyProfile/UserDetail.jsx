@@ -55,7 +55,7 @@ export const UserDetail = ({ URL }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:1901/api/updateuser", {
+      const response = await fetch(`${URL}/api/updateuser`, {
         method: "PUT",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(updatedUserDetails),
@@ -97,7 +97,7 @@ export const UserDetail = ({ URL }) => {
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       {loading ? (
         <Loading />
       ) : (

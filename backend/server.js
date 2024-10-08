@@ -169,6 +169,8 @@ app.post("/api/usersignup", async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        phoneNumber: 0,
+        address: "",
         token: token,
         tokenExpiration: tokenExpirationTime,
       });
@@ -248,6 +250,24 @@ app.post("/api/verify", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Verification failed" });
+  }
+});
+
+app.post("/api/userdetails", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await userModel.findOne({ email: email });
+
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+
+    // console.log(user);
+    return res.status(200).send({ message: "User found", userDetails: user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "Error fetching user data" });
   }
 });
 

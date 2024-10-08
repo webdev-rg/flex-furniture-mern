@@ -12,7 +12,7 @@ export const MyProfile = () => {
 
   const handleLogout = () => {
     setIsUserLoggedIn(false);
-    localStorage.removeItem("user");
+    localStorage.removeItem("user")
     navigate("/");
   };
 

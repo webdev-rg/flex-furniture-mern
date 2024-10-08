@@ -12,7 +12,7 @@ export const DataProvider = ({ children }) => {
     localStorage.setItem("userLoggedIn", isUserLoggedIn);
   }, [isUserLoggedIn]);
   return (
-    <Data.Provider value={{ isUserLoggedIn, setIsUserLoggedIn }}>
+    <Data.Provider value={{ isUserLoggedIn, setIsUserLoggedIn, URL }}>
       {children}
     </Data.Provider>
   );

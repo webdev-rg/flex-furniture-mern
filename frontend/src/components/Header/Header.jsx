@@ -10,7 +10,7 @@ import {
 } from "react-icons/ci";
 import { IoIosClose } from "react-icons/io";
 
-export const Header = () => {
+export const Header = ({isUserLoggedIn}) => {
   const [openSearchBar, setOpenSearchBar] = useState(false);
 
   const handleOpenSearchBar = () => {
@@ -59,7 +59,7 @@ export const Header = () => {
             />
           </div>
           <div className="relative">
-            <Link to="/signin">
+            <Link to={`${isUserLoggedIn === "false" ? "/signin" : "/myprofile"}`}>
               <CiUser className="text-4xl text-flex-furniture-950 hover:text-gray-400 transition-all duration-300 cursor-pointer" />
             </Link>
           </div>

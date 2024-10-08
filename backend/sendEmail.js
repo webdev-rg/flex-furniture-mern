@@ -8,25 +8,25 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendOTP = (email, otp) => {
+const sendVerificationToken = (email, token) => {
   const mailOptions = {
     from: "rgbeatz01@gmail.com",
     to: email,
-    subject: "Your OTP Code",
-    text: `Your otp code is ${otp}. It will expire in 10 minutes`,
+    subject: "Your Verification Token",
+    text: `Your verification token is ${token}. It will expire in 5 minutes`,
   };
   return transporter.sendMail(mailOptions);
 };
 
-const generateOTP = () => {
-  let randomChars = "";
+const generateToken = () => {
+  let token = "";
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
   for (let i = 0; i < 11; i++) {
-    randomChars += chars.charAt(Math.floor(Math.random() * chars.length));
+    token += chars.charAt(Math.floor(Math.random() * chars.length));
   }
 
-  return randomChars;
+  return token;
 };
 
-module.exports = { sendOTP, generateOTP };
+module.exports = { sendVerificationToken, generateToken };

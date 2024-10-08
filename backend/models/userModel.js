@@ -5,8 +5,8 @@ const UserSchema = new mongoose.Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   address: { type: String, required: false },
-  otp: { type: String, required: false },
-  otpExpiration: { type: Date, required: false },
+  token: { type: String, required: false },
+  tokenExpiration: { type: Date, required: false },
   isVerified: { type: Boolean, default: false },
   cart: { type: Object, required: false },
 });

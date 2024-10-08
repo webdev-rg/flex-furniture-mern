@@ -7,7 +7,7 @@ const adminModel = require("./models/adminModel");
 const categoryModel = require("./models/categoryModel");
 const userModel = require("./models/userModel");
 
-const { sendOTP, generateOTP } = require("./sendEmail");
+const { sendVerificationToken, generateToken } = require("./sendEmail");
 
 const app = express();
 const PORT = 1901;
@@ -161,26 +161,93 @@ app.post("/api/usersignup", async (req, res) => {
     const existingUser = await userModel.findOne({ email: user.email });
 
     if (!existingUser) {
-      const otp = generateOTP();
-      const otpExpirationTime = new Date(Date.now() + 10 * 60 * 1000);
+      const token = generateToken();
+      const tokenExpirationTime = new Date(Date.now() + 5 * 60 * 1000);
+      console.log(tokenExpirationTime);
 
       const data = userModel({
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        otp: otp,
-        otpExpiration: otpExpirationTime,
+        token: token,
+        tokenExpiration: tokenExpirationTime,
       });
 
       await data.save();
-      await sendOTP(user.email, otp);
-      res.status(200).send({ message: "OTP has sent to your email" });
+      await sendVerificationToken(user.email, token);
+      res.status(200).send({
+        message: "Verification token has sent to your email",
+        userData: data,
+      });
     } else {
       return res.status(400).send({ message: "Email already exists" });
     }
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Registration failed..." });
+  }
+});
+
+//* Signin User
+
+app.post("/api/usersignin", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await userModel.findOne({ email: email });
+
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    } else if (!user.isVerified) {
+      return res.status(404).send({ message: "Your account is not verified" });
+    }
+
+    const token = generateToken();
+    const tokenExpirationTime = new Date(Date.now() + 5 * 60 * 1000);
+
+    user.token = token;
+    user.tokenExpiration = tokenExpirationTime;
+
+    try {
+      await user.save();
+      console.log("User saved succefully");
+    } catch (error) {
+      console.error(error);
+    }
+
+    await sendVerificationToken(email, token);
+    res.status(200).send({ message: "Signin Successful", userData: user });
+  } catch (error) {}
+});
+
+app.post("/api/verify", async (req, res) => {
+  const { verificationToken, email } = req.body;
+
+  try {
+    const user = await userModel.findOne({ email: email });
+
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+
+    if (user.token !== verificationToken) {
+      return res.status(400).send({ message: "Incorrect verification token" });
+    }
+
+    if (user.tokenExpiration < Date.now()) {
+      console.log("Verification token expires", new Date().toTimeString());
+      return res.status(400).send({ message: "Verification token expires" });
+    }
+
+    user.isVerified = true;
+    user.token = null;
+    user.tokenExpiration = null;
+    await user.save();
+
+    return res.status(200).send({ message: "Verification Successfull" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Verification failed" });
   }
 });
 

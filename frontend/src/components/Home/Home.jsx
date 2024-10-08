@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 //? Home Slide Images
 import slide1 from "/images/slide-1.jpg";
@@ -19,12 +19,6 @@ import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import { Category } from "../Category/Category";
 
 export const Home = () => {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
   return (
     <>
       {/* Hero Section */}

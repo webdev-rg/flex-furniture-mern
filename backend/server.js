@@ -271,6 +271,33 @@ app.post("/api/userdetails", async (req, res) => {
   }
 });
 
+app.put("/api/updateuser", async (req, res) => {
+  const { email, firstName, lastName, phoneNumber, address } = req.body;
+
+  try {
+    const user = await userModel.findOneAndUpdate(
+      { email: email },
+      {
+        $set: {
+          firstName: firstName,
+          lastName: lastName,
+          phoneNumber: phoneNumber,
+          address: address,
+        },
+      }
+    );
+
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+
+    res.status(200).send({ message: "Details updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Error updating your details" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });

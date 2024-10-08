@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Loading } from "../Loading/Loading";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const UserDetail = ({ URL }) => {
   const userData = JSON.parse(localStorage.getItem("user"));
-  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [updatedUserDetails, setUpdatedUserDetails] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: 0,
+    address: "",
+  });
 
   const handleGetUser = async () => {
     try {
@@ -15,13 +23,18 @@ export const UserDetail = ({ URL }) => {
       });
 
       const data = await response.json();
-      // console.log(data)
 
       if (data.message === "User not found") {
         alert(`${data.message}`);
       } else if (data.message === "User found") {
         setUser(data.userDetails);
-        console.log("userData:", data.userDetails);
+        setUpdatedUserDetails({
+          firstName: data.userDetails.firstName,
+          lastName: data.userDetails.lastName,
+          email: data.userDetails.email,
+          phoneNumber: data.userDetails.phoneNumber,
+          address: data.userDetails.address,
+        });
       }
     } catch (error) {
       console.error(error);
@@ -30,14 +43,61 @@ export const UserDetail = ({ URL }) => {
     }
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUpdatedUserDetails((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleUpdateUserDetails = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:1901/api/updateuser", {
+        method: "PUT",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(updatedUserDetails),
+      });
+
+      const data = await response.json();
+
+      if (data.message === "User not found") {
+        return toast.error(`${data.message}`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else if (data.message === "Details updated successfully") {
+        return toast.success(`${data.message}`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     handleGetUser();
   }, []);
-  console.log(user);
-  // console.log(userData);
 
   return (
     <>
+    <ToastContainer />
       {loading ? (
         <Loading />
       ) : (
@@ -63,7 +123,8 @@ export const UserDetail = ({ URL }) => {
                       name="firstName"
                       id="firstName"
                       placeholder="Firstname"
-                      defaultValue={user.firstName ? user.firstName : ""}
+                      value={updatedUserDetails.firstName}
+                      onChange={handleInputChange}
                       className="w-full h-full px-10 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-slate-200 rounded-2xl focus:border-flex-furniture-950 valid:border-flex-furniture-950 transition-all duration-300 ease-in-out"
                       required
                     />
@@ -82,7 +143,8 @@ export const UserDetail = ({ URL }) => {
                       name="lastName"
                       id="lastName"
                       placeholder="Lastname"
-                      defaultValue={user.lastName}
+                      value={updatedUserDetails.lastName}
+                      onChange={handleInputChange}
                       className="w-full h-full px-10 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-slate-200 rounded-2xl focus:border-flex-furniture-950 valid:border-flex-furniture-950 transition-all duration-300 ease-in-out"
                       required
                     />
@@ -103,7 +165,8 @@ export const UserDetail = ({ URL }) => {
                       name="email"
                       id="email"
                       placeholder="Email"
-                      defaultValue={user.email}
+                      value={updatedUserDetails.email}
+                      onChange={handleInputChange}
                       className="w-full h-full px-10 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-flex-furniture-950 rounded-2xl read-only:bg-slate-100
                focus:border-flex-furniture-950 valid:border-flex-furniture-950 transition-all duration-300 ease-in-out cursor-not-allowed"
                       required
@@ -121,10 +184,11 @@ export const UserDetail = ({ URL }) => {
                   <div className="w-full h-24">
                     <input
                       type="number"
-                      name="phone-number"
+                      name="phoneNumber"
                       id="phone-number"
                       placeholder="Phone Number"
-                      defaultValue={user.phoneNumber}
+                      value={updatedUserDetails.phoneNumber}
+                      onChange={handleInputChange}
                       className="w-full h-full px-10 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-slate-200 rounded-2xl focus:border-flex-furniture-950 valid:border-flex-furniture-950 transition-all duration-300 ease-in-out"
                       required
                     />
@@ -142,7 +206,8 @@ export const UserDetail = ({ URL }) => {
                   <textarea
                     name="address"
                     id="address"
-                    defaultValue={user.address}
+                    value={updatedUserDetails.address}
+                    onChange={handleInputChange}
                     className="w-full h-52 p-5 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-slate-200 rounded-2xl focus:border-flex-furniture-950 valid:border-flex-furniture-950 transition-all duration-300 ease-in-out"
                     required
                     placeholder="Address"
@@ -154,6 +219,7 @@ export const UserDetail = ({ URL }) => {
                   type="submit"
                   value="Update Profile"
                   className="px-10 py-5 border border-flex-furniture-950 text-flex-furniture-950 text-3xl font-semibold rounded-2xl cursor-pointer hover:bg-flex-furniture-950 hover:text-white transition-all duration-300 ease-in-out"
+                  onClick={handleUpdateUserDetails}
                 />
               </div>
             </form>

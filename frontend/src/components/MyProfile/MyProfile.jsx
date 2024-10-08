@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { UserDetail } from "./UserDetail";
 import { useNavigate } from "react-router-dom";
 import { Data } from "../DataProvider/DataProvider";
+import { OrderList } from "./OrderList";
+import { Settings } from "./Settings";
 
 export const MyProfile = () => {
   const [activeTab, setActiveTab] = useState("my-profile");
@@ -113,7 +115,15 @@ export const MyProfile = () => {
             </div>
           </div>
           <div className="w-[75%] h-full bg-white rounded-2xl">
-            {activeTab === "my-profile" ? <UserDetail URL={URL} /> : ""}
+            {activeTab === "my-profile" ? (
+              <UserDetail URL={URL} />
+            ) : activeTab === "order-list" ? (
+              <OrderList />
+            ) : activeTab === "settings" ? (
+              <Settings setIsUserLoggedIn={setIsUserLoggedIn} />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

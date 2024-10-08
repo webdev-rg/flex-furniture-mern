@@ -222,37 +222,6 @@ app.post("/api/usersignin", async (req, res) => {
   } catch (error) {}
 });
 
-app.post("/api/verify", async (req, res) => {
-  const { verificationToken, email } = req.body;
-
-  try {
-    const user = await userModel.findOne({ email: email });
-
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
-    }
-
-    if (user.token !== verificationToken) {
-      return res.status(400).send({ message: "Incorrect verification token" });
-    }
-
-    if (user.tokenExpiration < Date.now()) {
-      console.log("Verification token expires", new Date().toTimeString());
-      return res.status(400).send({ message: "Verification token expires" });
-    }
-
-    user.isVerified = true;
-    user.token = null;
-    user.tokenExpiration = null;
-    await user.save();
-
-    return res.status(200).send({ message: "Verification Successfull" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Verification failed" });
-  }
-});
-
 app.post("/api/userdetails", async (req, res) => {
   const { email } = req.body;
 
@@ -295,6 +264,54 @@ app.put("/api/updateuser", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Error updating your details" });
+  }
+});
+
+app.post("/api/verify", async (req, res) => {
+  const { verificationToken, email } = req.body;
+
+  try {
+    const user = await userModel.findOne({ email: email });
+
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+
+    if (user.token !== verificationToken) {
+      return res.status(400).send({ message: "Incorrect verification token" });
+    }
+
+    if (user.tokenExpiration < Date.now()) {
+      console.log("Verification token expires", new Date().toTimeString());
+      return res.status(400).send({ message: "Verification token expires" });
+    }
+
+    user.isVerified = true;
+    user.token = null;
+    user.tokenExpiration = null;
+    await user.save();
+
+    return res.status(200).send({ message: "Verification Successfull" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Verification failed" });
+  }
+});
+
+app.delete("/api/deleteuser", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await userModel.findOneAndDelete({ email: email });
+
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+
+    res.status(200).send({ message: "Your account deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Failed to delete" });
   }
 });
 

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MdAlternateEmail } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Data } from "../DataProvider/DataProvider";
 
 export const Signin = () => {
+  const { URL } = useContext(Data);
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
@@ -12,7 +14,7 @@ export const Signin = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:1901/api/usersignin", {
+      const response = await fetch(`${URL}/api/usersignin`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ email }),

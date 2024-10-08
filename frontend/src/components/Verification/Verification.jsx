@@ -5,6 +5,7 @@ import { Data } from "../DataProvider/DataProvider";
 import { useNavigate } from "react-router-dom";
 
 export const Verification = () => {
+  const { URL } = useContext(Data);
   const { setIsUserLoggedIn } = useContext(Data);
   const [verificationToken, setVerificationToken] = useState("");
   const [time, setTime] = useState(300);
@@ -34,7 +35,7 @@ export const Verification = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:1901/api/verify", {
+      const response = await fetch(`${URL}/api/verify`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ verificationToken, email: userData.email }),

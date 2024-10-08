@@ -59,7 +59,7 @@ export const Header = ({isUserLoggedIn}) => {
             />
           </div>
           <div className="relative">
-            <Link to={`${isUserLoggedIn === "false" ? "/signin" : "/myprofile"}`}>
+            <Link to={`${isUserLoggedIn === false ? "/signin" : "/myprofile"}`}>
               <CiUser className="text-4xl text-flex-furniture-950 hover:text-gray-400 transition-all duration-300 cursor-pointer" />
             </Link>
           </div>

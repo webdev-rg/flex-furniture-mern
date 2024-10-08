@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -6,8 +6,10 @@ import "swiper/css";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Data } from "../DataProvider/DataProvider";
 
 export const Signup = () => {
+  const { URL } = useContext(Data);
   const [nextForm, setNextForm] = useState(false);
   const [user, setUser] = useState({
     firstName: "",
@@ -59,7 +61,7 @@ export const Signup = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:1901/api/usersignup", {
+      const response = await fetch(`${URL}/api/usersignup`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ user }),

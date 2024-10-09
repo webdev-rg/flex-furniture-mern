@@ -116,7 +116,7 @@ export const MyProfile = () => {
           </div>
           <div className="w-[75%] h-full bg-white rounded-2xl">
             {activeTab === "my-profile" ? (
-              <UserDetail URL={URL} />
+              <UserDetail />
             ) : activeTab === "order-list" ? (
               <OrderList />
             ) : activeTab === "settings" ? (

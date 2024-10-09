@@ -123,7 +123,7 @@ const DeleteForm = ({ userData, setIsDeleteForm }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:1901/api/deleteuser`, {
+      const response = await fetch(`${URL}/api/deleteuser`, {
         method: "DELETE",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ uniqueId }),

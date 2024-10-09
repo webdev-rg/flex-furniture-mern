@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Loading } from "../Loading/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Data } from "../DataProvider/DataProvider";
 
-export const UserDetail = ({ URL }) => {
+export const UserDetail = () => {
+  const { URL } = useContext(Data);
   const userData = JSON.parse(localStorage.getItem("user"));
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);

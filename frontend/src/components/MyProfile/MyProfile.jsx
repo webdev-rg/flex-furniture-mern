@@ -35,7 +35,7 @@ export const MyProfile = () => {
     formData.append("email", updatedUserDetails.email);
 
     try {
-      const response = await fetch(`${URL}/updateprofileimage`, {
+      const response = await fetch(`${URL}/api/updateprofileimage`, {
         method: "PUT",
         body: formData,
       });

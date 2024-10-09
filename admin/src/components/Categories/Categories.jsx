@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Loading } from "../Loading/Loading";
 
 export const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -77,10 +78,7 @@ export const Categories = () => {
         <div className="w-full h-full overflow-y-auto">
           {loading ? (
             <div className="w-full h-full flex flex-col items-center justify-center gap-5">
-              <div
-                className="inline-block h-16 w-16 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1s_linear_infinite]"
-                role="status"
-              ></div>
+              <Loading />
               <span className="text-3xl font-semibold">Loading categories</span>
             </div>
           ) : categories.length === 0 ? (

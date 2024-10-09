@@ -6,6 +6,7 @@ require("./config");
 const adminModel = require("./models/adminModel");
 const categoryModel = require("./models/categoryModel");
 const userModel = require("./models/userModel");
+const productModel = require("./models/productModel")
 
 const { sendVerificationToken, generateToken } = require("./sendEmail");
 
@@ -381,6 +382,52 @@ app.delete("/api/deleteuser", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Failed to delete" });
+  }
+});
+
+//? Products API
+//* Add Product
+
+app.post("/api/addproduct", upload.array("images", 4), async (req, res) => {
+  try {
+    const { name, description, price, discount, rating, stock, category } =
+      req.body;
+
+    const imageBuffers = await Promise.all(
+      req.files.map(async (file) => {
+        const compressedImage = await sharp(file.buffer)
+          .resize(500) // Resize image to a width of 500px (you can adjust this)
+          .jpeg({ quality: 70 }) // Compress to JPEG format with 70% quality
+          .toBuffer();
+        return compressedImage;
+      })
+    );
+
+    const product = new productModel({
+      name,
+      description,
+      images: imageBuffers,
+      price,
+      discount,
+      rating,
+      stock,
+      category,
+    });
+
+    await product.save();
+
+    await categoryModel.findOneAndUpdate(
+      { name: category },
+      { $inc: { productCount: 1 } },
+      { new: true }
+    );
+
+    res
+      .status(201)
+      .send({ message: "Product added successfully", product: product });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Failed to add product" });
   }
 });
 

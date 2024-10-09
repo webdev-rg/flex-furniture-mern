@@ -9,12 +9,13 @@ import {
 } from "react-icons/tb";
 import { Categories } from "../Categories/Categories";
 import { AddProductForm } from "../AddProductForm/AddProductForm";
+import { ProductList } from "../ProductList/ProductList";
 
 export const Dashboard = ({ isLoggedIn }) => {
   const dashboardHeight = {
     height: "calc(100vh - 80px)",
   };
-  const [activeTab, setActiveTab] = useState("dashboard");
+  const [activeTab, setActiveTab] = useState("product-list");
   const [adminData, setAdminData] = useState(() => {
     return JSON.parse(localStorage.getItem("adminData"));
   });
@@ -111,6 +112,8 @@ export const Dashboard = ({ isLoggedIn }) => {
             <Categories />
           ) : activeTab === "add-new-product" ? (
             <AddProductForm />
+          ) : activeTab === "product-list" ? (
+            <ProductList />
           ) : (
             ""
           )}

@@ -29,10 +29,13 @@ export const AddProductForm = () => {
     });
 
     try {
-      const response = await fetch("http://localhost:1901/api/addproduct", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://flex-furniture-server.onrender.com/api/addproduct",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();

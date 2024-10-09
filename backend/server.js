@@ -15,6 +15,9 @@ const PORT = 1901;
 app.use(cors());
 app.use(express.json());
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 //? Admin API
 //* Admin Signup
 app.post("/api/adminsignup", async (req, res) => {
@@ -65,9 +68,6 @@ app.post("/api/adminsignin", async (req, res) => {
     res.status(500);
   }
 });
-
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
 
 //? Category API
 //* Add Category
@@ -218,7 +218,9 @@ app.post("/api/usersignin", async (req, res) => {
     }
 
     await sendVerificationToken(email, token);
-    res.status(200).send({ message: "Signin token has sent to your email", userData: user });
+    res
+      .status(200)
+      .send({ message: "Signin token has sent to your email", userData: user });
   } catch (error) {}
 });
 
@@ -267,6 +269,72 @@ app.put("/api/updateuser", async (req, res) => {
   }
 });
 
+app.put(
+  "/api/updateprofileimage",
+  upload.single("profileImage"),
+  async (req, res) => {
+    const { email } = req.body;
+
+    try {
+      // Check if a file was uploaded
+      if (!req.file) {
+        return res.status(400).send({ message: "No file uploaded" });
+      }
+
+      // Determine if the file is JPEG or PNG
+      let compressedImage;
+      const fileType = req.file.mimetype;
+
+      if (fileType === "image/jpeg") {
+        compressedImage = await sharp(req.file.buffer)
+          .resize({ width: 300 })
+          .jpeg({ quality: 80 }) // Use jpeg settings
+          .toBuffer();
+      } else if (fileType === "image/png") {
+        compressedImage = await sharp(req.file.buffer)
+          .resize({ width: 300 })
+          .png({ compressionLevel: 8 }) // Use png settings
+          .toBuffer();
+      } else {
+        return res.status(400).send({ message: "Unsupported file format" });
+      }
+
+      // Update the user's profile with the compressed image and its content type
+      const user = await userModel.findOneAndUpdate(
+        { email: email },
+        { $set: { image: compressedImage, contentType: fileType } }
+      );
+
+      if (!user) {
+        return res.status(404).send({ message: "User not found" });
+      }
+
+      res.status(200).send({ message: "Profile image updated successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: "Profile image not uploaded" });
+    }
+  }
+);
+
+app.post("/api/getuserimage", async (req, res) => {
+  const { email } = req.body;
+  const user = await userModel.findOne({ email });
+
+  if (!user || !user.image) {
+    return res.status(404).json({ message: "User or image not found" });
+  }
+
+  const imageBuffer = user.image; // This should be the buffer stored in the database
+  const base64Image = imageBuffer.toString("base64");
+  const mimeType = "image/jpeg"; // Adjust the MIME type as needed, e.g., "image/png"
+
+  res.json({
+    message: "User image fetched successfully",
+    image: `data:${mimeType};base64,${base64Image}`,
+  });
+});
+
 app.post("/api/verify", async (req, res) => {
   const { verificationToken, email } = req.body;
 
@@ -300,7 +368,7 @@ app.post("/api/verify", async (req, res) => {
 
 app.delete("/api/deleteuser", async (req, res) => {
   const { uniqueId } = req.body;
-  console.log("UniqueId: ", uniqueId)
+  console.log("UniqueId: ", uniqueId);
 
   try {
     const user = await userModel.findOneAndDelete({ _id: uniqueId });

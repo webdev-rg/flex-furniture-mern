@@ -121,13 +121,13 @@ export const Verification = () => {
                 Verify your account
               </h1>
               <p className="text-2xl text-flex-furniture-950 font-light leading-relaxed tracking-wide">
-                We have sent you a verification token on your email{" "}
+                We have sent you a token on your email{" "}
                 <span className="font-medium">{userData.email}</span>.
               </p>
               {time === 0 ? (
                 <div className="w-full flex items-center justify-center gap-2">
                   <p className="text-3xl text-flex-furniture-950 font-light">
-                    Verification time expires.
+                    Token expires.
                   </p>
                   <button className="px-10 py-4 bg-flex-furniture-950 text-white text-2xl rounded-xl">
                     Resend Token
@@ -147,7 +147,7 @@ export const Verification = () => {
                   htmlFor="verification-token"
                   className="text-2xl text-flex-furniture-950 font-semibold"
                 >
-                  Verification Token
+                  Token
                 </label>
                 <div className="w-full h-24">
                   <input

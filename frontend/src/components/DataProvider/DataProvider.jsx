@@ -14,6 +14,7 @@ export const DataProvider = ({ children }) => {
     lastName: "",
     phoneNumber: 0,
     address: "",
+    image: null
   });
   const userData = JSON.parse(localStorage.getItem("user"));
 
@@ -41,6 +42,7 @@ export const DataProvider = ({ children }) => {
           email: data.userDetails.email,
           phoneNumber: data.userDetails.phoneNumber,
           address: data.userDetails.address,
+          image: data.userDetails.image,
         });
       }
     } catch (error) {
@@ -49,17 +51,21 @@ export const DataProvider = ({ children }) => {
       setLoading(false);
     }
   };
+  console.log(user);
+
   return (
     <Data.Provider
       value={{
         isUserLoggedIn,
         setIsUserLoggedIn,
         URL,
+        user,
+        userData,
         updatedUserDetails,
         setUpdatedUserDetails,
         handleGetUser,
         loading,
-        setLoading
+        setLoading,
       }}
     >
       {children}

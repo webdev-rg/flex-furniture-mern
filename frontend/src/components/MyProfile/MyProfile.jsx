@@ -8,7 +8,8 @@ import { OrderList } from "./OrderList";
 import { Settings } from "./Settings";
 
 export const MyProfile = () => {
-  const { setIsUserLoggedIn, updatedUserDetails, userData } = useContext(Data);
+  const { setIsUserLoggedIn, updatedUserDetails, userData, URL } =
+    useContext(Data);
   const [activeTab, setActiveTab] = useState("my-profile");
   const [profileImage, setProfileImage] = useState(null);
   const navigate = useNavigate();
@@ -34,13 +35,10 @@ export const MyProfile = () => {
     formData.append("email", updatedUserDetails.email);
 
     try {
-      const response = await fetch(
-        "http://localhost:1901/api/updateprofileimage",
-        {
-          method: "PUT",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${URL}/updateprofileimage`, {
+        method: "PUT",
+        body: formData,
+      });
 
       const data = await response.json();
 
@@ -59,7 +57,6 @@ export const MyProfile = () => {
           theme: "light",
         });
       } else if (data.message === "Profile image updated successfully") {
-        // setProfileImage(URL.createObjectURL(file));
         return toast.success(`${data.message}`, {
           position: "top-center",
           autoClose: 3000,
@@ -76,7 +73,7 @@ export const MyProfile = () => {
 
   const handleFetchProfileImage = async () => {
     try {
-      const response = await fetch("http://localhost:1901/api/getuserimage", {
+      const response = await fetch(`${URL}/api/getuserimage`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ email: userData.email }),

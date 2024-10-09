@@ -120,7 +120,7 @@ export const MyProfile = () => {
             ) : activeTab === "order-list" ? (
               <OrderList />
             ) : activeTab === "settings" ? (
-              <Settings setIsUserLoggedIn={setIsUserLoggedIn} URL={URL} />
+              <Settings />
             ) : (
               ""
             )}

@@ -299,10 +299,11 @@ app.post("/api/verify", async (req, res) => {
 });
 
 app.delete("/api/deleteuser", async (req, res) => {
-  const { email } = req.body;
+  const { uniqueId } = req.body;
+  console.log("UniqueId: ", uniqueId)
 
   try {
-    const user = await userModel.findOneAndDelete({ email: email });
+    const user = await userModel.findOneAndDelete({ _id: uniqueId });
 
     if (!user) {
       return res.status(404).send({ message: "User not found" });

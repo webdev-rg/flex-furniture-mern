@@ -218,7 +218,7 @@ app.post("/api/usersignin", async (req, res) => {
     }
 
     await sendVerificationToken(email, token);
-    res.status(200).send({ message: "Signin Successful", userData: user });
+    res.status(200).send({ message: "Verification token has sent to your email", userData: user });
   } catch (error) {}
 });
 

@@ -5,45 +5,49 @@ import "react-toastify/dist/ReactToastify.css";
 import { Data } from "../DataProvider/DataProvider";
 
 export const UserDetail = () => {
-  const { URL } = useContext(Data);
-  const userData = JSON.parse(localStorage.getItem("user"));
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
-  const [updatedUserDetails, setUpdatedUserDetails] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: 0,
-    address: "",
-  });
+  const {
+    URL,
+    handleGetUser,
+    updatedUserDetails,
+    setUpdatedUserDetails,
+    loading,
+  } = useContext(Data);
+  // const [user, setUser] = useState(null);
+  // const [updatedUserDetails, setUpdatedUserDetails] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   phoneNumber: 0,
+  //   address: "",
+  // });
 
-  const handleGetUser = async () => {
-    try {
-      const response = await fetch(`${URL}/api/userdetails`, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ email: userData.email }),
-      });
+  // const handleGetUser = async () => {
+  //   try {
+  //     const response = await fetch(`${URL}/api/userdetails`, {
+  //       method: "POST",
+  //       headers: { "Content-type": "application/json" },
+  //       body: JSON.stringify({ email: userData.email }),
+  //     });
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      if (data.message === "User not found") {
-        alert(`${data.message}`);
-      } else if (data.message === "User found") {
-        setUser(data.userDetails);
-        setUpdatedUserDetails({
-          firstName: data.userDetails.firstName,
-          lastName: data.userDetails.lastName,
-          email: data.userDetails.email,
-          phoneNumber: data.userDetails.phoneNumber,
-          address: data.userDetails.address,
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     if (data.message === "User not found") {
+  //       alert(`${data.message}`);
+  //     } else if (data.message === "User found") {
+  //       setUser(data.userDetails);
+  //       setUpdatedUserDetails({
+  //         firstName: data.userDetails.firstName,
+  //         lastName: data.userDetails.lastName,
+  //         email: data.userDetails.email,
+  //         phoneNumber: data.userDetails.phoneNumber,
+  //         address: data.userDetails.address,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

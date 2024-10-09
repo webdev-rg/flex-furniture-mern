@@ -6,8 +6,9 @@ import { OrderList } from "./OrderList";
 import { Settings } from "./Settings";
 
 export const MyProfile = () => {
+  const { updatedUserDetails } = useContext(Data);
   const [activeTab, setActiveTab] = useState("my-profile");
-  const { setIsUserLoggedIn, URL } = useContext(Data);
+  const { setIsUserLoggedIn } = useContext(Data);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -39,10 +40,10 @@ export const MyProfile = () => {
               </div>
               <div className="w-full flex flex-col items-center">
                 <h1 className="text-3xl text-flex-furniture-950 font-bold leading-relaxed">
-                  Rushikesh Ghodke
+                  {updatedUserDetails.firstName} {updatedUserDetails.lastName}
                 </h1>
                 <h2 className="text-2xl text-flex-furniture-950 font-light tracking-wide leading-relaxed">
-                  rushighodke01@gmail.com
+                  {updatedUserDetails.email}
                 </h2>
               </div>
             </div>

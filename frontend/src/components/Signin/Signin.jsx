@@ -35,7 +35,7 @@ export const Signin = () => {
           progress: undefined,
           theme: "light",
         });
-      } else if (data.message === "Signin Successful") {
+      } else if (data.message === "Signin token has sent to your email") {
         toast.success(`${data.message}`, {
           position: "top-center",
           autoClose: 2000,

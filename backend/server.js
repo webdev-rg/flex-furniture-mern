@@ -6,7 +6,7 @@ require("./config");
 const adminModel = require("./models/adminModel");
 const categoryModel = require("./models/categoryModel");
 const userModel = require("./models/userModel");
-const productModel = require("./models/productModel")
+const productModel = require("./models/productModel");
 
 const { sendVerificationToken, generateToken } = require("./sendEmail");
 
@@ -428,6 +428,38 @@ app.post("/api/addproduct", upload.array("images", 4), async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Failed to add product" });
+  }
+});
+
+//* Get All Products
+app.get("/api/getproducts", async (req, res) => {
+  try {
+    const products = await productModel.find({});
+
+    const productsWithImages = products.map((product) => {
+      const images = product.images.map((imageBuffer) => {
+        return `data:image/jpeg;base64,${imageBuffer.toString("base64")}`;
+      });
+
+      return {
+        _id: product._id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        discount: product.discount,
+        rating: product.rating,
+        stock: product.stock,
+        category: product.category,
+        images,
+      };
+    });
+
+    res
+      .status(200)
+      .send({ message: "Products", productData: productsWithImages });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Failed to fetch products" });
   }
 });
 

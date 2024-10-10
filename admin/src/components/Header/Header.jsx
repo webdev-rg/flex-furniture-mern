@@ -12,7 +12,7 @@ export const Header = ({ isLoggedIn, adminData, setAdminData }) => {
   };
 
   return (
-    <header className="w-full h-32 px-10 fixed bg-white top-0 left-0 flex items-center justify-between border-b border-b-flex-furniture-100">
+    <header className="w-full h-32 px-10 fixed bg-white top-0 left-0 flex items-center justify-between border-b border-b-flex-furniture-100 z-20">
       <div className="h-full flex items-center">
         <Link to="/admin-dashboard">
           <img src={logo} className="w-96" alt="admin-logo" />

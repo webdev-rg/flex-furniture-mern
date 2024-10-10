@@ -56,6 +56,7 @@ export const AddProductForm = () => {
     setDiscount("");
     setDescription("");
     setStock("");
+    setCategory("");
     setImages([null, null, null, null]);
     setImagePreviews([null, null, null, null]);
   };

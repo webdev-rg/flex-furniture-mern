@@ -11,7 +11,6 @@ const UserSchema = new mongoose.Schema({
   token: { type: String, required: false },
   tokenExpiration: { type: Date, required: false },
   isVerified: { type: Boolean, default: false },
-  cart: { type: Object, required: false },
 });
 
 module.exports = mongoose.model("users", UserSchema);

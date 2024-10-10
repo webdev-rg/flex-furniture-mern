@@ -7,6 +7,7 @@ const adminModel = require("./models/adminModel");
 const categoryModel = require("./models/categoryModel");
 const userModel = require("./models/userModel");
 const productModel = require("./models/productModel");
+const cartModel = require("./models/cartModel");
 
 const { sendVerificationToken, generateToken } = require("./sendEmail");
 
@@ -484,6 +485,33 @@ app.get("/api/getproduct/:productname", async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+  }
+});
+
+//? Add to cart API
+
+app.post("/api/addtocart", upload.single("productImage"), async (req, res) => {
+  const { productName, productPrice, productQuantity, productImage, userId } =
+    req.body;
+
+  try {
+    const product = new cartModel({
+      productName: productName,
+      productPrice: productPrice,
+      productQuantity: productQuantity,
+      productImage: productImage,
+      userId: userId,
+    });
+
+    await product.save();
+    console.log("Product Saved...");
+
+    res
+      .status(200)
+      .send({ message: "Product added to your cart", productData: product });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Something went wrong please try again" });
   }
 });
 

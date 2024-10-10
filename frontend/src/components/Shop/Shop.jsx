@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Category } from "../Category/Category";
 import { ProductCard } from "../ProductCard/ProductCard";
+import { ScrollToTop } from "../ScrollToTop/ScrollToTop";
+import { Data } from "../DataProvider/DataProvider";
+import { Loading } from "../Loading/Loading";
 
 export const Shop = () => {
+  const { products, loading } = useContext(Data);
   const { category } = useParams();
   console.log(category);
   return (
     <>
+      {/* Scroll To Top */}
+      <div className="fixed right-0 bottom-0">
+        <ScrollToTop />
+      </div>
       <div className="w-full h-full">
         <div
           // style={{
@@ -112,14 +120,31 @@ export const Shop = () => {
           </div>
           <div className="w-[75%] h-full">
             <div className="w-full h-full grid grid-cols-3 gap-10">
-              <Link to="/shop/product/chair/1">
-                <ProductCard />
-              </Link>
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
+              {loading ? (
+                <Loading />
+              ) : (
+                products.length > 0 &&
+                products.map((product) => {
+                  return (
+                    <div>
+                      <Link
+                        to={`/shop/product/${
+                          product.name
+                        }/category/${product.category.toLowerCase()}/${
+                          product._id
+                        }`}
+                      >
+                        <ProductCard
+                          name={product.name}
+                          price={product.price}
+                          discount={product.discount}
+                          image={product.images[0]}
+                        />
+                      </Link>
+                    </div>
+                  );
+                })
+              )}
             </div>
           </div>
         </div>

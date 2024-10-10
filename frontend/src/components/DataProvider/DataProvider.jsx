@@ -87,7 +87,7 @@ export const DataProvider = ({ children }) => {
         user,
         userData,
         products,
-        handleGetUser
+        handleGetUser,
       }}
     >
       {children}

@@ -19,6 +19,7 @@ import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import { Category } from "../Category/Category";
 import { Data } from "../DataProvider/DataProvider";
 import { Loading } from "../Loading/Loading";
+import { ScrollToTop } from "../ScrollToTop/ScrollToTop";
 
 export const Home = () => {
   const { products, loading } = useContext(Data);
@@ -32,6 +33,11 @@ export const Home = () => {
 
   return (
     <>
+      {/* Scroll To Top */}
+      <div className="fixed right-0 bottom-0">
+        <ScrollToTop />
+      </div>
+
       {/* Hero Section */}
       <div className="w-full h-screen pt-32">
         <div className="w-full h-full grid sm:grid-cols-2 grid-cols-1">

@@ -26,7 +26,7 @@ export const Product = () => {
 
   const handleGetProduct = async () => {
     const response = await fetch(
-      `http://localhost:1901/api/getproduct/${productName}`
+      `${URL}/api/getproduct/${productName}`
     );
 
     const data = await response.json();

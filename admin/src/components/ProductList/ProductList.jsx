@@ -7,7 +7,9 @@ export const ProductList = () => {
 
   const handleGetProducts = async () => {
     try {
-      const response = await fetch("http://localhost:1901/api/getproducts");
+      const response = await fetch(
+        "https://flex-furniture-server.onrender.com/api/getproducts"
+      );
       const data = await response.json();
 
       if (data.message === "Failed to fetch products") {

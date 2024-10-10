@@ -1,5 +1,4 @@
 import React from "react";
-import chair from "/images/chair.jpg";
 import { GoHeart } from "react-icons/go";
 
 export const ProductCard = ({ name, price, discount, image }) => {

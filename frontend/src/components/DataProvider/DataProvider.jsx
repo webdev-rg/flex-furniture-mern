@@ -56,9 +56,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const handleGetProducts = async () => {
       try {
-        const response = await fetch(
-          "https://flex-furniture-server.onrender.com/api/getproducts"
-        );
+        const response = await fetch(`${URL}/api/getproducts`);
         const data = await response.json();
 
         if (data.message === "Failed to fetch products") {

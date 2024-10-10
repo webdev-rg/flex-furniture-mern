@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Loading } from "../Loading/Loading";
+import { Data } from "../DataProvider/DataProvider";
 
 export const Category = ({ prevButton, nextButton }) => {
+  const { URL } = useContext(Data);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const swiperRef = useRef(null);
@@ -12,7 +14,7 @@ export const Category = ({ prevButton, nextButton }) => {
   const handleGetCategories = async () => {
     try {
       const response = await fetch(
-        "https://flex-furniture-server.onrender.com/api/getcategories",
+        `${URL}/api/getcategories`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -30,7 +32,7 @@ export const Category = ({ prevButton, nextButton }) => {
         data.map(async (item) => {
           try {
             const imageBlobRes = await fetch(
-              `https://flex-furniture-server.onrender.com/api/getcategoryimage/${item._id}`
+              `${URL}/api/getcategoryimage/${item._id}`
             );
 
             if (!imageBlobRes.ok) {

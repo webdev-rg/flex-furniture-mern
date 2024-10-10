@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 
 //? Home Slide Images
 import slide1 from "/images/slide-1.jpg";
@@ -17,8 +17,19 @@ import { ProductCard } from "../ProductCard/ProductCard";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import { Category } from "../Category/Category";
+import { Data } from "../DataProvider/DataProvider";
+import { Loading } from "../Loading/Loading";
 
 export const Home = () => {
+  const { products, loading } = useContext(Data);
+  const swiperRef = useRef(null);
+
+  useEffect(() => {
+    if (swiperRef.current && !loading) {
+      swiperRef.current.swiper.update();
+    }
+  }, [products, loading]);
+
   return (
     <>
       {/* Hero Section */}
@@ -226,6 +237,8 @@ export const Home = () => {
           </div>
         </div>
         <Swiper
+          ref={swiperRef}
+          key={products.length}
           slidesPerView={4}
           spaceBetween={30}
           modules={[Autoplay, Navigation]}
@@ -254,24 +267,31 @@ export const Home = () => {
           }}
           className="w-full"
         >
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
+          {loading ? (
+            <Loading />
+          ) : (
+            products.length > 0 &&
+            products.slice(0, 5).map((product) => {
+              return (
+                <SwiperSlide key={product._id}>
+                  <Link
+                    to={`/shop/product/${
+                      product.name
+                    }/category/${product.category.toLowerCase()}/${
+                      product._id
+                    }`}
+                  >
+                    <ProductCard
+                      name={product.name}
+                      price={product.price}
+                      discount={product.discount}
+                      image={product.images[0]}
+                    />
+                  </Link>
+                </SwiperSlide>
+              );
+            })
+          )}
         </Swiper>
       </div>
 
@@ -340,6 +360,8 @@ export const Home = () => {
           </div>
         </div>
         <Swiper
+          ref={swiperRef}
+          key={products.length}
           slidesPerView={4}
           spaceBetween={30}
           modules={[Autoplay, Navigation]}
@@ -368,24 +390,31 @@ export const Home = () => {
           }}
           className="w-full"
         >
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ProductCard />
-          </SwiperSlide>
+          {loading ? (
+            <Loading />
+          ) : (
+            products.length > 0 &&
+            products.slice(5, 10).map((product) => {
+              return (
+                <SwiperSlide key={product._id}>
+                  <Link
+                    to={`/shop/product/${
+                      product.name
+                    }/category/${product.category.toLowerCase()}/${
+                      product._id
+                    }`}
+                  >
+                    <ProductCard
+                      name={product.name}
+                      price={product.price}
+                      discount={product.discount}
+                      image={product.images[0]}
+                    />
+                  </Link>
+                </SwiperSlide>
+              );
+            })
+          )}
         </Swiper>
       </div>
 

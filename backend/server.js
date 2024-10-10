@@ -463,6 +463,30 @@ app.get("/api/getproducts", async (req, res) => {
   }
 });
 
+app.get("/api/getproduct/:productname", async (req, res) => {
+  try {
+    const product = await productModel.findOne({
+      name: req.params.productname,
+    });
+
+    if (!product) {
+      return res.status(404).send({ message: "Product not found" });
+    }
+
+    const productWithImages = product.images.map((imageBuffer) => {
+      return `data:image/jpeg;base64,${imageBuffer.toString("base64")}`;
+    });
+
+    res.status(200).send({
+      message: "Product found",
+      productData: product,
+      productImages: productWithImages,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });

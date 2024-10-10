@@ -14,8 +14,9 @@ export const DataProvider = ({ children }) => {
     lastName: "",
     phoneNumber: 0,
     address: "",
-    image: null
+    image: null,
   });
+  const [products, setProducts] = useState([]);
   const userData = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -51,21 +52,42 @@ export const DataProvider = ({ children }) => {
       setLoading(false);
     }
   };
-  console.log(user);
+
+  useEffect(() => {
+    const handleGetProducts = async () => {
+      try {
+        const response = await fetch(
+          "https://flex-furniture-server.onrender.com/api/getproducts"
+        );
+        const data = await response.json();
+
+        if (data.message === "Failed to fetch products") {
+          alert(`${data.message}`);
+        } else if (data.message === "Products") {
+          setProducts(data.productData);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    handleGetProducts();
+  }, []);
 
   return (
     <Data.Provider
       value={{
         isUserLoggedIn,
         setIsUserLoggedIn,
+        updatedUserDetails,
+        setUpdatedUserDetails,
+        loading,
+        setLoading,
         URL,
         user,
         userData,
-        updatedUserDetails,
-        setUpdatedUserDetails,
-        handleGetUser,
-        loading,
-        setLoading,
+        products,
+        handleGetUser
       }}
     >
       {children}

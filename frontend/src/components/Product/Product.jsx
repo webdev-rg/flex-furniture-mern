@@ -96,7 +96,7 @@ export const Product = () => {
       formData.append("productImage", productImages[0]);
       formData.append("userId", userData._id);
 
-      const response = await fetch(`${URL}/api/addtocart`, {
+      const response = await fetch(`http://localhost:1901/api/addtocart`, {
         method: "POST",
         body: formData,
       });

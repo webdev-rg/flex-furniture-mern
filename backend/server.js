@@ -494,12 +494,22 @@ app.post("/api/addtocart", upload.single("productImage"), async (req, res) => {
   const { productName, productPrice, productQuantity, productImage, userId } =
     req.body;
 
+  const price = parseFloat(productPrice);
+  const quantity = parseInt(productQuantity);
+
+  let totalPrice = 0;
+
+  for (let i = 0; i < quantity; i++) {
+    totalPrice += price;
+  }
+
   try {
     const product = new cartModel({
       productName: productName,
-      productPrice: productPrice,
-      productQuantity: productQuantity,
+      productPrice: price,
+      productQuantity: quantity,
       productImage: productImage,
+      totalPrice: totalPrice,
       userId: userId,
     });
 
@@ -512,6 +522,32 @@ app.post("/api/addtocart", upload.single("productImage"), async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Something went wrong please try again" });
+  }
+});
+
+app.get("/api/getcartdetails/:userId", async (req, res) => {
+  try {
+    const cart = await cartModel.find({ userId: req.params.userId });
+
+    if (!cart) {
+      return res.status(404).send({ message: "Cart details not found" });
+    }
+
+    const cartItemsWithImages = cart.map((item) => {
+      const imageBuffer = item.productImage || null;
+      const image = imageBuffer
+        ? `data:image/jpeg;base64,${imageBuffer.toString("base64")}`
+        : null;
+      return { ...item._doc, productImage: image };
+    });
+    console.log(cartItemsWithImages);
+
+    res
+      .status(200)
+      .send({ message: "Cart details", cartData: cartItemsWithImages });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal server error" });
   }
 });
 

@@ -10,7 +10,7 @@ import {
 } from "react-icons/ci";
 import { IoIosClose } from "react-icons/io";
 
-export const Header = ({isUserLoggedIn}) => {
+export const Header = ({ isUserLoggedIn }) => {
   const [openSearchBar, setOpenSearchBar] = useState(false);
 
   const handleOpenSearchBar = () => {
@@ -70,17 +70,21 @@ export const Header = ({isUserLoggedIn}) => {
             </div>
           </div>
           <div className="relative">
-            <CiShoppingCart className="text-4xl text-flex-furniture-950 hover:text-gray-400 transition-all duration-300 cursor-pointer" />
-            <div className="absolute -top-3 -right-4 w-7 h-7 flex items-center justify-center bg-flex-furniture-950 rounded-full">
-              <span className="text-xl text-white">0</span>
-            </div>
+            <Link to="/cart">
+              <CiShoppingCart className="text-4xl text-flex-furniture-950 hover:text-gray-400 transition-all duration-300 cursor-pointer" />
+              <div className="absolute -top-3 -right-4 w-7 h-7 flex items-center justify-center bg-flex-furniture-950 rounded-full">
+                <span className="text-xl text-white">0</span>
+              </div>
+            </Link>
           </div>
         </div>
       </header>
 
       <div
         className={`lg:w-1/4 md:w-2/5 sm:w-1/2 w-full h-screen fixed bg-white border border-l-[1px] transition-all duration-300 ease-in-out z-20 ${
-          openSearchBar ? "right-0" : "lg:-right-1/4 md:-right-2/5 sm:-right-1/2 -right-full"
+          openSearchBar
+            ? "right-0"
+            : "lg:-right-1/4 md:-right-2/5 sm:-right-1/2 -right-full"
         }`}
       >
         <div className="w-full px-10 py-10 flex items-center justify-between">

@@ -11,6 +11,7 @@ import { Verification } from "./components/Verification/Verification";
 import { useContext } from "react";
 import { Data } from "./components/DataProvider/DataProvider";
 import { MyProfile } from "./components/MyProfile/MyProfile";
+import { Cart } from "./components/Cart/Cart";
 
 export const App = () => {
   const { isUserLoggedIn } = useContext(Data);
@@ -26,6 +27,7 @@ export const App = () => {
             element={<Product />}
           />
           <Route path="contact" element={<Contact />} />
+          <Route path="cart" element={<Cart />} />
           <Route
             path="signin"
             element={

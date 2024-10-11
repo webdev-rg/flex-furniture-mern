@@ -17,6 +17,7 @@ export const DataProvider = ({ children }) => {
     image: null,
   });
   const [products, setProducts] = useState([]);
+  const [cartDetails, setCartDetails] = useState([]);
   const userData = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -72,6 +73,28 @@ export const DataProvider = ({ children }) => {
     handleGetProducts();
   }, []);
 
+  useEffect(() => {
+    const handleGetCartDetails = async (userId) => {
+      try {
+        const response = await fetch(
+          `http://localhost:1901/api/getcartdetails/${userId}`
+        );
+
+        const data = await response.json();
+
+        if (data.message === "Cart details not found") {
+          alert(`${data.message}`);
+        } else if (data.message === "Cart details") {
+          setCartDetails(data.cartData);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    handleGetCartDetails(userData._id);
+  }, []);
   return (
     <Data.Provider
       value={{
@@ -81,6 +104,7 @@ export const DataProvider = ({ children }) => {
         setUpdatedUserDetails,
         loading,
         setLoading,
+        cartDetails,
         URL,
         user,
         userData,

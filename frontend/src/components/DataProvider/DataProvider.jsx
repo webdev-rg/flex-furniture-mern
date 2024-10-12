@@ -73,32 +73,27 @@ export const DataProvider = ({ children }) => {
     handleGetProducts();
   }, []);
 
-  useEffect(() => {
-    const handleGetCartDetails = async (userId) => {
-      try {
-        const response = await fetch(
-          `${URL}/api/getcartdetails/${userId}`
-        );
+  const handleGetCartDetails = async (userId) => {
+    try {
+      const response = await fetch(`${URL}/api/getcartdetails/${userId}`);
 
-        if (!response.ok) {
-          throw new Error("Error fetching cart data");
-        }
-
-        const data = await response.json();
-
-        if (data.message === "Cart details not found") {
-          alert(`${data.message}`);
-        } else if (data.message === "Cart details") {
-          setCartDetails(data.cartData);
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error(error);
+      if (!response.ok) {
+        throw new Error("Error fetching cart data");
       }
-    };
 
-    handleGetCartDetails(userData._id);
-  }, []);
+      const data = await response.json();
+
+      if (data.message === "Cart details not found") {
+        alert(`${data.message}`);
+      } else if (data.message === "Cart details") {
+        setCartDetails(data.cartData);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   return (
     <Data.Provider
       value={{
@@ -109,6 +104,7 @@ export const DataProvider = ({ children }) => {
         loading,
         setLoading,
         cartDetails,
+        handleGetCartDetails,
         URL,
         user,
         userData,

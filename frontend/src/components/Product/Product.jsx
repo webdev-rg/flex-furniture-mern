@@ -21,7 +21,8 @@ import { Data } from "../DataProvider/DataProvider";
 import { ScrollToTop } from "../ScrollToTop/ScrollToTop";
 
 export const Product = () => {
-  const { URL, isUserLoggedIn, userData } = useContext(Data);
+  const { URL, isUserLoggedIn, userData, handleGetCartDetails } =
+    useContext(Data);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { productName } = useParams();
   const [product, setProduct] = useState(null);
@@ -96,8 +97,6 @@ export const Product = () => {
       formData.append("productImage", productImages[0]);
       formData.append("userId", userData._id);
 
-      console.log("Product Image:", productImages[0]);
-
       const response = await fetch(`${URL}/api/addtocart`, {
         method: "POST",
         body: formData,
@@ -118,6 +117,7 @@ export const Product = () => {
           progress: undefined,
           theme: "light",
         });
+        handleGetCartDetails(userData._id);
         return;
       } else if (data.message === "Something went wrong please try again") {
         toast.error(`${data.message}`, {

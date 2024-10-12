@@ -540,6 +540,22 @@ app.get("/api/getcartdetails/:userId", async (req, res) => {
   }
 });
 
+app.delete("/api/deletecartitem/:cartId", async (req, res) => {
+  try {
+    const cartItem = await cartModel.findOne({ _id: req.params.cartId });
+    if (!cartItem) {
+      return res.status(404).send({ message: "Cart item not found" });
+    }
+
+    const deleteCartItem = await cartModel.deleteOne(cartItem);
+
+    res.status(200).send({ message: "One item deleted", cartItem: cartItem });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Error deleting cart item" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });

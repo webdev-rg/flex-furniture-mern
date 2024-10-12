@@ -31,7 +31,7 @@ export const Categories = () => {
             const imageBlobRes = await fetch(
               `https://flex-furniture-server.onrender.com/api/getcategoryimage/${item._id}`
             );
-
+            
             if (!imageBlobRes.ok) {
               throw new Error(`Error fetching image for category ${item._id}`);
             }

@@ -10,7 +10,7 @@ import {
 } from "react-icons/ci";
 import { IoIosClose } from "react-icons/io";
 
-export const Header = ({ isUserLoggedIn }) => {
+export const Header = ({ isUserLoggedIn, cartDetails }) => {
   const [openSearchBar, setOpenSearchBar] = useState(false);
 
   const handleOpenSearchBar = () => {
@@ -73,7 +73,7 @@ export const Header = ({ isUserLoggedIn }) => {
             <Link to="/cart">
               <CiShoppingCart className="text-4xl text-flex-furniture-950 hover:text-gray-400 transition-all duration-300 cursor-pointer" />
               <div className="absolute -top-3 -right-4 w-7 h-7 flex items-center justify-center bg-flex-furniture-950 rounded-full">
-                <span className="text-xl text-white">0</span>
+                <span className="text-xl text-white">{cartDetails.length}</span>
               </div>
             </Link>
           </div>

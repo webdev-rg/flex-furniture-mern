@@ -3,13 +3,12 @@ import { GoPlus, GoTrash } from "react-icons/go";
 import { LuMinus } from "react-icons/lu";
 import { Data } from "../DataProvider/DataProvider";
 import { Loading } from "../Loading/Loading";
+import chair from "/images/chair.jpg";
 
 export const Cart = () => {
   const { cartDetails, loading } = useContext(Data);
   if (cartDetails) {
     console.log("Cart Details:", cartDetails);
-  } else {
-    return <div>Loading...</div>;
   }
   return (
     <div className="w-full h-full py-40 px-32 flex flex-col gap-10">
@@ -26,7 +25,7 @@ export const Cart = () => {
               <thead className="text-flex-furniture-950 bg-gray-100 text-left">
                 <tr>
                   <th scope="col" className="px-6 py-3 text-2xl">
-                    Product
+                    Product Name
                   </th>
                   <th scope="col" className="px-6 py-3 text-2xl">
                     Price
@@ -42,7 +41,7 @@ export const Cart = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody >
+              <tbody>
                 {loading ? (
                   <div className="w-full flex justify-center">
                     <Loading />
@@ -50,11 +49,15 @@ export const Cart = () => {
                 ) : (
                   cartDetails.length > 0 &&
                   cartDetails.map((item) => {
+                    console.log(item.productImage);
                     return (
-                      <tr key={item._id} className="bg-white border-b border-b-slate-200 text-2xl">
+                      <tr
+                        key={item._id}
+                        className="bg-white border-b border-b-slate-200 text-2xl"
+                      >
                         <th
                           scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-left"
                         >
                           <div className="flex items-center gap-8">
                             <div className="w-40 h-40">
@@ -79,7 +82,7 @@ export const Cart = () => {
                               <LuMinus />
                             </button>
                             <button className="w-10 h-10 bg-[#efefef] text-xl">
-                              {/* {quantity} */}
+                              {item.productQuantity}
                             </button>
                             <button
                               className="w-10 h-10 bg-[#efefef] text-xl flex items-center justify-center"

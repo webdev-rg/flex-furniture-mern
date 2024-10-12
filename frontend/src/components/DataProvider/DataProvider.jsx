@@ -80,6 +80,10 @@ export const DataProvider = ({ children }) => {
           `http://localhost:1901/api/getcartdetails/${userId}`
         );
 
+        if (!response.ok) {
+          throw new Error("Error fetching cart data");
+        }
+
         const data = await response.json();
 
         if (data.message === "Cart details not found") {

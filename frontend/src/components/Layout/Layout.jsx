@@ -5,11 +5,11 @@ import { Outlet } from "react-router-dom";
 import { Data } from "../DataProvider/DataProvider";
 
 export const Layout = () => {
-  const { isUserLoggedIn } = useContext(Data);
+  const { isUserLoggedIn, cartDetails } = useContext(Data);
 
   return (
     <>
-      <Header isUserLoggedIn={isUserLoggedIn} />
+      <Header isUserLoggedIn={isUserLoggedIn} cartDetails={cartDetails} />
       <Outlet />
       <Footer />
     </>

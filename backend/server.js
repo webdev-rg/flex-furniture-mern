@@ -529,22 +529,11 @@ app.get("/api/getcartdetails/:userId", async (req, res) => {
   try {
     const cart = await cartModel.find({ userId: req.params.userId });
 
-    if (!cart) {
+    if (!cart || cart.length === 0) {
       return res.status(404).send({ message: "Cart details not found" });
     }
 
-    const cartItemsWithImages = cart.map((item) => {
-      const imageBuffer = item.productImage || null;
-      const image = imageBuffer
-        ? `data:image/jpeg;base64,${imageBuffer.toString("base64")}`
-        : null;
-      return { ...item._doc, productImage: image };
-    });
-    console.log(cartItemsWithImages);
-
-    res
-      .status(200)
-      .send({ message: "Cart details", cartData: cartItemsWithImages });
+    res.status(200).send({ message: "Cart details", cartData: cart });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal server error" });

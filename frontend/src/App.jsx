@@ -14,7 +14,7 @@ import { MyProfile } from "./components/MyProfile/MyProfile";
 import { Cart } from "./components/Cart/Cart";
 
 export const App = () => {
-  const { isUserLoggedIn } = useContext(Data);
+  const { isUserLoggedIn, cartDetails } = useContext(Data);
   return (
     <BrowserRouter>
       <Routes>

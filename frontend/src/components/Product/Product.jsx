@@ -98,7 +98,7 @@ export const Product = () => {
 
       console.log("Product Image:", productImages[0]);
 
-      const response = await fetch(`http://localhost:1901/api/addtocart`, {
+      const response = await fetch(`${URL}/api/addtocart`, {
         method: "POST",
         body: formData,
       });

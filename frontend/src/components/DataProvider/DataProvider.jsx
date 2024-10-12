@@ -77,7 +77,7 @@ export const DataProvider = ({ children }) => {
     const handleGetCartDetails = async (userId) => {
       try {
         const response = await fetch(
-          `http://localhost:1901/api/getcartdetails/${userId}`
+          `${URL}/api/getcartdetails/${userId}`
         );
 
         if (!response.ok) {

@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const Cart = () => {
-  const { cartDetails, loading, userData, handleGetCartDetails } =
+  const { cartDetails, loading, userData, handleGetCartDetails, URL } =
     useContext(Data);
   const [quantity, setQuantity] = useState([]);
 
@@ -43,12 +43,9 @@ export const Cart = () => {
     console.log(cartId);
 
     try {
-      const response = await fetch(
-        `http://localhost:1901/api/deletecartitem/${cartId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${URL}/api/deletecartitem/${cartId}`, {
+        method: "DELETE",
+      });
 
       const data = await response.json();
       console.log(data.cartItem);

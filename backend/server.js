@@ -491,8 +491,14 @@ app.get("/api/getproduct/:productname", async (req, res) => {
 //? Add to cart API
 
 app.post("/api/addtocart", upload.single("productImage"), async (req, res) => {
-  const { productName, productPrice, productQuantity, productImage, userId } =
-    req.body;
+  const {
+    productName,
+    productPrice,
+    productQuantity,
+    productImage,
+    userAddress,
+    userId,
+  } = req.body;
 
   const price = parseFloat(productPrice);
   const quantity = parseInt(productQuantity);
@@ -510,6 +516,7 @@ app.post("/api/addtocart", upload.single("productImage"), async (req, res) => {
       productQuantity: quantity,
       productImage: productImage,
       totalPrice: totalPrice,
+      userAddress: userAddress,
       userId: userId,
     });
 

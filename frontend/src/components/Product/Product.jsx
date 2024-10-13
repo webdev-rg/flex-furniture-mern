@@ -95,6 +95,7 @@ export const Product = () => {
       formData.append("productPrice", product.price);
       formData.append("productQuantity", quantity);
       formData.append("productImage", productImages[0]);
+      formData.append("userAddress", userData.address);
       formData.append("userId", userData._id);
 
       const response = await fetch(`${URL}/api/addtocart`, {

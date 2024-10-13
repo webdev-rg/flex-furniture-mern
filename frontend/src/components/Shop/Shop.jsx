@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Category } from "../Category/Category";
 import { ProductCard } from "../ProductCard/ProductCard";
@@ -9,7 +9,14 @@ import { Loading } from "../Loading/Loading";
 export const Shop = () => {
   const { products, loading } = useContext(Data);
   const { category } = useParams();
-  console.log(category);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
+
   return (
     <>
       {/* Scroll To Top */}

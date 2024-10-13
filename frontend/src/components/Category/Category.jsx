@@ -108,7 +108,7 @@ export const Category = ({ prevButton, nextButton }) => {
         categories.map((item) => {
           return (
             <SwiperSlide className="w-full" key={item._id}>
-              <Link to={`/shop/product-category/${item.name.toLowerCase()}`}>
+              <Link to={`/shop/product-category/${item.name}`}>
                 <div className="w-full flex sm:flex-row flex-col items-center sm:justify-start justify-center gap-10">
                   <div className="w-36 h-36 flex items-center justify-center bg-[#e7e7e7] rounded-full">
                     <img

@@ -93,7 +93,7 @@ export const DataProvider = ({ children }) => {
       console.error(error);
     }
   };
-  
+
   return (
     <Data.Provider
       value={{
@@ -109,6 +109,7 @@ export const DataProvider = ({ children }) => {
         user,
         userData,
         products,
+        setProducts,
         handleGetUser,
       }}
     >

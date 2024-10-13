@@ -7,8 +7,25 @@ import { Data } from "../DataProvider/DataProvider";
 import { Loading } from "../Loading/Loading";
 
 export const Shop = () => {
-  const { products, loading } = useContext(Data);
+  const { products, setProducts, loading, URL } = useContext(Data);
   const { category } = useParams();
+
+  const handleGetProductByCategory = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:1901/api/productbycategory/${category}`
+      );
+
+      const data = await response.json();
+      setProducts(data.product);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    handleGetProductByCategory();
+  }, [category]);
 
   useEffect(() => {
     window.scrollTo({
@@ -133,7 +150,7 @@ export const Shop = () => {
                 products.length > 0 &&
                 products.map((product) => {
                   return (
-                    <div>
+                    <div key={product._id}>
                       <Link
                         to={`/shop/product/${
                           product.name

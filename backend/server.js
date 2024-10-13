@@ -610,6 +610,41 @@ app.post("/api/searchproduct", async (req, res) => {
   }
 });
 
+app.get("/api/productbycategory/:categoryname", async (req, res) => {
+  try {
+    const products = await productModel.find({
+      category: req.params.categoryname,
+    });
+
+    if (!products) {
+      return res.status(404).send({ message: "No products found" });
+    }
+
+    const productsWithImages = products.map((product) => {
+      const images = product.images.map((imageBuffer) => {
+        return `data:image/jpeg;base64,${imageBuffer.toString("base64")}`;
+      });
+
+      return {
+        _id: product._id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        discount: product.discount,
+        rating: product.rating,
+        stock: product.stock,
+        category: product.category,
+        images,
+      };
+    });
+    
+    res.status(200).send({ product: productsWithImages });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "Error" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });

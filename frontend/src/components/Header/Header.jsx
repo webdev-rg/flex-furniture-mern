@@ -36,7 +36,7 @@ export const Header = ({ isUserLoggedIn, cartDetails }) => {
     setLoading(true);
     setHasSearched(true);
     try {
-      const response = await fetch("http://localhost:1901/api/searchproduct", {
+      const response = await fetch(`${URL}/api/searchproduct`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ searchTerm }),

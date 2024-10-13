@@ -563,6 +563,53 @@ app.delete("/api/deletecartitem/:cartId", async (req, res) => {
   }
 });
 
+//? Search Product API
+
+app.post("/api/searchproduct", async (req, res) => {
+  let { searchTerm } = req.body;
+
+  if (typeof searchTerm !== "string") {
+    searchTerm = String(searchTerm);
+    searchTerm = searchTerm.trim();
+  }
+
+  console.log("Search term:", searchTerm);
+
+  try {
+    const searchProduct = await productModel.find({
+      name: { $regex: searchTerm, $options: "i" },
+    });
+
+    // console.log("Found products:", searchProduct);
+
+    if (!searchProduct || searchProduct.length === 0) {
+      return res.status(404).send({ message: "No product found" });
+    }
+
+    const productWithImages = searchProduct.map((product) => {
+      const images = product.images.map((imageBuffer) => {
+        return `data:image/jpeg;base64,${imageBuffer.toString("base64")}`;
+      });
+
+      return {
+        _id: product._id,
+        name: product.name,
+        price: product.price,
+        discount: product.discount,
+        rating: product.rating,
+        category: product.category,
+        images,
+      };
+    });
+
+    res
+      .status(200)
+      .send({ message: "Products found", searchProduct: productWithImages });
+  } catch (error) {
+    res.status(500).send({ message: "Server error", error });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);
 });

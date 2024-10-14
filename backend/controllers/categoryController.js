@@ -40,7 +40,7 @@ const getCategories = async (req, res) => {
 
 const getCategoryImage = async (req, res) => {
   try {
-    const categoryImage = await categoryModel.findById(req.params.id);
+    const categoryImage = await CategoryModel.findById(req.params.id);
     if (!categoryImage) {
       return res.status(404).send({ message: "No image found" });
     }
@@ -56,7 +56,7 @@ const getCategoryImage = async (req, res) => {
 
 const deleteCategory = async (req, res) => {
   try {
-    const findCategory = await categoryModel.findOne({
+    const findCategory = await CategoryModel.findOne({
       _id: req.params.id,
     });
 

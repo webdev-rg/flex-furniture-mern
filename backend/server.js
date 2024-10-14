@@ -3,6 +3,7 @@ const cors = require("cors");
 const multer = require("multer");
 const sharp = require("sharp");
 require("./config");
+require("./routes/adminRoute")
 const adminModel = require("./models/adminModel");
 const categoryModel = require("./models/categoryModel");
 const userModel = require("./models/userModel");
@@ -22,30 +23,30 @@ const upload = multer({ storage });
 
 //? Admin API
 //* Admin Signup
-app.post("/api/adminsignup", async (req, res) => {
-  console.log("Incoming data:", req.body);
-  const { adminData } = req.body;
+// app.post("/api/adminsignup", async (req, res) => {
+//   console.log("Incoming data:", req.body);
+//   const { adminData } = req.body;
 
-  try {
-    const existingAdmin = await adminModel.findOne({ email: adminData.email });
-    if (existingAdmin) {
-      return res.status(400).send({ message: "Email already exists" });
-    }
+//   try {
+//     const existingAdmin = await adminModel.findOne({ email: adminData.email });
+//     if (existingAdmin) {
+//       return res.status(400).send({ message: "Email already exists" });
+//     }
 
-    const data = await adminModel({
-      firstName: adminData.firstName,
-      lastName: adminData.lastName,
-      email: adminData.email,
-      password: adminData.password,
-    });
+//     const data = await adminModel({
+//       firstName: adminData.firstName,
+//       lastName: adminData.lastName,
+//       email: adminData.email,
+//       password: adminData.password,
+//     });
 
-    await data.save();
-    res.status(200).send({ message: "Admin Registration Successfully" });
-  } catch (error) {
-    console.error("Admin registration failed...:", error);
-    res.status(500).send({ message: "Admin registration failed..." });
-  }
-});
+//     await data.save();
+//     res.status(200).send({ message: "Admin Registration Successfully" });
+//   } catch (error) {
+//     console.error("Admin registration failed...:", error);
+//     res.status(500).send({ message: "Admin registration failed..." });
+//   }
+// });
 
 //* Admin Signin
 app.post("/api/adminsignin", async (req, res) => {

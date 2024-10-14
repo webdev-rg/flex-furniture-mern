@@ -1,8 +1,7 @@
 const express = require("express");
-const cors = require("cors");
 const { adminSignUp } = require("../controllers/adminController");
-const app = express();
+const router = express.Router();
 
-app.use(cors());
+router.post("/adminsignup", adminSignUp);
 
-app.post("/api/adminsignup", adminSignUp);
+module.exports = router;

@@ -25,7 +25,7 @@ export const Signup = () => {
 
     try {
       await fetch(
-        "https://flex-furniture-server.onrender.com/api/adminsignup",
+        "http://localhost:1901/api/adminsignup",
         {
           method: "POST",
           headers: { "Content-type": "application/json" },

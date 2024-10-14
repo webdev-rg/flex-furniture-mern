@@ -14,7 +14,7 @@ export const Shop = () => {
   const handleGetProductByCategory = async () => {
     try {
       const response = await fetch(
-        `${URL}/productbycategory/${category}`
+        `${URL}/api/productbycategory/${category}`
       );
 
       const data = await response.json();

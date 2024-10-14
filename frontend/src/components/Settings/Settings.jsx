@@ -42,10 +42,15 @@ export const Settings = () => {
   return (
     <>
       <ToastContainer />
-      <div className="w-full h-full p-10 flex flex-col gap-10">
+      <div className="w-full h-full p-10 flex flex-col gap-5">
         <div>
           <h1 className="text-4xl text-flex-furniture-950 font-semibold tracking-wide leading-relaxed">
             Settings
+          </h1>
+        </div>
+        <div>
+          <h1 className="text-4xl text-red-500 font-semibold tracking-wide leading-relaxed">
+            Delete Account
           </h1>
         </div>
         <div className="w-full h-full">

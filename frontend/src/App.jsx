@@ -12,6 +12,9 @@ import { useContext } from "react";
 import { Data } from "./components/DataProvider/DataProvider";
 import { MyProfile } from "./components/MyProfile/MyProfile";
 import { Cart } from "./components/Cart/Cart";
+import { Dashboard } from "./components/Dashboard/Dashboard";
+import { OrderList } from "./components/OrderList/OrderList";
+import { Settings } from "./components/Settings/Settings";
 
 export const App = () => {
   const { isUserLoggedIn, cartDetails } = useContext(Data);
@@ -50,15 +53,19 @@ export const App = () => {
             }
           />
           <Route
-            path="/myprofile"
+            path="/dashboard"
             element={
               isUserLoggedIn === true ? (
-                <MyProfile />
+                <Dashboard />
               ) : (
                 <Navigate to="/signin" />
               )
             }
-          />
+          >
+            <Route path="myprofile" element={<MyProfile />} />
+            <Route path="orders" element={<OrderList />} /> 
+            <Route path="settings" element={<Settings />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

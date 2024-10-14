@@ -1,11 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { Data } from "../DataProvider/DataProvider";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { UserDetail } from "../MyProfile/UserDetail";
-import { OrderList } from "../OrderList/OrderList";
-import { Settings } from "../Settings/Settings";
 
 export const Dashboard = () => {
   const { setIsUserLoggedIn, updatedUserDetails, userData, URL } =

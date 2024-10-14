@@ -7,18 +7,19 @@ import { Data } from "../DataProvider/DataProvider";
 import { Loading } from "../Loading/Loading";
 
 export const Shop = () => {
-  const { products, setProducts, loading, URL, handleGetProducts } =
+  const { products, setProducts, loading, setLoading, URL, handleGetProducts } =
     useContext(Data);
   const { category } = useParams();
 
   const handleGetProductByCategory = async () => {
     try {
       const response = await fetch(
-        `http://localhost:1901/api/productbycategory/${category}`
+        `${URL}/productbycategory/${category}`
       );
 
       const data = await response.json();
       setProducts(data.product);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -26,9 +27,11 @@ export const Shop = () => {
 
   useEffect(() => {
     if (category === "allproducts") {
+      setLoading(true);
       handleGetProducts();
     } else {
       setProducts([]);
+      setLoading(true);
       handleGetProductByCategory();
     }
   }, [category]);
@@ -47,27 +50,20 @@ export const Shop = () => {
         <ScrollToTop />
       </div>
       <div className="w-full h-full">
-        <div
-          // style={{
-          //   backgroundImage: "url('/images/shop-bg.jpg')",
-          //   backgroundSize: "cover",
-          //   backgroundPosition: "center",
-          // }}
-          className="w-full h-full px-32 pt-40 pb-20"
-        >
+        <div className="w-full h-full px-32 pt-40 pb-20">
           <div className="flex flex-col gap-14 py-16 border-b">
             <h1 className="text-center text-7xl font-bold tracking-wider">
               {category === "allproducts"
                 ? "Shop"
-                : category === "chair"
+                : category === "Chair"
                 ? "Chair"
-                : category === "lamp"
+                : category === "Lamp"
                 ? "Lamp"
-                : category === "sofa"
+                : category === "Sofa"
                 ? "Sofa"
-                : category === "bed"
+                : category === "Bed"
                 ? "Bed"
-                : category === "table"
+                : category === "Table"
                 ? "Table"
                 : ""}
             </h1>
@@ -151,7 +147,9 @@ export const Shop = () => {
           <div className="w-[75%] h-full">
             <div className="w-full h-full grid grid-cols-3 gap-10">
               {loading ? (
-                <Loading />
+                <div className="w-full col-span-3 flex justify-center">
+                  <Loading />
+                </div>
               ) : (
                 products.length > 0 &&
                 products.map((product) => {

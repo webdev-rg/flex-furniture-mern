@@ -54,24 +54,21 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    const handleGetProducts = async () => {
-      try {
-        const response = await fetch(`${URL}/api/getproducts`);
-        const data = await response.json();
+  const handleGetProducts = async () => {
+    try {
+      const response = await fetch(`${URL}/api/getproducts`);
+      const data = await response.json();
 
-        if (data.message === "Failed to fetch products") {
-          alert(`${data.message}`);
-        } else if (data.message === "Products") {
-          setProducts(data.productData);
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching products:", error);
+      if (data.message === "Failed to fetch products") {
+        alert(`${data.message}`);
+      } else if (data.message === "Products") {
+        setProducts(data.productData);
+        setLoading(false);
       }
-    };
-    handleGetProducts();
-  }, []);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
 
   const handleGetCartDetails = async (userId) => {
     try {
@@ -111,6 +108,7 @@ export const DataProvider = ({ children }) => {
         products,
         setProducts,
         handleGetUser,
+        handleGetProducts,
       }}
     >
       {children}

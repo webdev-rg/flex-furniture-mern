@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Category } from "../Category/Category";
 import { ProductCard } from "../ProductCard/ProductCard";
@@ -7,7 +7,8 @@ import { Data } from "../DataProvider/DataProvider";
 import { Loading } from "../Loading/Loading";
 
 export const Shop = () => {
-  const { products, setProducts, loading, URL } = useContext(Data);
+  const { products, setProducts, loading, URL, handleGetProducts } =
+    useContext(Data);
   const { category } = useParams();
 
   const handleGetProductByCategory = async () => {
@@ -24,7 +25,12 @@ export const Shop = () => {
   };
 
   useEffect(() => {
-    handleGetProductByCategory();
+    if (category === "allproducts") {
+      handleGetProducts();
+    } else {
+      setProducts([]);
+      handleGetProductByCategory();
+    }
   }, [category]);
 
   useEffect(() => {

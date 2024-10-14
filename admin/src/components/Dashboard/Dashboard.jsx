@@ -12,10 +12,7 @@ import { AddProductForm } from "../AddProductForm/AddProductForm";
 import { ProductList } from "../ProductList/ProductList";
 
 export const Dashboard = ({ isLoggedIn }) => {
-  const dashboardHeight = {
-    height: "calc(100vh - 80px)",
-  };
-  const [activeTab, setActiveTab] = useState("product-list");
+  const [activeTab, setActiveTab] = useState("dashboard");
   const [adminData, setAdminData] = useState(() => {
     return JSON.parse(localStorage.getItem("adminData"));
   });

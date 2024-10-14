@@ -25,4 +25,27 @@ const adminSignUp = async (req, res) => {
   }
 };
 
-module.exports = { adminSignUp };
+const adminSignIn = async (req, res) => {
+  console.log(req.body);
+  const { email, password } = req.body;
+
+  try {
+    const adminData = await AdminModel.findOne({ email: email });
+    if (!adminData) {
+      return res.status(404).send({ message: "Incorrect Email" });
+    }
+    if (adminData.password !== password) {
+      return res.status(401).send({ message: "Incorrect password" });
+    }
+    // console.log(adminData);
+    res.status(200).send({
+      message: "Login Successful",
+      admin: adminData,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500);
+  }
+};
+
+module.exports = { adminSignUp, adminSignIn };

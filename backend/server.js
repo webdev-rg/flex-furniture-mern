@@ -5,6 +5,7 @@ const sharp = require("sharp");
 require("./config");
 const adminRoute = require("./routes/adminRoute");
 const categoryRoute = require("./routes/categoryRoute");
+const productRoute = require("./routes/productRoute");
 const userModel = require("./models/userModel");
 const productModel = require("./models/productModel");
 const cartModel = require("./models/cartModel");
@@ -26,110 +27,110 @@ app.use("/api", adminRoute);
 //? Category API
 app.use("/api", categoryRoute);
 
+//? Products API
+app.use("/api", productRoute);
+
+// app.post("/api/addproduct", upload.array("images", 4), async (req, res) => {
+//   try {
+//     const { name, description, price, discount, rating, stock, category } =
+//       req.body;
+
+//     const imageBuffers = await Promise.all(
+//       req.files.map(async (file) => {
+//         const compressedImage = await sharp(file.buffer)
+//           .resize(500) // Resize image to a width of 500px (you can adjust this)
+//           .jpeg({ quality: 70 }) // Compress to JPEG format with 70% quality
+//           .toBuffer();
+//         return compressedImage;
+//       })
+//     );
+
+//     const product = new productModel({
+//       name,
+//       description,
+//       images: imageBuffers,
+//       price,
+//       discount,
+//       rating,
+//       stock,
+//       category,
+//     });
+
+//     await product.save();
+
+//     await categoryModel.findOneAndUpdate(
+//       { name: category },
+//       { $inc: { productCount: 1 } },
+//       { new: true }
+//     );
+
+//     res
+//       .status(201)
+//       .send({ message: "Product added successfully", product: product });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send({ message: "Failed to add product" });
+//   }
+// });
+
+// //* Get All Products
+// app.get("/api/getproducts", async (req, res) => {
+//   try {
+//     const products = await productModel.find({});
+
+//     const productsWithImages = products.map((product) => {
+//       const images = product.images.map((imageBuffer) => {
+//         return `data:image/jpeg;base64,${imageBuffer.toString("base64")}`;
+//       });
+
+//       return {
+//         _id: product._id,
+//         name: product.name,
+//         description: product.description,
+//         price: product.price,
+//         discount: product.discount,
+//         rating: product.rating,
+//         stock: product.stock,
+//         category: product.category,
+//         images,
+//       };
+//     });
+
+//     res
+//       .status(200)
+//       .send({ message: "Products", productData: productsWithImages });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send({ message: "Failed to fetch products" });
+//   }
+// });
+
+// app.get("/api/getproduct/:productname", async (req, res) => {
+//   try {
+//     const product = await productModel.findOne({
+//       name: req.params.productname,
+//     });
+
+//     if (!product) {
+//       return res.status(404).send({ message: "Product not found" });
+//     }
+
+//     const productWithImages = product.images.map((imageBuffer) => {
+//       return `data:image/jpeg;base64,${imageBuffer.toString("base64")}`;
+//     });
+
+//     res.status(200).send({
+//       message: "Product found",
+//       productData: product,
+//       productImages: productWithImages,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// });
+
 //? Users API
 //* Signup User
-
-//? Products API
-//* Add Product
-
-app.post("/api/addproduct", upload.array("images", 4), async (req, res) => {
-  try {
-    const { name, description, price, discount, rating, stock, category } =
-      req.body;
-
-    const imageBuffers = await Promise.all(
-      req.files.map(async (file) => {
-        const compressedImage = await sharp(file.buffer)
-          .resize(500) // Resize image to a width of 500px (you can adjust this)
-          .jpeg({ quality: 70 }) // Compress to JPEG format with 70% quality
-          .toBuffer();
-        return compressedImage;
-      })
-    );
-
-    const product = new productModel({
-      name,
-      description,
-      images: imageBuffers,
-      price,
-      discount,
-      rating,
-      stock,
-      category,
-    });
-
-    await product.save();
-
-    await categoryModel.findOneAndUpdate(
-      { name: category },
-      { $inc: { productCount: 1 } },
-      { new: true }
-    );
-
-    res
-      .status(201)
-      .send({ message: "Product added successfully", product: product });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Failed to add product" });
-  }
-});
-
-//* Get All Products
-app.get("/api/getproducts", async (req, res) => {
-  try {
-    const products = await productModel.find({});
-
-    const productsWithImages = products.map((product) => {
-      const images = product.images.map((imageBuffer) => {
-        return `data:image/jpeg;base64,${imageBuffer.toString("base64")}`;
-      });
-
-      return {
-        _id: product._id,
-        name: product.name,
-        description: product.description,
-        price: product.price,
-        discount: product.discount,
-        rating: product.rating,
-        stock: product.stock,
-        category: product.category,
-        images,
-      };
-    });
-
-    res
-      .status(200)
-      .send({ message: "Products", productData: productsWithImages });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Failed to fetch products" });
-  }
-});
-
-app.get("/api/getproduct/:productname", async (req, res) => {
-  try {
-    const product = await productModel.findOne({
-      name: req.params.productname,
-    });
-
-    if (!product) {
-      return res.status(404).send({ message: "Product not found" });
-    }
-
-    const productWithImages = product.images.map((imageBuffer) => {
-      return `data:image/jpeg;base64,${imageBuffer.toString("base64")}`;
-    });
-
-    res.status(200).send({
-      message: "Product found",
-      productData: product,
-      productImages: productWithImages,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-});
 
 app.post("/api/usersignup", async (req, res) => {
   console.log(req.body);

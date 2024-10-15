@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Loading } from "../Loading/Loading";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -68,77 +70,125 @@ const ProductCard = ({
   category,
   images,
 }) => {
+  const handleDeleteProduct = async (productId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:1901/api/deleteproduct/${productId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+
+      if (
+        data.message === "Product not found" ||
+        data.message === "Error deleting product"
+      ) {
+        toast.error(`${data.message}`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        return;
+      } else if (data.message === "Product deleted successfully") {
+        toast.success(`${data.message}`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <div className="w-full p-6 border border-slate-200 rounded-2xl">
-      <div className="flex flex-col gap-10">
-        <h1 className="text-2xl text-flex-furniture-950 font-semibold tracking-wide">
-          Images
-        </h1>
-        <div className="flex items-center gap-5">
-          {images.map((image, index) => {
-            return (
-              <div className="w-40 h-48" key={index}>
-                <img
-                  src={image}
-                  className="w-full h-full object-cover rounded-2xl"
-                  alt=""
-                />
-              </div>
-            );
-          })}
-        </div>
-        <div className="w-full">
-          <div className="relative overflow-x-auto">
-            <table className="w-full text-sm text-left rtl:text-right text-flex-furniture-950">
-              <thead className="text-xs text-flex-furniture-950 uppercase bg-gray-100">
-                <tr>
-                  <th scope="col" className="px-6 py-3 text-2xl">
-                    Product name
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-2xl">
-                    Price
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-2xl">
-                    Discount
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-2xl">
-                    Rating
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-2xl">
-                    Stock
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-2xl">
-                    Category
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="bg-white border-b text-2xl text-flex-furniture-950">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                    {name}
-                  </th>
-                  <td className="px-6 py-4">${price}</td>
-                  <td className="px-6 py-4">{discount}%</td>
-                  <td className="px-6 py-4">{rating}</td>
-                  <td className="px-6 py-4">{stock}</td>
-                  <td className="px-6 py-4">{category}</td>
-                </tr>
-              </tbody>
-            </table>
+    <>
+      <ToastContainer />
+      <div className="w-full p-6 border border-slate-200 rounded-2xl">
+        <div className="flex flex-col gap-10">
+          <h1 className="text-2xl text-flex-furniture-950 font-semibold tracking-wide">
+            Images
+          </h1>
+          <div className="flex items-center gap-5">
+            {images.map((image, index) => {
+              return (
+                <div className="w-40 h-48" key={index}>
+                  <img
+                    src={image}
+                    className="w-full h-full object-cover rounded-2xl"
+                    alt=""
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <div className="w-full">
+            <div className="relative overflow-x-auto">
+              <table className="w-full text-sm text-left rtl:text-right text-flex-furniture-950">
+                <thead className="text-xs text-flex-furniture-950 uppercase bg-gray-100">
+                  <tr>
+                    <th scope="col" className="px-6 py-3 text-2xl">
+                      Product name
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-2xl">
+                      Price
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-2xl">
+                      Discount
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-2xl">
+                      Rating
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-2xl">
+                      Stock
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-2xl">
+                      Category
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="bg-white border-b text-2xl text-flex-furniture-950">
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {name}
+                    </th>
+                    <td className="px-6 py-4">${price}</td>
+                    <td className="px-6 py-4">{discount}%</td>
+                    <td className="px-6 py-4">{rating}</td>
+                    <td className="px-6 py-4">{stock}</td>
+                    <td className="px-6 py-4">{category}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="w-full flex items-center gap-5">
+            <button className="px-8 py-3 bg-green-600 rounded-xl text-2xl text-white font-semibold tracking-wide">
+              Update
+            </button>
+            <button className="px-8 py-3 bg-red-600 rounded-xl text-2xl text-white font-semibold tracking-wide">
+              Delete
+            </button>
           </div>
         </div>
-        <div className="w-full flex items-center gap-5">
-          <button className="px-8 py-3 bg-green-600 rounded-xl text-2xl text-white font-semibold tracking-wide">
-            Update
-          </button>
-          <button className="px-8 py-3 bg-red-600 rounded-xl text-2xl text-white font-semibold tracking-wide">
-            Delete
-          </button>
-        </div>
       </div>
-    </div>
+    </>
   );
 };

@@ -154,21 +154,6 @@ export const Dashboard = ({ isLoggedIn }) => {
           </div>
         </div>
         <div className="w-[80%]">
-          {/* {activeTab === "dashboard" ? (
-          <div className="w-full h-full p-10">
-            <h1 className="text-6xl font-semibold text-flex-furniture-950 tracking-wide">
-              Welcome to Admin Panel
-            </h1>
-          </div>
-          ) : activeTab === "add-new-category" ? (
-            <Categories />
-          ) : activeTab === "add-new-product" ? (
-            <AddProductForm />
-          ) : activeTab === "product-list" ? (
-            <ProductList />
-          ) : (
-            ""
-          )} */}
           <Outlet />
         </div>
       </div>

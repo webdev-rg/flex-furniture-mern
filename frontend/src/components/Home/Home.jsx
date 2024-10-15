@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 //? Home Slide Images
 import slide1 from "/images/slide-1.jpg";
@@ -22,8 +22,30 @@ import { Loading } from "../Loading/Loading";
 import { ScrollToTop } from "../ScrollToTop/ScrollToTop";
 
 export const Home = () => {
-  const { products, loading } = useContext(Data);
+  const { URL } = useContext(Data);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const swiperRef = useRef(null);
+
+  const handleGetProducts = async () => {
+    try {
+      const response = await fetch(`${URL}/api/getproducts`);
+      const data = await response.json();
+
+      if (data.message === "Failed to fetch products") {
+        alert(`${data.message}`);
+      } else if (data.message === "Products") {
+        setProducts(data.productData);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  useEffect(() => {
+    handleGetProducts();
+  }, []);
 
   useEffect(() => {
     if (swiperRef.current && !loading) {

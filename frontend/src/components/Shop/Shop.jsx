@@ -30,7 +30,7 @@ export const Shop = () => {
       setLoading(true);
       handleGetProducts();
     } else {
-      setProducts([]);
+      // setProducts([]);
       setLoading(true);
       handleGetProductByCategory();
     }

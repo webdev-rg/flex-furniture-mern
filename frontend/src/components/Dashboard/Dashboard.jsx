@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 export const Dashboard = () => {
   const { setIsUserLoggedIn, updatedUserDetails, userData, URL } =
     useContext(Data);
-  const [activeTab, setActiveTab] = useState("my-profile");
   const [profileImage, setProfileImage] = useState(null);
   const navigate = useNavigate();
 
@@ -76,16 +75,12 @@ export const Dashboard = () => {
         body: JSON.stringify({ email: userData.email }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch user image");
-      }
-
       const data = await response.json();
 
-      if (data.image) {
-        setProfileImage(data.image);
-      } else {
+      if (data.message === "User image has null value") {
         setProfileImage("/images/user.png");
+      } else if (data.message === "User image fetched successfully") {
+        setProfileImage(data.image);
       }
     } catch (error) {
       console.error("Error fetching profile image:", error);
@@ -117,8 +112,8 @@ export const Dashboard = () => {
                     className="cursor-pointer"
                   >
                     <img
-                      src={`${profileImage || "/images/user.png"}`}
-                      className="w-[92%] h-[92%] rounded-full mx-auto"
+                      src={`${profileImage}`}
+                      className="w-[92%] h-[92%] rounded-full mx-auto object-cover"
                       alt="user-profile"
                     />
                   </label>

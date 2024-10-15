@@ -68,26 +68,14 @@ export const Signup = () => {
       });
 
       const data = await response.json();
-      console.log(data);
 
-      if (data.message === "Email already exists") {
+      if (
+        data.message === "Email already exists" ||
+        data.message === "Registration failed..."
+      ) {
         toast.error(`${data.message}`, {
           position: "top-center",
           autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
-      } else if (data.message === "Registration failed...") {
-        toast.error(`${data.message}`, {
-          position: "top-center",
-          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

@@ -120,4 +120,89 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-module.exports = { addProduct, getAllProducts, getProductImage, deleteProduct };
+const getProductByCategory = async (req, res) => {
+  try {
+    const products = await ProductModel.find({
+      category: req.params.categoryname,
+    });
+
+    if (!products) {
+      return res.status(404).send({ message: "No products found" });
+    }
+
+    const productsWithImages = products.map((product) => {
+      const images = product.images.map((imageBuffer) => {
+        return `data:image/jpeg;base64,${imageBuffer.toString("base64")}`;
+      });
+
+      return {
+        _id: product._id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        discount: product.discount,
+        rating: product.rating,
+        stock: product.stock,
+        category: product.category,
+        images,
+      };
+    });
+
+    res.status(200).send({ product: productsWithImages });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "Error" });
+  }
+};
+
+const searchProduct = async (req, res) => {
+  let { searchTerm } = req.body;
+
+  if (typeof searchTerm !== "string") {
+    searchTerm = String(searchTerm);
+    searchTerm = searchTerm.trim();
+  }
+
+  console.log("Search term:", searchTerm);
+
+  try {
+    const searchProduct = await ProductModel.find({
+      name: { $regex: searchTerm, $options: "i" },
+    });
+
+    if (!searchProduct || searchProduct.length === 0) {
+      return res.status(404).send({ message: "No product found" });
+    }
+
+    const productWithImages = searchProduct.map((product) => {
+      const images = product.images.map((imageBuffer) => {
+        return `data:image/jpeg;base64,${imageBuffer.toString("base64")}`;
+      });
+
+      return {
+        _id: product._id,
+        name: product.name,
+        price: product.price,
+        discount: product.discount,
+        rating: product.rating,
+        category: product.category,
+        images,
+      };
+    });
+
+    res
+      .status(200)
+      .send({ message: "Products found", searchProduct: productWithImages });
+  } catch (error) {
+    res.status(500).send({ message: "Server error", error });
+  }
+};
+
+module.exports = {
+  addProduct,
+  getAllProducts,
+  getProductImage,
+  deleteProduct,
+  getProductByCategory,
+  searchProduct
+};

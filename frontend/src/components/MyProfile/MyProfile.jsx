@@ -32,6 +32,7 @@ export const MyProfile = () => {
       });
 
       const data = await response.json();
+      console.log(data.updatedUser);
 
       if (data.message === "User not found") {
         return toast.error(`${data.message}`, {
@@ -45,7 +46,7 @@ export const MyProfile = () => {
           theme: "light",
         });
       } else if (data.message === "Details updated successfully") {
-        return toast.success(`${data.message}`, {
+        toast.success(`${data.message}`, {
           position: "top-center",
           autoClose: 3000,
           hideProgressBar: false,
@@ -55,6 +56,7 @@ export const MyProfile = () => {
           progress: undefined,
           theme: "light",
         });
+        localStorage.setItem("user", JSON.stringify(data.updatedUser));
       }
     } catch (error) {
       console.error(error);

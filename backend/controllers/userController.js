@@ -1,5 +1,7 @@
 const UserModel = require("../models/userModel");
+const CartModel = require("../models/cartModel");
 const sharp = require("sharp");
+const { sendVerificationToken, generateToken } = require("../sendEmail");
 
 const userSignUp = async (req, res) => {
   console.log(req.body);
@@ -21,6 +23,7 @@ const userSignUp = async (req, res) => {
         address: "",
         token: token,
         tokenExpiration: tokenExpirationTime,
+        image: null,
       });
 
       await data.save();
@@ -111,7 +114,12 @@ const updateUser = async (req, res) => {
       return res.status(404).send({ message: "User not found" });
     }
 
-    res.status(200).send({ message: "Details updated successfully" });
+    const updatedUser = await UserModel.findOne({ email: email });
+
+    res.status(200).send({
+      message: "Details updated successfully",
+      updatedUser: updatedUser,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Error updating your details" });
@@ -167,17 +175,18 @@ const getUserImage = async (req, res) => {
   try {
     const user = await UserModel.findOne({ email });
 
-    if (!user || !user.image) {
-      return res.status(404).json({ message: "User or image not found" });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    } else if (user.image == null) {
+      return res.status(400).send({ message: "User image has null value" });
     }
 
     const imageBuffer = user.image; // This should be the buffer stored in the database
     const base64Image = imageBuffer.toString("base64");
-    const mimeType = "image/jpeg"; // Adjust the MIME type as needed, e.g., "image/png"
 
-    res.json({
+    res.status(200).send({
       message: "User image fetched successfully",
-      image: `data:${mimeType};base64,${base64Image}`,
+      image: `data:${user.contentType};base64,${base64Image}`,
     });
   } catch (error) {
     console.error(error);
@@ -220,14 +229,22 @@ const deleteUser = async (req, res) => {
   const { uniqueId } = req.body;
   console.log("UniqueId: ", uniqueId);
 
+  const userId = uniqueId;
+
   try {
-    const user = await UserModel.findOneAndDelete({ _id: uniqueId });
+    const user = await UserModel.findOneAndDelete({ _id: userId });
 
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
 
-    res.status(200).send({ message: "Your account deleted successfully" });
+    const deleteCartItems = await CartModel.deleteMany({ userId: userId });
+
+    if (user && deleteCartItems) {
+      return res
+        .status(200)
+        .send({ message: "Your account deleted successfully" });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Failed to delete" });

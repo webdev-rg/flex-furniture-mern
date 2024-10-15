@@ -45,6 +45,7 @@ export const ProductList = () => {
             return (
               <ProductCard
                 key={product._id}
+                id={product._id}
                 name={product.name}
                 price={product.price}
                 discount={product.discount}
@@ -62,6 +63,7 @@ export const ProductList = () => {
 };
 
 const ProductCard = ({
+  id,
   name,
   price,
   discount,
@@ -71,6 +73,7 @@ const ProductCard = ({
   images,
 }) => {
   const handleDeleteProduct = async (productId) => {
+    console.log(productId)
     try {
       const response = await fetch(
         `http://localhost:1901/api/deleteproduct/${productId}`,
@@ -183,7 +186,10 @@ const ProductCard = ({
             <button className="px-8 py-3 bg-green-600 rounded-xl text-2xl text-white font-semibold tracking-wide">
               Update
             </button>
-            <button className="px-8 py-3 bg-red-600 rounded-xl text-2xl text-white font-semibold tracking-wide">
+            <button
+              className="px-8 py-3 bg-red-600 rounded-xl text-2xl text-white font-semibold tracking-wide"
+              onClick={() => handleDeleteProduct(id)}
+            >
               Delete
             </button>
           </div>

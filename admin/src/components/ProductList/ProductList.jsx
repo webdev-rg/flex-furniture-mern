@@ -76,7 +76,7 @@ const ProductCard = ({
     console.log(productId)
     try {
       const response = await fetch(
-        `http://localhost:1901/api/deleteproduct/${productId}`,
+        `https://flex-furniture-server.onrender.com/api/deleteproduct/${productId}`,
         {
           method: "DELETE",
         }

@@ -33,10 +33,10 @@ export const ProductList = () => {
     <div className="w-full h-full p-10 flex flex-col gap-10">
       <div>
         <h1 className="text-4xl font-bold text-flex-furniture-950">
-          Product List
+          Product List ({products.length})
         </h1>
       </div>
-      <div className="w-full flex flex-col gap-10">
+      <div className="w-full flex flex-col gap-10 overflow-y-auto">
         {loading ? (
           <Loading />
         ) : (

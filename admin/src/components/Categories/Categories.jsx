@@ -31,7 +31,7 @@ export const Categories = () => {
             const imageBlobRes = await fetch(
               `https://flex-furniture-server.onrender.com/api/getcategoryimage/${item._id}`
             );
-            
+
             if (!imageBlobRes.ok) {
               throw new Error(`Error fetching image for category ${item._id}`);
             }
@@ -62,7 +62,7 @@ export const Categories = () => {
 
   return (
     <>
-      <div className="w-full h-full p-10 ">
+      <div className="w-full h-full p-10">
         <div className="w-full flex justify-between ">
           <h1 className="text-4xl font-bold text-flex-furniture-950">
             Categories ({categories.length})
@@ -76,34 +76,35 @@ export const Categories = () => {
         </div>
 
         <div className="w-full h-full overflow-y-auto">
-          {loading ? (
-            <div className="w-full h-full flex flex-col items-center justify-center gap-5">
-              <Loading />
-              <span className="text-3xl font-semibold">Loading categories</span>
-            </div>
-          ) : categories.length === 0 ? (
-            <div className="w-full mt-10">
-              <h1 className="text-3xl text-flex-furniture-950 font-semibold">
-                No categories found
-              </h1>
-            </div>
-          ) : (
-            <div className="w-full h-full mt-10 grid grid-cols-2 gap-5 overflow-y-auto">
-              {categories.map((item) => {
-                return (
-                  <div key={item._id} className="flex flex-col h-full">
-                    <Category
-                      id={item._id}
-                      name={item.name}
-                      productCount={item.productCount}
-                      image={item.imageURL}
-                      getCategories={handleGetCategories}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          )}
+          <div className="w-full h-full">
+            {loading ? (
+              <div className="w-full h-full flex flex-col items-center justify-center gap-5">
+                <Loading />
+              </div>
+            ) : categories.length === 0 ? (
+              <div className="w-full mt-10">
+                <h1 className="text-3xl text-flex-furniture-950 font-semibold">
+                  No categories found
+                </h1>
+              </div>
+            ) : (
+              <div className="w-full h-full mt-10 grid grid-cols-2 gap-5">
+                {categories.map((item) => {
+                  return (
+                    <div key={item._id} className="flex flex-col h-full">
+                      <Category
+                        id={item._id}
+                        name={item.name}
+                        productCount={item.productCount}
+                        image={item.imageURL}
+                        getCategories={handleGetCategories}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </div>
       {isCategoryForm ? (
@@ -271,7 +272,7 @@ const CategoryForm = ({ setIsCategoryForm, getCategories }) => {
       <ToastContainer />
       <div
         style={{ backgroundColor: "rgba(2, 13, 25, 0.5)" }}
-        className="w-full h-full absolute top-0 left-0"
+        className="w-full h-full absolute top-0 left-0 z-20 overflow-y-hidden"
       >
         <div className="w-full flex justify-center">
           <div className="w-[45rem] h-full p-8 bg-white mt-32 rounded-3xl">

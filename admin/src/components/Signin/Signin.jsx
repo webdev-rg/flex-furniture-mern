@@ -58,7 +58,7 @@ export const Signin = ({ isLoggedIn }) => {
           theme: "light",
         });
         setTimeout(() => {
-          navigate("/admin-dashboard");
+          navigate("/admin/dashboard");
         }, 2000);
       }
     } catch (error) {

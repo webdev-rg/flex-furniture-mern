@@ -117,7 +117,7 @@ export const AddProductForm = () => {
                   placeholder="Enter Product Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full h-20 px-5 text-3xl font-semibold placeholder:font-normal border border-slate-200 focus:border-flex-furniture-950 valid:border-flex-furniture-950 rounded-xl"
+                  className="w-full h-20 px-5 text-2xl font-semibold placeholder:font-normal border border-slate-200 focus:border-flex-furniture-950 valid:border-flex-furniture-950 rounded-xl"
                   required
                 />
               </div>
@@ -133,7 +133,7 @@ export const AddProductForm = () => {
                   placeholder="Enter Product Description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full h-52 p-5 text-3xl font-light placeholder:font-normal border border-slate-200 focus:border-flex-furniture-950 valid:border-vaso-700 rounded-xl"
+                  className="w-full h-52 p-5 text-2xl font-light placeholder:font-normal border border-slate-200 focus:border-flex-furniture-950 valid:border-vaso-700 rounded-xl"
                   required
                 ></textarea>
               </div>
@@ -142,15 +142,17 @@ export const AddProductForm = () => {
               <h1 className="text-3xl font-bold text-vaso-950">
                 Product Media
               </h1>
-              <div className="mt-5 w-full px-5 py-10 grid grid-cols-2 gap-5">
+              <div className="mt-5 w-full py-10 grid grid-cols-2 gap-5">
                 {images.map((image, index) => (
                   <div
                     key={index}
-                    className="p-8 border-2 border-dashed rounded-2xl border-gray-400 bg-gray-100 relative"
+                    className={`${
+                      imagePreviews[index] ? "p-0" : "p-8"
+                    } border-2 border-dashed rounded-2xl border-gray-400 bg-gray-100 relative overflow-hidden`}
                   >
                     <label
                       htmlFor={`add-image-${index}`}
-                      className="flex flex-col items-center gap-2 text-2xl font-bold text-vaso-700 cursor-pointer"
+                      className="flex flex-col items-center gap-2 text-2xl font-bold text-flex-furniture-950 cursor-pointer"
                     >
                       {imagePreviews[index] ? (
                         <img
@@ -176,99 +178,6 @@ export const AddProductForm = () => {
                     />
                   </div>
                 ))}
-                {/* <div className="p-8 border-2 border-dashed rounded-2xl border-gray-400 bg-gray-100">
-                  <label
-                    htmlFor="add-image"
-                    className="flex flex-col items-center gap-2 text-2xl font-bold text-vaso-700 cursor-pointer"
-                  >
-                    <i className="fi fi-rr-plus text-3xl"></i>
-                    Add Image
-                  </label>
-                  <input
-                    type="file"
-                    name="product-image"
-                    id="add-image"
-                    onChange={(e) => setImage1(e.target.files[0])}
-                    accept="image/*"
-                    hidden
-                  />
-                </div>
-                <div className="p-8 border-2 border-dashed rounded-2xl border-gray-400 bg-gray-100">
-                  <label
-                    htmlFor="add-image"
-                    className="flex flex-col items-center gap-2 text-2xl font-bold text-vaso-700 cursor-pointer"
-                  >
-                    <i className="fi fi-rr-plus text-3xl"></i>
-                    Add Image
-                  </label>
-                  <input
-                    type="file"
-                    name="product-image"
-                    id="add-image"
-                    onChange={(e) => setImage2(e.target.files[0])}
-                    accept="image/*"
-                    hidden
-                  />
-                </div>
-                <div className="p-8 border-2 border-dashed rounded-2xl border-gray-400 bg-gray-100">
-                  <label
-                    htmlFor="add-image"
-                    className="flex flex-col items-center gap-2 text-2xl font-bold text-vaso-700 cursor-pointer"
-                  >
-                    <i className="fi fi-rr-plus text-3xl"></i>
-                    Add Image
-                  </label>
-                  <input
-                    type="file"
-                    name="product-image"
-                    id="add-image"
-                    onChange={(e) => setImage3(e.target.files[0])}
-                    accept="image/*"
-                    hidden
-                  />
-                </div>
-                <div className="p-8 border-2 border-dashed rounded-2xl border-gray-400 bg-gray-100">
-                  <label
-                    htmlFor="add-image"
-                    className="flex flex-col items-center gap-2 text-2xl font-bold text-vaso-700 cursor-pointer"
-                  >
-                    <i className="fi fi-rr-plus text-3xl"></i>
-                    Add Image
-                  </label>
-                  <input
-                    type="file"
-                    name="product-image"
-                    id="add-image"
-                    onChange={(e) => setImage4(e.target.files[0])}
-                    accept="image/*"
-                    hidden
-                  />
-                </div> */}
-                {/* {imagePreview ? (
-                  <img
-                    src={imagePreview}
-                    alt="Product Preview"
-                    className="w-[20rem] object-cover"
-                  />
-                ) : (
-                  <div>
-                    <label
-                      htmlFor="add-image"
-                      className="flex items-center gap-2 text-3xl font-bold text-vaso-700 cursor-pointer"
-                    >
-                      <BsImage className="text-4xl text-violet-700" />
-                      No Image Selected
-                    </label>
-                    <input
-                      type="file"
-                      name="product-image"
-                      id="add-image"
-                      onChange={handleImageChange}
-                      accept="image/*"
-                      hidden
-                    />
-                  </div>
-                )} */}
               </div>
             </div>
           </div>

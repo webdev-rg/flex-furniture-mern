@@ -6,7 +6,7 @@ require("./config");
 const adminRoute = require("./routes/adminRoute");
 const categoryRoute = require("./routes/categoryRoute");
 const productRoute = require("./routes/productRoute");
-const userModel = require("./models/userModel");
+const userRoute = require("./routes/userRoute");
 const productModel = require("./models/productModel");
 const cartModel = require("./models/cartModel");
 
@@ -31,238 +31,239 @@ app.use("/api", categoryRoute);
 app.use("/api", productRoute);
 
 //? Users API
-//* Signup User
 
-app.post("/api/usersignup", async (req, res) => {
-  console.log(req.body);
-  const { user } = req.body;
+app.use("/api", userRoute);
 
-  try {
-    const existingUser = await userModel.findOne({ email: user.email });
+// app.post("/api/usersignup", async (req, res) => {
+//   console.log(req.body);
+//   const { user } = req.body;
 
-    if (!existingUser) {
-      const token = generateToken();
-      const tokenExpirationTime = new Date(Date.now() + 5 * 60 * 1000);
-      console.log(tokenExpirationTime);
+//   try {
+//     const existingUser = await userModel.findOne({ email: user.email });
 
-      const data = userModel({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        phoneNumber: 0,
-        address: "",
-        token: token,
-        tokenExpiration: tokenExpirationTime,
-      });
+//     if (!existingUser) {
+//       const token = generateToken();
+//       const tokenExpirationTime = new Date(Date.now() + 5 * 60 * 1000);
+//       console.log(tokenExpirationTime);
 
-      await data.save();
-      await sendVerificationToken(user.email, token);
-      res.status(200).send({
-        message: "Verification token has sent to your email",
-        userData: data,
-      });
-    } else {
-      return res.status(400).send({ message: "Email already exists" });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Registration failed..." });
-  }
-});
+//       const data = userModel({
+//         firstName: user.firstName,
+//         lastName: user.lastName,
+//         email: user.email,
+//         phoneNumber: 0,
+//         address: "",
+//         token: token,
+//         tokenExpiration: tokenExpirationTime,
+//       });
 
-//* Signin User
+//       await data.save();
+//       await sendVerificationToken(user.email, token);
+//       res.status(200).send({
+//         message: "Verification token has sent to your email",
+//         userData: data,
+//       });
+//     } else {
+//       return res.status(400).send({ message: "Email already exists" });
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send({ message: "Registration failed..." });
+//   }
+// });
 
-app.post("/api/usersignin", async (req, res) => {
-  const { email } = req.body;
+// //* Signin User
 
-  try {
-    const user = await userModel.findOne({ email: email });
+// app.post("/api/usersignin", async (req, res) => {
+//   const { email } = req.body;
 
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
-    } else if (!user.isVerified) {
-      return res.status(404).send({ message: "Your account is not verified" });
-    }
+//   try {
+//     const user = await userModel.findOne({ email: email });
 
-    const token = generateToken();
-    const tokenExpirationTime = new Date(Date.now() + 5 * 60 * 1000);
+//     if (!user) {
+//       return res.status(404).send({ message: "User not found" });
+//     } else if (!user.isVerified) {
+//       return res.status(404).send({ message: "Your account is not verified" });
+//     }
 
-    user.token = token;
-    user.tokenExpiration = tokenExpirationTime;
+//     const token = generateToken();
+//     const tokenExpirationTime = new Date(Date.now() + 5 * 60 * 1000);
 
-    try {
-      await user.save();
-      console.log("User saved succefully");
-    } catch (error) {
-      console.error(error);
-    }
+//     user.token = token;
+//     user.tokenExpiration = tokenExpirationTime;
 
-    await sendVerificationToken(email, token);
-    res
-      .status(200)
-      .send({ message: "Signin token has sent to your email", userData: user });
-  } catch (error) {}
-});
+//     try {
+//       await user.save();
+//       console.log("User saved succefully");
+//     } catch (error) {
+//       console.error(error);
+//     }
 
-app.post("/api/userdetails", async (req, res) => {
-  const { email } = req.body;
+//     await sendVerificationToken(email, token);
+//     res
+//       .status(200)
+//       .send({ message: "Signin token has sent to your email", userData: user });
+//   } catch (error) {}
+// });
 
-  try {
-    const user = await userModel.findOne({ email: email });
+// app.post("/api/userdetails", async (req, res) => {
+//   const { email } = req.body;
 
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
-    }
+//   try {
+//     const user = await userModel.findOne({ email: email });
 
-    // console.log(user);
-    return res.status(200).send({ message: "User found", userDetails: user });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({ message: "Error fetching user data" });
-  }
-});
+//     if (!user) {
+//       return res.status(404).send({ message: "User not found" });
+//     }
 
-app.put("/api/updateuser", async (req, res) => {
-  const { email, firstName, lastName, phoneNumber, address } = req.body;
+//     // console.log(user);
+//     return res.status(200).send({ message: "User found", userDetails: user });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send({ message: "Error fetching user data" });
+//   }
+// });
 
-  try {
-    const user = await userModel.findOneAndUpdate(
-      { email: email },
-      {
-        $set: {
-          firstName: firstName,
-          lastName: lastName,
-          phoneNumber: phoneNumber,
-          address: address,
-        },
-      }
-    );
+// app.put("/api/updateuser", async (req, res) => {
+//   const { email, firstName, lastName, phoneNumber, address } = req.body;
 
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
-    }
+//   try {
+//     const user = await userModel.findOneAndUpdate(
+//       { email: email },
+//       {
+//         $set: {
+//           firstName: firstName,
+//           lastName: lastName,
+//           phoneNumber: phoneNumber,
+//           address: address,
+//         },
+//       }
+//     );
 
-    res.status(200).send({ message: "Details updated successfully" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Error updating your details" });
-  }
-});
+//     if (!user) {
+//       return res.status(404).send({ message: "User not found" });
+//     }
 
-app.put(
-  "/api/updateprofileimage",
-  upload.single("profileImage"),
-  async (req, res) => {
-    const { email } = req.body;
+//     res.status(200).send({ message: "Details updated successfully" });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send({ message: "Error updating your details" });
+//   }
+// });
 
-    try {
-      // Check if a file was uploaded
-      if (!req.file) {
-        return res.status(400).send({ message: "No file uploaded" });
-      }
+// app.put(
+//   "/api/updateprofileimage",
+//   upload.single("profileImage"),
+//   async (req, res) => {
+//     const { email } = req.body;
 
-      // Determine if the file is JPEG or PNG
-      let compressedImage;
-      const fileType = req.file.mimetype;
+//     try {
+//       // Check if a file was uploaded
+//       if (!req.file) {
+//         return res.status(400).send({ message: "No file uploaded" });
+//       }
 
-      if (fileType === "image/jpeg") {
-        compressedImage = await sharp(req.file.buffer)
-          .resize({ width: 300 })
-          .jpeg({ quality: 80 }) // Use jpeg settings
-          .toBuffer();
-      } else if (fileType === "image/png") {
-        compressedImage = await sharp(req.file.buffer)
-          .resize({ width: 300 })
-          .png({ compressionLevel: 8 }) // Use png settings
-          .toBuffer();
-      } else {
-        return res.status(400).send({ message: "Unsupported file format" });
-      }
+//       // Determine if the file is JPEG or PNG
+//       let compressedImage;
+//       const fileType = req.file.mimetype;
 
-      // Update the user's profile with the compressed image and its content type
-      const user = await userModel.findOneAndUpdate(
-        { email: email },
-        { $set: { image: compressedImage, contentType: fileType } }
-      );
+//       if (fileType === "image/jpeg") {
+//         compressedImage = await sharp(req.file.buffer)
+//           .resize({ width: 300 })
+//           .jpeg({ quality: 80 }) // Use jpeg settings
+//           .toBuffer();
+//       } else if (fileType === "image/png") {
+//         compressedImage = await sharp(req.file.buffer)
+//           .resize({ width: 300 })
+//           .png({ compressionLevel: 8 }) // Use png settings
+//           .toBuffer();
+//       } else {
+//         return res.status(400).send({ message: "Unsupported file format" });
+//       }
 
-      if (!user) {
-        return res.status(404).send({ message: "User not found" });
-      }
+//       // Update the user's profile with the compressed image and its content type
+//       const user = await userModel.findOneAndUpdate(
+//         { email: email },
+//         { $set: { image: compressedImage, contentType: fileType } }
+//       );
 
-      res.status(200).send({ message: "Profile image updated successfully" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).send({ message: "Profile image not uploaded" });
-    }
-  }
-);
+//       if (!user) {
+//         return res.status(404).send({ message: "User not found" });
+//       }
 
-app.post("/api/getuserimage", async (req, res) => {
-  const { email } = req.body;
-  const user = await userModel.findOne({ email });
+//       res.status(200).send({ message: "Profile image updated successfully" });
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).send({ message: "Profile image not uploaded" });
+//     }
+//   }
+// );
 
-  if (!user || !user.image) {
-    return res.status(404).json({ message: "User or image not found" });
-  }
+// app.post("/api/getuserimage", async (req, res) => {
+//   const { email } = req.body;
+//   const user = await userModel.findOne({ email });
 
-  const imageBuffer = user.image; // This should be the buffer stored in the database
-  const base64Image = imageBuffer.toString("base64");
-  const mimeType = "image/jpeg"; // Adjust the MIME type as needed, e.g., "image/png"
+//   if (!user || !user.image) {
+//     return res.status(404).json({ message: "User or image not found" });
+//   }
 
-  res.json({
-    message: "User image fetched successfully",
-    image: `data:${mimeType};base64,${base64Image}`,
-  });
-});
+//   const imageBuffer = user.image; // This should be the buffer stored in the database
+//   const base64Image = imageBuffer.toString("base64");
+//   const mimeType = "image/jpeg"; // Adjust the MIME type as needed, e.g., "image/png"
 
-app.post("/api/verify", async (req, res) => {
-  const { verificationToken, email } = req.body;
+//   res.json({
+//     message: "User image fetched successfully",
+//     image: `data:${mimeType};base64,${base64Image}`,
+//   });
+// });
 
-  try {
-    const user = await userModel.findOne({ email: email });
+// app.post("/api/verify", async (req, res) => {
+//   const { verificationToken, email } = req.body;
 
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
-    }
+//   try {
+//     const user = await userModel.findOne({ email: email });
 
-    if (user.token !== verificationToken) {
-      return res.status(400).send({ message: "Incorrect verification token" });
-    }
+//     if (!user) {
+//       return res.status(404).send({ message: "User not found" });
+//     }
 
-    if (user.tokenExpiration < Date.now()) {
-      console.log("Verification token expires", new Date().toTimeString());
-      return res.status(400).send({ message: "Verification token expires" });
-    }
+//     if (user.token !== verificationToken) {
+//       return res.status(400).send({ message: "Incorrect verification token" });
+//     }
 
-    user.isVerified = true;
-    user.token = null;
-    user.tokenExpiration = null;
-    await user.save();
+//     if (user.tokenExpiration < Date.now()) {
+//       console.log("Verification token expires", new Date().toTimeString());
+//       return res.status(400).send({ message: "Verification token expires" });
+//     }
 
-    return res.status(200).send({ message: "Verification Successfull" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Verification failed" });
-  }
-});
+//     user.isVerified = true;
+//     user.token = null;
+//     user.tokenExpiration = null;
+//     await user.save();
 
-app.delete("/api/deleteuser", async (req, res) => {
-  const { uniqueId } = req.body;
-  console.log("UniqueId: ", uniqueId);
+//     return res.status(200).send({ message: "Verification Successfull" });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send({ message: "Verification failed" });
+//   }
+// });
 
-  try {
-    const user = await userModel.findOneAndDelete({ _id: uniqueId });
+// app.delete("/api/deleteuser", async (req, res) => {
+//   const { uniqueId } = req.body;
+//   console.log("UniqueId: ", uniqueId);
 
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
-    }
+//   try {
+//     const user = await userModel.findOneAndDelete({ _id: uniqueId });
 
-    res.status(200).send({ message: "Your account deleted successfully" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Failed to delete" });
-  }
-});
+//     if (!user) {
+//       return res.status(404).send({ message: "User not found" });
+//     }
+
+//     res.status(200).send({ message: "Your account deleted successfully" });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send({ message: "Failed to delete" });
+//   }
+// });
 
 //? Add to cart API
 

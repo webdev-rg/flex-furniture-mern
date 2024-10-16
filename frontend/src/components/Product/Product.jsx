@@ -56,6 +56,7 @@ export const Product = () => {
   };
 
   const handleGetProduct = async () => {
+    setLoading(true);
     const response = await fetch(`${URL}/api/getproduct/${productName}`);
 
     const data = await response.json();
@@ -152,7 +153,7 @@ export const Product = () => {
 
   useEffect(() => {
     handleGetProduct();
-  }, []);
+  }, [productName]);
 
   useEffect(() => {
     window.scrollTo({
@@ -163,11 +164,13 @@ export const Product = () => {
 
   return (
     <>
+      <ToastContainer />
       {/* Scroll To Top */}
       <div className="fixed right-0 bottom-0">
         <ScrollToTop />
       </div>
-      <ToastContainer />
+
+      {/* Product */}
       <div className="w-full pt-40 px-32">
         {loading ? (
           <Loading />

@@ -95,15 +95,13 @@ export const Header = ({ isUserLoggedIn, cartDetails }) => {
             />
           </div>
           <div className="relative">
-            <Link to={`${isUserLoggedIn === false ? "/signin" : "/dashboard/myprofile"}`}>
+            <Link
+              to={`${
+                isUserLoggedIn === false ? "/signin" : "/dashboard/myprofile"
+              }`}
+            >
               <CiUser className="text-4xl text-flex-furniture-950 hover:text-gray-400 transition-all duration-300 cursor-pointer" />
             </Link>
-          </div>
-          <div className="relative">
-            <CiHeart className="text-4xl text-flex-furniture-950 hover:text-gray-400 transition-all duration-300 cursor-pointer" />
-            <div className="absolute -top-3 -right-4 w-7 h-7 flex items-center justify-center bg-flex-furniture-950 rounded-full">
-              <span className="text-xl text-white">0</span>
-            </div>
           </div>
           <div className="relative">
             <Link to="/cart">

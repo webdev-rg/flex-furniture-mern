@@ -87,6 +87,10 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    handleGetCartDetails(userData._id);
+  }, [cartDetails]);
+
   return (
     <Data.Provider
       value={{

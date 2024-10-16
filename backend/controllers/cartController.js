@@ -26,7 +26,7 @@ const addToCart = async (req, res) => {
       productQuantity: quantity,
       productImage: productImage,
       totalPrice: totalPrice,
-      userAddress: userAddress ? userAddress : "",
+      userAddress: userAddress ? userAddress : "No Address",
       userId: userId,
     });
 

@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { LuMinus } from "react-icons/lu";
-import { GoHeart } from "react-icons/go";
 import { RiFacebookLine, RiTwitterLine, RiInstagramLine } from "react-icons/ri";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -297,12 +296,7 @@ export const Product = () => {
                     BUY NOW
                   </button>
                 </div>
-                <div className="w-full flex items-center justify-between">
-                  <div>
-                    <h1 className="flex items-center gap-3 text-2xl">
-                      <GoHeart /> Add to wishlist
-                    </h1>
-                  </div>
+                <div className="w-full">
                   <div className="flex items-center gap-5">
                     <RiFacebookLine className="text-3xl" />
                     <RiInstagramLine className="text-3xl" />

@@ -8,8 +8,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 
 export const Cart = () => {
-  const { cartDetails, loading, setLoading, userData, handleGetCartDetails, URL } =
-    useContext(Data);
+  const {
+    cartDetails,
+    loading,
+    setLoading,
+    userData,
+    handleGetCartDetails,
+    URL,
+  } = useContext(Data);
   const [quantity, setQuantity] = useState([]);
 
   useEffect(() => {
@@ -43,6 +49,7 @@ export const Cart = () => {
   }, 0);
 
   const handleUpdateCart = async () => {
+    setLoading(true);
     try {
       const updatedCartItems = cartDetails.map((item, index) => ({
         productId: item._id,
@@ -85,6 +92,7 @@ export const Cart = () => {
           progress: undefined,
           theme: "light",
         });
+        setLoading(false);
         handleGetCartDetails(userData._id);
         return;
       }
@@ -95,6 +103,7 @@ export const Cart = () => {
 
   const handelDeleteCartItem = async (cartId) => {
     console.log(cartId);
+    setLoading(true);
 
     try {
       const response = await fetch(`${URL}/api/deletecartitem/${cartId}`, {
@@ -119,7 +128,7 @@ export const Cart = () => {
           theme: "light",
         });
         return;
-      } 
+      }
       if (data.message === "One item deleted") {
         toast.success(`${data.cartItem.productName} removed from your cart`, {
           position: "top-center",
@@ -131,6 +140,7 @@ export const Cart = () => {
           progress: undefined,
           theme: "light",
         });
+        setLoading(false);
         handleGetCartDetails(userData._id);
         return;
       }
@@ -142,7 +152,7 @@ export const Cart = () => {
   return (
     <>
       <ToastContainer />
-      <div className="w-full h-full py-40 px-32 flex flex-col gap-10">
+      <div className="w-full h-screen py-40 px-32 flex flex-col gap-10">
         <div className="w-full py-8 text-center">
           <h1 className="text-5xl text-flex-furniture-950 font-bold tracking-widest">
             Shopping Cart
@@ -175,9 +185,11 @@ export const Cart = () => {
                   </thead>
                   <tbody>
                     {loading ? (
-                      <div className="w-full flex justify-center">
-                        <Loading />
-                      </div>
+                      <tr>
+                        <td colSpan={5}>
+                          <Loading />
+                        </td>
+                      </tr>
                     ) : (
                       cartDetails.map((item, index) => {
                         return (
@@ -284,12 +296,12 @@ export const Cart = () => {
             </div>
           </div>
         ) : (
-          <div className="w-full flex flex-col items-center gap-8">
+          <div className="w-full h-full flex flex-col items-center justify-center gap-8">
             <div>
               <img
                 src="/images/cart-empty.svg"
                 alt="cart-empty"
-                className="w-64 opacity-40"
+                className="w-72 opacity-40"
               />
             </div>
             <p className="text-3xl text-flex-furniture-950 font-light">

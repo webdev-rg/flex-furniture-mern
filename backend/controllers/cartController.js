@@ -19,6 +19,18 @@ const addToCart = async (req, res) => {
     totalPrice += price;
   }
 
+  const existingProduct = await CartModel.findOne({ productName: productName });
+
+  if (existingProduct) {
+    await CartModel.updateOne(
+      { productName: productName },
+      { $inc: { productQuantity: quantity, totalPrice: totalPrice } },
+      { new: true }
+    );
+    res.status(200).send({ message: "Product added to your cart" });
+    return;
+  }
+
   try {
     const product = new CartModel({
       productName: productName,
@@ -57,6 +69,35 @@ const getCartItems = async (req, res) => {
   }
 };
 
+const updateCart = async (req, res) => {
+  const userId = req.params.userId;
+  const { cartItems } = req.body;
+
+  try {
+    const cartItem = await CartModel.findOne({ userId: userId });
+
+    if (!cartItem) {
+      return res.status(404).send({ message: "Cart item not found" });
+    }
+
+    cartItems.map(async (item) => {
+      await CartModel.updateOne(
+        { _id: item.productId },
+        {
+          $set: {
+            productQuantity: item.productQuantity,
+            totalPrice: item.totalPrice,
+          },
+        }
+      );
+    });
+    res.status(200).send({ message: "Your Cart updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Error updating cart" });
+  }
+};
+
 const deleteCartItem = async (req, res) => {
   try {
     const cartItem = await CartModel.findOne({ _id: req.params.cartId });
@@ -66,13 +107,11 @@ const deleteCartItem = async (req, res) => {
 
     const deleteCartItem = await CartModel.deleteOne(cartItem);
 
-    if (deleteCartItem.modifiedCount > 0) {
-      res.status(200).send({ message: "One item deleted", cartItem: cartItem });
-    }
+    res.status(200).send({ message: "One item deleted", cartItem: cartItem });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Error deleting cart item" });
   }
 };
 
-module.exports = { addToCart, getCartItems, deleteCartItem };
+module.exports = { addToCart, getCartItems, updateCart, deleteCartItem };

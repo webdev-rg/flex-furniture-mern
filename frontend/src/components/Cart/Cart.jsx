@@ -8,13 +8,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 
 export const Cart = () => {
-  const { cartDetails, loading, userData, handleGetCartDetails, URL } =
+  const { cartDetails, loading, setLoading, userData, handleGetCartDetails, URL } =
     useContext(Data);
   const [quantity, setQuantity] = useState([]);
 
   useEffect(() => {
-    handleGetCartDetails(userData._id);
-  }, [cartDetails]);
+    if (userData._id) {
+      handleGetCartDetails(userData._id);
+    }
+  }, [userData._id]);
 
   useEffect(() => {
     if (cartDetails.length > 0) {
@@ -40,6 +42,57 @@ export const Cart = () => {
     return acc + item.productPrice * quantity[index];
   }, 0);
 
+  const handleUpdateCart = async () => {
+    try {
+      const updatedCartItems = cartDetails.map((item, index) => ({
+        productId: item._id,
+        productQuantity: quantity[index],
+        totalPrice: item.productPrice * quantity[index],
+      }));
+      console.log(updatedCartItems);
+
+      const response = await fetch(`${URL}/api/updatecart/${userData._id}`, {
+        method: "PUT",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ cartItems: updatedCartItems }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+
+      if (
+        data.message === "Cart item not found" ||
+        data.message === "Error updating cart"
+      ) {
+        return toast.error(`${data.message}`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else if (data.message === "Your Cart updated successfully") {
+        toast.success(`${data.message}`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        handleGetCartDetails(userData._id);
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handelDeleteCartItem = async (cartId) => {
     console.log(cartId);
 
@@ -55,7 +108,7 @@ export const Cart = () => {
         data.message === "Cart item not found" ||
         data.message === "Error deleting cart item"
       ) {
-        return toast.error(`${data.message}`, {
+        toast.error(`${data.message}`, {
           position: "top-center",
           autoClose: 3000,
           hideProgressBar: false,
@@ -65,7 +118,9 @@ export const Cart = () => {
           progress: undefined,
           theme: "light",
         });
-      } else if (data.message === "One item deleted") {
+        return;
+      } 
+      if (data.message === "One item deleted") {
         toast.success(`${data.cartItem.productName} removed from your cart`, {
           position: "top-center",
           autoClose: 3000,
@@ -96,7 +151,7 @@ export const Cart = () => {
 
         {cartDetails.length > 0 ? (
           <div className="w-full flex justify-between gap-16">
-            <div className="w-[70%] h-full">
+            <div className="w-[70%] h-full flex flex-col gap-10">
               <div className="relative overflow-x-auto overflow-y-hidden sm:rounded-lg">
                 <table className="w-full text-flex-furniture-950">
                   <thead className="text-flex-furniture-950 bg-gray-100 text-left">
@@ -173,7 +228,7 @@ export const Cart = () => {
                             </td>
                             <td className="px-6 py-4 text-center">
                               <GoTrash
-                                className="text-3xl"
+                                className="text-3xl text-red-600 cursor-pointer"
                                 onClick={() => handelDeleteCartItem(item._id)}
                               />
                             </td>
@@ -183,6 +238,14 @@ export const Cart = () => {
                     )}
                   </tbody>
                 </table>
+              </div>
+              <div className="text-right">
+                <button
+                  className="px-10 py-3 text-2xl text-flex-furniture-950 font-semibold border border-flex-furniture-950 rounded-2xl hover:bg-flex-furniture-950 hover:text-white transition-all duration-200 ease-in-out"
+                  onClick={handleUpdateCart}
+                >
+                  Update
+                </button>
               </div>
             </div>
             <div className="w-[30%] h-full bg-gray-100 p-8">

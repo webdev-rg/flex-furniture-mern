@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState } from "react";
 export const Data = createContext();
 
 export const DataProvider = ({ children }) => {
-  const URL = "https://flex-furniture-server.onrender.com";
+  const URL = "http://localhost:1901";
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(() => {
     return localStorage.getItem("userLoggedIn") === "true";
   });
@@ -74,14 +74,10 @@ export const DataProvider = ({ children }) => {
     try {
       const response = await fetch(`${URL}/api/getcartdetails/${userId}`);
 
-      if (!response.ok) {
-        throw new Error("Error fetching cart data");
-      }
-
       const data = await response.json();
 
       if (data.message === "Cart details not found") {
-        alert(`${data.message}`);
+        setCartDetails([]);
       } else if (data.message === "Cart details") {
         setCartDetails(data.cartData);
         setLoading(false);

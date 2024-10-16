@@ -202,9 +202,7 @@ export const Cart = () => {
                   Shipping
                 </h1>
                 <p className="text-xl text-flex-furniture-950 font-medium tracking-wide leading-relaxed">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
-                  aperiam veritatis eum sed beatae. Quam maiores nostrum dolorem
-                  ab facilis.
+                  {userData.address ? userData.address : "No Address"}
                 </p>
               </div>
               <div className="w-full flex justify-between py-8">

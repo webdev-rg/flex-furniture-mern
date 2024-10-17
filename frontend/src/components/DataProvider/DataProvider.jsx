@@ -88,7 +88,7 @@ export const DataProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    handleGetCartDetails(userData._id);
+    if (userData && userData._id) handleGetCartDetails(userData._id);
   }, [cartDetails]);
 
   return (

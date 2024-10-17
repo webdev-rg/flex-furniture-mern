@@ -79,7 +79,7 @@ export const Shop = () => {
       <div className="w-full h-full lg:px-32 px-5 pb-20">
         <div className="w-full h-full">
           <div className="w-full h-full">
-            <div className="w-full h-full grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-10">
+            <div className="w-full h-full grid md:grid-cols-4 grid-cols-2 gap-10">
               {loading ? (
                 <div className="w-full col-span-4 flex justify-center">
                   <Loading />

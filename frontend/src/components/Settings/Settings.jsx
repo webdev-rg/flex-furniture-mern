@@ -62,7 +62,7 @@ export const Settings = () => {
               >
                 Enter your registered email
               </label>
-              <div className="w-1/2 h-20">
+              <div className="md:w-1/2 h-20">
                 <input
                   type="email"
                   name="email"

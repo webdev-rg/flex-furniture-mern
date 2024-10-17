@@ -8,6 +8,7 @@ export const Dashboard = () => {
   const { setIsUserLoggedIn, updatedUserDetails, userData, URL } =
     useContext(Data);
   const [profileImage, setProfileImage] = useState(null);
+  const [isSideBar, setIsSideBar] = useState(false);
   const navigate = useNavigate();
 
   const handleUpdateProfileImage = async (e) => {
@@ -101,11 +102,21 @@ export const Dashboard = () => {
   return (
     <>
       <ToastContainer />
-      <div className="w-full h-full p-32 bg-white">
+      <div className="w-full h-full lg:px-32 px-5 md:py-32 py-28 bg-white">
         <div className="w-full h-full py-10">
           <div className="w-full h-full flex justify-between gap-10">
-            <div className="w-[25%] h-full p-10 bg-white border border-slate-200 rounded-2xl flex flex-col gap-5">
+            <div
+              className={`md:w-[30%] w-[45%] md:static absolute top-32 ${
+                isSideBar ? "left-0" : "-left-full"
+              } h-full p-10 bg-white md:border md:border-slate-200 md:rounded-2xl border-r border-r-slate-200 flex flex-col gap-5 transition-all duration-500 ease-in-out`}
+            >
               <div className="w-full flex flex-col items-center gap-5">
+                <div className="w-full md:hidden flex justify-end">
+                  <i
+                    className="fi fi-rr-cross text-3xl"
+                    onClick={() => setIsSideBar(false)}
+                  ></i>
+                </div>
                 <div className="w-60 h-60 border rounded-full flex items-center justify-center">
                   <label
                     htmlFor="user-profile-image"
@@ -146,6 +157,7 @@ export const Dashboard = () => {
                             : "border border-transparent"
                         } rounded-2xl cursor-pointer hover:border-slate-200 transition-all duration-200 ease-in-out`
                       }
+                      onClick={() => setIsSideBar(false)}
                     >
                       <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
                         <i className="fi fi-rr-user text-2xl"></i>
@@ -155,7 +167,7 @@ export const Dashboard = () => {
                       </h1>
                     </NavLink>
                   </li>
-                  <li>
+                  {/* <li>
                     <NavLink
                       to="/dashboard/orders"
                       className={({ isActive }) =>
@@ -173,7 +185,7 @@ export const Dashboard = () => {
                         My Order List
                       </h1>
                     </NavLink>
-                  </li>
+                  </li> */}
                   <li>
                     <NavLink
                       to="/dashboard/settings"
@@ -184,6 +196,7 @@ export const Dashboard = () => {
                             : "border border-transparent"
                         } rounded-2xl cursor-pointer hover:border-slate-200 transition-all duration-200 ease-in-out`
                       }
+                      onClick={() => setIsSideBar(false)}
                     >
                       <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
                         <i className="fi fi-rr-settings text-2xl"></i>
@@ -210,8 +223,16 @@ export const Dashboard = () => {
                 </ul>
               </div>
             </div>
-            <div className="w-[75%] h-full bg-white border border-slate-200 rounded-2xl">
-              <Outlet />
+            <div className="w-full h-full flex flex-col gap-4">
+              <div className="md:hidden block">
+                <i
+                  className="fi fi-rr-menu-burger text-3xl text-flex-furniture-950"
+                  onClick={() => setIsSideBar(true)}
+                ></i>
+              </div>
+              <div className="w-full h-full bg-white border border-slate-200 rounded-2xl">
+                <Outlet />
+              </div>
             </div>
           </div>
         </div>

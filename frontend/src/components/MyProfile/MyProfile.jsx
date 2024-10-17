@@ -81,7 +81,7 @@ export const MyProfile = () => {
           </div>
           <div className="w-full h-full">
             <form className="w-full h-full flex flex-col gap-10">
-              <div className="w-full flex items-center justify-between gap-10">
+              <div className="w-full flex md:flex-row flex-col items-center justify-between gap-10">
                 <div className="w-full flex flex-col gap-5">
                   <label
                     htmlFor="firstName"
@@ -123,7 +123,7 @@ export const MyProfile = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-full flex items-center justify-between gap-10">
+              <div className="w-full flex md:flex-row flex-col items-center justify-between gap-10">
                 <div className="w-full flex flex-col gap-5">
                   <label
                     htmlFor="email"

@@ -6,7 +6,7 @@ import { RiFacebookLine, RiTwitterLine, RiInstagramLine } from "react-icons/ri";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,7 +28,6 @@ export const Product = () => {
   const [productImages, setProductImages] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
-  const navigate = useNavigate();
 
   const handleIncreaseQuanity = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
@@ -81,11 +80,6 @@ export const Product = () => {
         progress: undefined,
         theme: "light",
       });
-
-      setTimeout(() => {
-        navigate("/signin");
-      }, 3000);
-
       return;
     }
 

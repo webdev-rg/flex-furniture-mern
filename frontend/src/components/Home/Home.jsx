@@ -1,4 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 //? Home Slide Images
 import slide1 from "/images/slide-1.jpg";
@@ -18,7 +21,6 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import { Category } from "../Category/Category";
 import { Data } from "../DataProvider/DataProvider";
-import { Loading } from "../Loading/Loading";
 import { ScrollToTop } from "../ScrollToTop/ScrollToTop";
 
 export const Home = () => {
@@ -296,7 +298,28 @@ export const Home = () => {
           className="w-full"
         >
           {loading ? (
-            <Loading />
+            <>
+              <SwiperSlide className="w-full h-[10rem]">
+                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
+                  <Skeleton className="w-full h-full" />
+                </SkeletonTheme>
+              </SwiperSlide>
+              <SwiperSlide className="w-full h-[10rem]">
+                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
+                  <Skeleton className="w-full h-full" />
+                </SkeletonTheme>
+              </SwiperSlide>
+              <SwiperSlide className="w-full h-[10rem]">
+                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
+                  <Skeleton className="w-full h-full" />
+                </SkeletonTheme>
+              </SwiperSlide>
+              <SwiperSlide className="w-full h-[10rem]">
+                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
+                  <Skeleton className="w-full h-full" />
+                </SkeletonTheme>
+              </SwiperSlide>
+            </>
           ) : (
             products.length > 0 &&
             products.slice(0, products.length / 2).map((product) => {
@@ -419,7 +442,28 @@ export const Home = () => {
           className="w-full"
         >
           {loading ? (
-            <Loading />
+            <>
+              <SwiperSlide className="w-full h-[10rem]">
+                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
+                  <Skeleton className="w-full h-full" />
+                </SkeletonTheme>
+              </SwiperSlide>
+              <SwiperSlide className="w-full h-[10rem]">
+                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
+                  <Skeleton className="w-full h-full" />
+                </SkeletonTheme>
+              </SwiperSlide>
+              <SwiperSlide className="w-full h-[10rem]">
+                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
+                  <Skeleton className="w-full h-full" />
+                </SkeletonTheme>
+              </SwiperSlide>
+              <SwiperSlide className="w-full h-[10rem]">
+                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
+                  <Skeleton className="w-full h-full" />
+                </SkeletonTheme>
+              </SwiperSlide>
+            </>
           ) : (
             products.length > 0 &&
             products

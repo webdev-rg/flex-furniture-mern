@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
-import { Loading } from "../Loading/Loading";
 import { Data } from "../DataProvider/DataProvider";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export const Category = ({ prevButton, nextButton }) => {
   const { URL } = useContext(Data);
@@ -13,13 +14,10 @@ export const Category = ({ prevButton, nextButton }) => {
 
   const handleGetCategories = async () => {
     try {
-      const response = await fetch(
-        `${URL}/api/getcategories`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await fetch(`${URL}/api/getcategories`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
       const data = await response.json();
 
       if (!data || data.message === "No category found") {
@@ -102,7 +100,28 @@ export const Category = ({ prevButton, nextButton }) => {
       className="w-full"
     >
       {loading ? (
-        <Loading />
+        <>
+          <SwiperSlide className="w-full h-[10rem]">
+            <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
+              <Skeleton className="w-full h-full" />
+            </SkeletonTheme>
+          </SwiperSlide>
+          <SwiperSlide className="w-full h-[10rem]">
+            <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
+              <Skeleton className="w-full h-full" />
+            </SkeletonTheme>
+          </SwiperSlide>
+          <SwiperSlide className="w-full h-[10rem]">
+            <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
+              <Skeleton className="w-full h-full" />
+            </SkeletonTheme>
+          </SwiperSlide>
+          <SwiperSlide className="w-full h-[10rem]">
+            <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
+              <Skeleton className="w-full h-full" />
+            </SkeletonTheme>
+          </SwiperSlide>
+        </>
       ) : (
         categories.length > 0 &&
         categories.map((item) => {

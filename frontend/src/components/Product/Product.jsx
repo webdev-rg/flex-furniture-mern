@@ -168,9 +168,9 @@ export const Product = () => {
         {loading ? (
           <Loading />
         ) : (
-          <div className="w-full flex justify-between py-20">
-            <div className="w-[40%] flex flex-col gap-10">
-              <div>
+          <div className="w-full h-full flex justify-between py-20">
+            <div className="w-[40%] h-full flex flex-col gap-10">
+              <div className="w-full h-full">
                 <Swiper
                   style={{
                     "--swiper-navigation-color": "#020d19",
@@ -186,15 +186,16 @@ export const Product = () => {
                   }}
                   modules={[FreeMode, Navigation, Thumbs]}
                   loop={true}
+                  className="w-full h-full"
                 >
                   {productImages.length > 0 &&
                     productImages.map((image, index) => {
                       return (
-                        <SwiperSlide key={index} className="w-full h-[80%]">
+                        <SwiperSlide key={index} className="w-full h-full">
                           <div className="w-full h-full">
                             <img
                               src={image}
-                              className="w-full h-[80%] object-contain"
+                              className="w-full h-full object-cover"
                             />
                           </div>
                         </SwiperSlide>

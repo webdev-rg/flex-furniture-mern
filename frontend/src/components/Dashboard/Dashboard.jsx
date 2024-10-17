@@ -108,7 +108,7 @@ export const Dashboard = () => {
             <div
               className={`md:w-[30%] sm:w-[45%] w-[90%] md:static absolute top-32 ${
                 isSideBar ? "left-0" : "-left-full"
-              } h-full p-10 bg-white md:border md:border-slate-200 md:rounded-2xl border-r border-r-slate-200 flex flex-col gap-5 transition-all duration-500 ease-in-out`}
+              } h-full p-10 bg-white md:border md:border-slate-200 md:rounded-2xl flex flex-col gap-5 transition-all duration-500 ease-in-out`}
             >
               <div className="w-full flex flex-col items-center gap-5">
                 <div className="w-full md:hidden flex justify-end">

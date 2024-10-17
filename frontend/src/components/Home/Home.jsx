@@ -299,7 +299,7 @@ export const Home = () => {
             <Loading />
           ) : (
             products.length > 0 &&
-            products.slice(0, 5).map((product) => {
+            products.slice(0, products.length / 2).map((product) => {
               return (
                 <SwiperSlide key={product._id}>
                   <Link
@@ -422,26 +422,28 @@ export const Home = () => {
             <Loading />
           ) : (
             products.length > 0 &&
-            products.slice(5, 10).map((product) => {
-              return (
-                <SwiperSlide key={product._id}>
-                  <Link
-                    to={`/shop/product/${
-                      product.name
-                    }/category/${product.category.toLowerCase()}/${
-                      product._id
-                    }`}
-                  >
-                    <ProductCard
-                      name={product.name}
-                      price={product.price}
-                      discount={product.discount}
-                      image={product.images[0]}
-                    />
-                  </Link>
-                </SwiperSlide>
-              );
-            })
+            products
+              .slice(products.length / 2, products.length)
+              .map((product) => {
+                return (
+                  <SwiperSlide key={product._id}>
+                    <Link
+                      to={`/shop/product/${
+                        product.name
+                      }/category/${product.category.toLowerCase()}/${
+                        product._id
+                      }`}
+                    >
+                      <ProductCard
+                        name={product.name}
+                        price={product.price}
+                        discount={product.discount}
+                        image={product.images[0]}
+                      />
+                    </Link>
+                  </SwiperSlide>
+                );
+              })
           )}
         </Swiper>
       </div>

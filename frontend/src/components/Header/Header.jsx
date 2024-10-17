@@ -1,13 +1,7 @@
 import React, { useContext, useState } from "react";
 import logo from "/images/Logo.svg";
 import { Link, NavLink } from "react-router-dom";
-import {
-  CiSearch,
-  CiUser,
-  CiHeart,
-  CiShoppingCart,
-  CiMenuBurger,
-} from "react-icons/ci";
+import { CiSearch, CiUser, CiShoppingCart, CiMenuBurger } from "react-icons/ci";
 import { IoIosClose } from "react-icons/io";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { Loading } from "../Loading/Loading";
@@ -20,6 +14,7 @@ export const Header = ({ isUserLoggedIn, cartDetails }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const [isNavbar, setIsNavbar] = useState(false);
 
   const handleOpenSearchBar = () => {
     setOpenSearchBar(true);
@@ -60,8 +55,11 @@ export const Header = ({ isUserLoggedIn, cartDetails }) => {
     <>
       <header className="w-full h-32 border fixed top-0 left-0 lg:px-32 px-5 bg-white flex items-center justify-between z-20">
         <div className="h-full flex items-center gap-10">
-          <div className="block md:hidden">
-            <CiMenuBurger className="text-4xl text-[#020d19] hover:text-slate-400 transition-all duration-300 cursor-pointer" />
+          <div className="">
+            <CiMenuBurger
+              className="text-4xl text-[#020d19] hover:text-slate-400 transition-all duration-300 cursor-pointer"
+              onClick={() => setIsNavbar(true)}
+            />
           </div>
           <div className="h-full flex items-center">
             <Link to="/">
@@ -69,23 +67,6 @@ export const Header = ({ isUserLoggedIn, cartDetails }) => {
             </Link>
           </div>
         </div>
-
-        <nav className="h-full flex items-center">
-          <ul className="h-full flex items-center gap-10">
-            <li className="text-2xl px-3 py-1 text-gray-400 hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li className="text-2xl px-3 py-1 text-gray-400 hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
-              <NavLink to={`/shop/product-category/allproducts`}>Shop</NavLink>
-            </li>
-            <li className="text-2xl px-3 py-1 text-gray-400 hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
-              <NavLink to="/about">AboutUs</NavLink>
-            </li>
-            <li className="text-2xl px-3 py-1 text-gray-400 hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-1/2 before:-translate-x-1/2 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out">
-              <NavLink to="contact">Contact</NavLink>
-            </li>
-          </ul>
-        </nav>
 
         <div className="h-full flex items-center gap-10">
           <div>
@@ -116,8 +97,64 @@ export const Header = ({ isUserLoggedIn, cartDetails }) => {
         </div>
       </header>
 
+      <nav
+        className={`fixed top-0 ${
+          isNavbar ? "left-0" : "-left-full"
+        } lg:w-1/4 md:w-1/3 sm:w-1/2 w-[90%] h-screen flex flex-col gap-12 border-r border-r-slate-200 bg-white z-20 p-12 transition-all duration-500 ease-in-out`}
+      >
+        <div className="w-full flex justify-between">
+          <div>
+            <img src={logo} className="w-80" alt="logo" />
+          </div>
+          <div>
+            <i
+              className="fi fi-rr-cross text-2xl cursor-pointer"
+              onClick={() => setIsNavbar(false)}
+            ></i>
+          </div>
+        </div>
+        <ul className="w-full flex flex-col gap-4">
+          <li className="w-full">
+            <NavLink
+              to="/"
+              className="inline-block w-full text-3xl px-8 py-4 text-gray-400 hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-0 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out"
+              onClick={() => setIsNavbar(false)}
+            >
+              Home
+            </NavLink>
+          </li>
+          <li className="w-full">
+            <NavLink
+              to={`/shop/product-category/allproducts`}
+              className="inline-block w-full text-3xl px-8 py-4 text-gray-400 hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-0 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out"
+              onClick={() => setIsNavbar(false)}
+            >
+              Shop
+            </NavLink>
+          </li>
+          <li className="w-full">
+            <NavLink
+              to="/about"
+              className="inline-block w-full text-3xl px-8 py-4 text-gray-400 hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-0 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out"
+              onClick={() => setIsNavbar(false)}
+            >
+              AboutUs
+            </NavLink>
+          </li>
+          <li className="w-full">
+            <NavLink
+              to="contact"
+              className="inline-block w-full text-3xl px-8 py-4 text-gray-400 hover:text-flex-furniture-950 transition-all duration-300 tracking-wider relative before:absolute before:content-[''] before:bottom-0 before:left-0 before:w-0 before:h-[1px] before:bg-flex-furniture-950 hover:before:w-full before:transition-all before:duration-300 before:ease-in-out"
+              onClick={() => setIsNavbar(false)}
+            >
+              Contact
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
+
       <div
-        className={`lg:w-1/4 md:w-2/5 sm:w-1/2 w-full h-screen flex flex-col gap-10 fixed bg-white border border-l-[1px] transition-all duration-300 ease-in-out z-20 ${
+        className={`lg:w-1/4 md:w-2/5 sm:w-1/2 w-[90%] h-screen flex flex-col gap-10 fixed bg-white border border-l-[1px] transition-all duration-300 ease-in-out z-20 ${
           openSearchBar
             ? "right-0"
             : "lg:-right-1/4 md:-right-2/5 sm:-right-1/2 -right-full"

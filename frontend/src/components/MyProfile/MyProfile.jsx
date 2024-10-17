@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Data } from "../DataProvider/DataProvider";
@@ -12,6 +12,7 @@ export const MyProfile = () => {
     setUpdatedUserDetails,
     loading,
   } = useContext(Data);
+  const [isReadOnly, setIsReadOnly] = useState(true);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -63,6 +64,11 @@ export const MyProfile = () => {
     }
   };
 
+  const handleMakeEditable = (e) => {
+    e.preventDefault();
+    setIsReadOnly(false);
+  };
+
   useEffect(() => {
     handleGetUser();
   }, []);
@@ -97,8 +103,15 @@ export const MyProfile = () => {
                       placeholder="Firstname"
                       value={updatedUserDetails.firstName}
                       onChange={handleInputChange}
-                      className="w-full h-full px-10 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-slate-200 rounded-2xl focus:border-flex-furniture-950 valid:border-flex-furniture-950 transition-all duration-300 ease-in-out"
+                      className={`w-full h-full px-10 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-slate-200 rounded-2xl ${
+                        isReadOnly
+                          ? "border-slate-200"
+                          : "border-flex-furniture-950 focus:border-flex-furniture-950"
+                      } read-only:bg-slate-100 read-only:cursor-not-allowed
+                      valid:border-flex-furniture-950
+                       transition-all duration-300 ease-in-out`}
                       required
+                      readOnly={isReadOnly}
                     />
                   </div>
                 </div>
@@ -117,8 +130,15 @@ export const MyProfile = () => {
                       placeholder="Lastname"
                       value={updatedUserDetails.lastName}
                       onChange={handleInputChange}
-                      className="w-full h-full px-10 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-slate-200 rounded-2xl focus:border-flex-furniture-950 valid:border-flex-furniture-950 transition-all duration-300 ease-in-out"
+                      className={`w-full h-full px-10 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-slate-200 rounded-2xl ${
+                        isReadOnly
+                          ? "border-slate-200"
+                          : "border-flex-furniture-950 focus:border-flex-furniture-950"
+                      } read-only:bg-slate-100 read-only:cursor-not-allowed
+                      valid:border-flex-furniture-950
+                       transition-all duration-300 ease-in-out`}
                       required
+                      readOnly={isReadOnly}
                     />
                   </div>
                 </div>
@@ -139,8 +159,13 @@ export const MyProfile = () => {
                       placeholder="Email"
                       value={updatedUserDetails.email}
                       onChange={handleInputChange}
-                      className="w-full h-full px-10 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-flex-furniture-950 rounded-2xl read-only:bg-slate-100
-               focus:border-flex-furniture-950 valid:border-flex-furniture-950 transition-all duration-300 ease-in-out cursor-not-allowed"
+                      className={`w-full h-full px-10 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-slate-200 rounded-2xl ${
+                        isReadOnly
+                          ? "border-slate-200"
+                          : "border-flex-furniture-950 focus:border-flex-furniture-950"
+                      } read-only:bg-slate-100 read-only:cursor-not-allowed
+                      valid:border-flex-furniture-950
+                       transition-all duration-300 ease-in-out`}
                       required
                       readOnly
                     />
@@ -161,8 +186,15 @@ export const MyProfile = () => {
                       placeholder="Phone Number"
                       value={updatedUserDetails.phoneNumber}
                       onChange={handleInputChange}
-                      className="w-full h-full px-10 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-slate-200 rounded-2xl focus:border-flex-furniture-950 valid:border-flex-furniture-950 transition-all duration-300 ease-in-out"
+                      className={`w-full h-full px-10 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-slate-200 rounded-2xl ${
+                        isReadOnly
+                          ? "border-slate-200"
+                          : "border-flex-furniture-950 focus:border-flex-furniture-950"
+                      } read-only:bg-slate-100 read-only:cursor-not-allowed
+                      valid:border-flex-furniture-950
+                       transition-all duration-300 ease-in-out`}
                       required
+                      readOnly={isReadOnly}
                     />
                   </div>
                 </div>
@@ -180,19 +212,35 @@ export const MyProfile = () => {
                     id="address"
                     value={updatedUserDetails.address}
                     onChange={handleInputChange}
-                    className="w-full h-52 p-5 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-slate-200 rounded-2xl focus:border-flex-furniture-950 valid:border-flex-furniture-950 transition-all duration-300 ease-in-out"
+                    className={`w-full h-52 px-10 py-5 text-2xl text-flex-furniture-950 font-semibold placeholder:font-normal border border-slate-200 rounded-2xl ${
+                      isReadOnly
+                        ? "border-slate-200"
+                        : "border-flex-furniture-950 focus:border-flex-furniture-950"
+                    } read-only:bg-slate-100 read-only:cursor-not-allowed
+                    valid:border-flex-furniture-950
+                     transition-all duration-300 ease-in-out`}
                     required
                     placeholder="Address"
+                    readOnly={isReadOnly}
                   ></textarea>
                 </div>
               </div>
               <div className="w-full">
-                <input
-                  type="submit"
-                  value="Update Profile"
-                  className="px-10 py-5 border border-flex-furniture-950 text-flex-furniture-950 text-3xl font-semibold rounded-2xl cursor-pointer hover:bg-flex-furniture-950 hover:text-white transition-all duration-300 ease-in-out"
-                  onClick={handleUpdateUserDetails}
-                />
+                {isReadOnly ? (
+                  <input
+                    type="button"
+                    value="Edit Profile"
+                    className="px-10 py-5 border border-flex-furniture-950 text-flex-furniture-950 text-3xl font-semibold rounded-2xl cursor-pointer hover:bg-flex-furniture-950 hover:text-white transition-all duration-300 ease-in-out"
+                    onClick={handleMakeEditable}
+                  />
+                ) : (
+                  <input
+                    type="submit"
+                    value="Update Profile"
+                    className="px-10 py-5 border border-flex-furniture-950 text-flex-furniture-950 text-3xl font-semibold rounded-2xl cursor-pointer hover:bg-flex-furniture-950 hover:text-white transition-all duration-300 ease-in-out"
+                    onClick={handleUpdateUserDetails}
+                  />
+                )}
               </div>
             </form>
           </div>

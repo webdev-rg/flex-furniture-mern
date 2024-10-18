@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 //? Home Slide Images
@@ -297,52 +296,41 @@ export const Home = () => {
           }}
           className="w-full"
         >
-          {loading ? (
-            <>
-              <SwiperSlide className="w-full h-[10rem]">
-                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
-                  <Skeleton className="w-full h-full" />
-                </SkeletonTheme>
-              </SwiperSlide>
-              <SwiperSlide className="w-full h-[10rem]">
-                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
-                  <Skeleton className="w-full h-full" />
-                </SkeletonTheme>
-              </SwiperSlide>
-              <SwiperSlide className="w-full h-[10rem]">
-                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
-                  <Skeleton className="w-full h-full" />
-                </SkeletonTheme>
-              </SwiperSlide>
-              <SwiperSlide className="w-full h-[10rem]">
-                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
-                  <Skeleton className="w-full h-full" />
-                </SkeletonTheme>
-              </SwiperSlide>
-            </>
-          ) : (
-            products.length > 0 &&
-            products.slice(0, products.length / 2).map((product) => {
-              return (
-                <SwiperSlide key={product._id}>
-                  <Link
-                    to={`/shop/product/${
-                      product.name
-                    }/category/${product.category.toLowerCase()}/${
-                      product._id
-                    }`}
-                  >
-                    <ProductCard
-                      name={product.name}
-                      price={product.price}
-                      discount={product.discount}
-                      image={product.images[0]}
-                    />
-                  </Link>
+          {loading
+            ? [...Array(4)].map((_, index) => (
+                <SwiperSlide className="w-full" key={index}>
+                  <div className="w-full flex flex-col gap-5">
+                    <div className="w-full h-[40rem] flex items-center justify-center rounded-full">
+                      <Skeleton width={315.75} height={400} />
+                    </div>
+                    <div className="flex flex-col sm:text-start text-center gap-3">
+                      <Skeleton width={275} height={30} />
+                      <Skeleton width={220} height={25} />
+                    </div>
+                  </div>
                 </SwiperSlide>
-              );
-            })
-          )}
+              ))
+            : products.length > 0 &&
+              products.slice(0, products.length / 2).map((product) => {
+                return (
+                  <SwiperSlide key={product._id}>
+                    <Link
+                      to={`/shop/product/${
+                        product.name
+                      }/category/${product.category.toLowerCase()}/${
+                        product._id
+                      }`}
+                    >
+                      <ProductCard
+                        name={product.name}
+                        price={product.price}
+                        discount={product.discount}
+                        image={product.images[0]}
+                      />
+                    </Link>
+                  </SwiperSlide>
+                );
+              })}
         </Swiper>
       </div>
 
@@ -441,54 +429,43 @@ export const Home = () => {
           }}
           className="w-full"
         >
-          {loading ? (
-            <>
-              <SwiperSlide className="w-full h-[10rem]">
-                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
-                  <Skeleton className="w-full h-full" />
-                </SkeletonTheme>
-              </SwiperSlide>
-              <SwiperSlide className="w-full h-[10rem]">
-                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
-                  <Skeleton className="w-full h-full" />
-                </SkeletonTheme>
-              </SwiperSlide>
-              <SwiperSlide className="w-full h-[10rem]">
-                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
-                  <Skeleton className="w-full h-full" />
-                </SkeletonTheme>
-              </SwiperSlide>
-              <SwiperSlide className="w-full h-[10rem]">
-                <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
-                  <Skeleton className="w-full h-full" />
-                </SkeletonTheme>
-              </SwiperSlide>
-            </>
-          ) : (
-            products.length > 0 &&
-            products
-              .slice(products.length / 2, products.length)
-              .map((product) => {
-                return (
-                  <SwiperSlide key={product._id}>
-                    <Link
-                      to={`/shop/product/${
-                        product.name
-                      }/category/${product.category.toLowerCase()}/${
-                        product._id
-                      }`}
-                    >
-                      <ProductCard
-                        name={product.name}
-                        price={product.price}
-                        discount={product.discount}
-                        image={product.images[0]}
-                      />
-                    </Link>
-                  </SwiperSlide>
-                );
-              })
-          )}
+          {loading
+            ? [...Array(4)].map((_, index) => (
+                <SwiperSlide className="w-full" key={index}>
+                  <div className="w-full flex flex-col gap-5">
+                    <div className="w-full h-[40rem] flex items-center justify-center rounded-full">
+                      <Skeleton width={315.75} height={400} />
+                    </div>
+                    <div className="flex flex-col sm:text-start text-center gap-3">
+                      <Skeleton width={275} height={25} />
+                      <Skeleton width={220} height={30} />
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))
+            : products.length > 0 &&
+              products
+                .slice(products.length / 2, products.length)
+                .map((product) => {
+                  return (
+                    <SwiperSlide key={product._id}>
+                      <Link
+                        to={`/shop/product/${
+                          product.name
+                        }/category/${product.category.toLowerCase()}/${
+                          product._id
+                        }`}
+                      >
+                        <ProductCard
+                          name={product.name}
+                          price={product.price}
+                          discount={product.discount}
+                          image={product.images[0]}
+                        />
+                      </Link>
+                    </SwiperSlide>
+                  );
+                })}
         </Swiper>
       </div>
 

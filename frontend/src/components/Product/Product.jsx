@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { LuMinus } from "react-icons/lu";
 import { RiFacebookLine, RiTwitterLine, RiInstagramLine } from "react-icons/ri";
@@ -164,12 +164,12 @@ export const Product = () => {
       </div>
 
       {/* Product */}
-      <div className="w-full pt-40 px-32">
+      <div className="w-full lg:pt-40 pt-24 lg:px-32 px-5">
         {loading ? (
           <Loading />
         ) : (
-          <div className="w-full h-full flex justify-between py-20">
-            <div className="w-[40%] h-full flex flex-col gap-10">
+          <div className="w-full h-full flex md:flex-row flex-col justify-between gap-10 py-20">
+            <div className="md:w-[40%] w-full h-full flex flex-col gap-10">
               <div className="w-full h-full">
                 <Swiper
                   style={{
@@ -227,16 +227,38 @@ export const Product = () => {
               </div>
             </div>
 
-            <div className="w-[60%] h-full px-20">
+            <div className="md:w-[60%] w-full h-full md:px-20">
               <div className="w-full h-full flex flex-col gap-10 pb-10 border-b">
                 <h1 className="text-5xl font-medium">{product.name}</h1>
                 <div className="w-full flex items-center gap-20">
                   <div className="flex items-center gap-3">
-                    <FaStar className="text-3xl text-yellow-300" />
-                    <FaStar className="text-3xl text-yellow-300" />
-                    <FaStar className="text-3xl text-yellow-300" />
-                    <FaStar className="text-3xl text-yellow-300" />
-                    <FaStarHalfAlt className="text-3xl text-yellow-300" />
+                    {product.rating === 3 ? (
+                      <>
+                        <FaStar className="text-3xl text-yellow-300" />
+                        <FaStar className="text-3xl text-yellow-300" />
+                        <FaStar className="text-3xl text-yellow-300" />
+                        <FaRegStar className="text-3xl text-yellow-300" />
+                        <FaRegStar className="text-3xl text-yellow-300" />
+                      </>
+                    ) : product.rating === 4 ? (
+                      <>
+                        <FaStar className="text-3xl text-yellow-300" />
+                        <FaStar className="text-3xl text-yellow-300" />
+                        <FaStar className="text-3xl text-yellow-300" />
+                        <FaStar className="text-3xl text-yellow-300" />
+                        <FaRegStar className="text-3xl text-yellow-300" />
+                      </>
+                    ) : product.rating === 4.5 ? (
+                      <>
+                        <FaStar className="text-3xl text-yellow-300" />
+                        <FaStar className="text-3xl text-yellow-300" />
+                        <FaStar className="text-3xl text-yellow-300" />
+                        <FaStar className="text-3xl text-yellow-300" />
+                        <FaStarHalfAlt className="text-3xl text-yellow-300" />
+                      </>
+                    ) : (
+                      ""
+                    )}
                     <span className="text-3xl font-medium">
                       ({product.rating})
                     </span>

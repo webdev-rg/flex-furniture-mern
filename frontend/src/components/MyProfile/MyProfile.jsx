@@ -3,6 +3,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Data } from "../DataProvider/DataProvider";
 import { Loading } from "../Loading/Loading";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export const MyProfile = () => {
   const {
@@ -76,25 +78,26 @@ export const MyProfile = () => {
   return (
     <>
       <ToastContainer />
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className="w-full h-full p-10 flex flex-col gap-10">
-          <div>
-            <h1 className="text-4xl text-flex-furniture-950 font-semibold tracking-wide leading-relaxed">
-              Profile Info
-            </h1>
-          </div>
-          <div className="w-full h-full">
-            <form className="w-full h-full flex flex-col gap-10">
-              <div className="w-full flex md:flex-row flex-col items-center justify-between gap-10">
-                <div className="w-full flex flex-col gap-5">
-                  <label
-                    htmlFor="firstName"
-                    className="text-2xl text-flex-furniture-950 font-semibold"
-                  >
-                    First Name
-                  </label>
+
+      <div className="w-full h-full p-10 flex flex-col gap-10">
+        <div>
+          <h1 className="text-4xl text-flex-furniture-950 font-semibold tracking-wide leading-relaxed">
+            Profile Info
+          </h1>
+        </div>
+        <div className="w-full h-full">
+          <form className="w-full h-full flex flex-col gap-10">
+            <div className="w-full flex md:flex-row flex-col items-center justify-between gap-10">
+              <div className="w-full flex flex-col gap-5">
+                <label
+                  htmlFor="firstName"
+                  className="text-2xl text-flex-furniture-950 font-semibold"
+                >
+                  First Name
+                </label>
+                {loading ? (
+                  <Skeleton width={467} height={60} borderRadius={10} />
+                ) : (
                   <div className="w-full h-24">
                     <input
                       type="text"
@@ -114,14 +117,18 @@ export const MyProfile = () => {
                       readOnly={isReadOnly}
                     />
                   </div>
-                </div>
-                <div className="w-full flex flex-col gap-5">
-                  <label
-                    htmlFor="lastName"
-                    className="text-2xl text-flex-furniture-950 font-semibold"
-                  >
-                    Last Name
-                  </label>
+                )}
+              </div>
+              <div className="w-full flex flex-col gap-5">
+                <label
+                  htmlFor="lastName"
+                  className="text-2xl text-flex-furniture-950 font-semibold"
+                >
+                  Last Name
+                </label>
+                {loading ? (
+                  <Skeleton width={467} height={60} borderRadius={10} />
+                ) : (
                   <div className="w-full h-24">
                     <input
                       type="text"
@@ -141,16 +148,20 @@ export const MyProfile = () => {
                       readOnly={isReadOnly}
                     />
                   </div>
-                </div>
+                )}
               </div>
-              <div className="w-full flex md:flex-row flex-col items-center justify-between gap-10">
-                <div className="w-full flex flex-col gap-5">
-                  <label
-                    htmlFor="email"
-                    className="text-2xl text-flex-furniture-950 font-semibold"
-                  >
-                    Email
-                  </label>
+            </div>
+            <div className="w-full flex md:flex-row flex-col items-center justify-between gap-10">
+              <div className="w-full flex flex-col gap-5">
+                <label
+                  htmlFor="email"
+                  className="text-2xl text-flex-furniture-950 font-semibold"
+                >
+                  Email
+                </label>
+                {loading ? (
+                  <Skeleton width={467} height={60} borderRadius={10} />
+                ) : (
                   <div className="w-full h-24">
                     <input
                       type="email"
@@ -170,14 +181,18 @@ export const MyProfile = () => {
                       readOnly
                     />
                   </div>
-                </div>
-                <div className="w-full flex flex-col gap-5">
-                  <label
-                    htmlFor="phone-number"
-                    className="text-2xl text-flex-furniture-950 font-semibold"
-                  >
-                    Phone Number
-                  </label>
+                )}
+              </div>
+              <div className="w-full flex flex-col gap-5">
+                <label
+                  htmlFor="phone-number"
+                  className="text-2xl text-flex-furniture-950 font-semibold"
+                >
+                  Phone Number
+                </label>
+                {loading ? (
+                  <Skeleton width={467} height={60} borderRadius={10} />
+                ) : (
                   <div className="w-full h-24">
                     <input
                       type="number"
@@ -197,15 +212,19 @@ export const MyProfile = () => {
                       readOnly={isReadOnly}
                     />
                   </div>
-                </div>
+                )}
               </div>
-              <div className="w-full flex flex-col gap-5">
-                <label
-                  htmlFor="address"
-                  className="text-2xl text-flex-furniture-950 font-semibold"
-                >
-                  Address
-                </label>
+            </div>
+            <div className="w-full flex flex-col gap-5">
+              <label
+                htmlFor="address"
+                className="text-2xl text-flex-furniture-950 font-semibold"
+              >
+                Address
+              </label>
+              {loading ? (
+                <Skeleton height={60} borderRadius={10} />
+              ) : (
                 <div className="w-full">
                   <textarea
                     name="address"
@@ -224,28 +243,34 @@ export const MyProfile = () => {
                     readOnly={isReadOnly}
                   ></textarea>
                 </div>
-              </div>
-              <div className="w-full">
-                {isReadOnly ? (
-                  <input
-                    type="button"
-                    value="Edit Profile"
-                    className="px-10 py-5 border border-flex-furniture-950 text-flex-furniture-950 text-3xl font-semibold rounded-2xl cursor-pointer hover:bg-flex-furniture-950 hover:text-white transition-all duration-300 ease-in-out"
-                    onClick={handleMakeEditable}
-                  />
-                ) : (
-                  <input
-                    type="submit"
-                    value="Update Profile"
-                    className="px-10 py-5 border border-flex-furniture-950 text-flex-furniture-950 text-3xl font-semibold rounded-2xl cursor-pointer hover:bg-flex-furniture-950 hover:text-white transition-all duration-300 ease-in-out"
-                    onClick={handleUpdateUserDetails}
-                  />
-                )}
-              </div>
-            </form>
-          </div>
+              )}
+            </div>
+            <div className="w-full">
+              {loading ? (
+                <Skeleton width={150} height={60} borderRadius={10} />
+              ) : (
+                <>
+                  {isReadOnly ? (
+                    <input
+                      type="button"
+                      value="Edit Profile"
+                      className="px-10 py-5 border border-flex-furniture-950 text-flex-furniture-950 text-3xl font-semibold rounded-2xl cursor-pointer hover:bg-flex-furniture-950 hover:text-white transition-all duration-300 ease-in-out"
+                      onClick={handleMakeEditable}
+                    />
+                  ) : (
+                    <input
+                      type="submit"
+                      value="Update Profile"
+                      className="px-10 py-5 border border-flex-furniture-950 text-flex-furniture-950 text-3xl font-semibold rounded-2xl cursor-pointer hover:bg-flex-furniture-950 hover:text-white transition-all duration-300 ease-in-out"
+                      onClick={handleUpdateUserDetails}
+                    />
+                  )}
+                </>
+              )}
+            </div>
+          </form>
         </div>
-      )}
+      </div>
     </>
   );
 };

@@ -4,7 +4,8 @@ import { Category } from "../Category/Category";
 import { ProductCard } from "../ProductCard/ProductCard";
 import { ScrollToTop } from "../ScrollToTop/ScrollToTop";
 import { Data } from "../DataProvider/DataProvider";
-import { Loading } from "../Loading/Loading";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export const Shop = () => {
   const { products, setProducts, loading, setLoading, URL, handleGetProducts } =
@@ -12,6 +13,7 @@ export const Shop = () => {
   const { category } = useParams();
 
   const handleGetProductByCategory = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`${URL}/api/productbycategory/${category}`);
 
@@ -80,33 +82,39 @@ export const Shop = () => {
         <div className="w-full h-full">
           <div className="w-full h-full">
             <div className="w-full h-full grid md:grid-cols-4 grid-cols-2 gap-10">
-              {loading ? (
-                <div className="w-full col-span-4 flex justify-center">
-                  <Loading />
-                </div>
-              ) : (
-                products.length > 0 &&
-                products.map((product) => {
-                  return (
-                    <div key={product._id}>
-                      <Link
-                        to={`/shop/product/${
-                          product.name
-                        }/category/${product.category.toLowerCase()}/${
-                          product._id
-                        }`}
-                      >
-                        <ProductCard
-                          name={product.name}
-                          price={product.price}
-                          discount={product.discount}
-                          image={product.images[0]}
-                        />
-                      </Link>
+              {loading
+                ? [...Array(4)].map((_, index) => (
+                    <div className="w-full flex flex-col gap-5" key={index}>
+                      <div className="w-full h-[40rem] flex items-center justify-center rounded-full">
+                        <Skeleton width={315.75} height={400} />
+                      </div>
+                      <div className="flex flex-col sm:text-start text-center gap-3">
+                        <Skeleton width={275} height={25} />
+                        <Skeleton width={220} height={30} />
+                      </div>
                     </div>
-                  );
-                })
-              )}
+                  ))
+                : products.length > 0 &&
+                  products.map((product) => {
+                    return (
+                      <div key={product._id}>
+                        <Link
+                          to={`/shop/product/${
+                            product.name
+                          }/category/${product.category.toLowerCase()}/${
+                            product._id
+                          }`}
+                        >
+                          <ProductCard
+                            name={product.name}
+                            price={product.price}
+                            discount={product.discount}
+                            image={product.images[0]}
+                          />
+                        </Link>
+                      </div>
+                    );
+                  })}
             </div>
           </div>
         </div>

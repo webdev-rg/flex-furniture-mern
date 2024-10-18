@@ -13,6 +13,7 @@ export const Category = ({ prevButton, nextButton }) => {
   const swiperRef = useRef(null);
 
   const handleGetCategories = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`${URL}/api/getcategories`, {
         method: "GET",
@@ -99,53 +100,42 @@ export const Category = ({ prevButton, nextButton }) => {
       }}
       className="w-full"
     >
-      {loading ? (
-        <>
-          <SwiperSlide className="w-full h-[10rem]">
-            <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
-              <Skeleton className="w-full h-full" />
-            </SkeletonTheme>
-          </SwiperSlide>
-          <SwiperSlide className="w-full h-[10rem]">
-            <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
-              <Skeleton className="w-full h-full" />
-            </SkeletonTheme>
-          </SwiperSlide>
-          <SwiperSlide className="w-full h-[10rem]">
-            <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
-              <Skeleton className="w-full h-full" />
-            </SkeletonTheme>
-          </SwiperSlide>
-          <SwiperSlide className="w-full h-[10rem]">
-            <SkeletonTheme baseColor="#f1f5f9" highlightColor="#e5e7eb">
-              <Skeleton className="w-full h-full" />
-            </SkeletonTheme>
-          </SwiperSlide>
-        </>
-      ) : (
-        categories.length > 0 &&
-        categories.map((item) => {
-          return (
-            <SwiperSlide className="w-full" key={item._id}>
-              <Link to={`/shop/product-category/${item.name}`}>
-                <div className="w-full flex sm:flex-row flex-col items-center sm:justify-start justify-center gap-10">
-                  <div className="w-36 h-36 flex items-center justify-center bg-[#e7e7e7] rounded-full">
-                    <img
-                      src={item.imageURL}
-                      className="w-[80%] h-[80%] object-contain"
-                      alt="chair-category"
-                    />
-                  </div>
-                  <div className="flex flex-col sm:text-start text-center gap-3">
-                    <h2 className="text-4xl font-extrabold">{item.name}</h2>
-                    <p className="text-3xl">{item.productCount} Products</p>
-                  </div>
+      {loading
+        ? [...Array(4)].map((_, index) => (
+            <SwiperSlide className="w-full" key={index}>
+              <div className="w-full flex sm:flex-row flex-col items-center sm:justify-start justify-center gap-10">
+                <div className="w-36 h-36 flex items-center justify-center rounded-full">
+                  <Skeleton circle={true} width={90} height={90} />
                 </div>
-              </Link>
+                <div className="flex flex-col sm:text-start text-center gap-3">
+                  <Skeleton width={150} height={30} />
+                  <Skeleton width={120} height={25} />
+                </div>
+              </div>
             </SwiperSlide>
-          );
-        })
-      )}
+          ))
+        : categories.length > 0 &&
+          categories.map((item) => {
+            return (
+              <SwiperSlide className="w-full" key={item._id}>
+                <Link to={`/shop/product-category/${item.name}`}>
+                  <div className="w-full flex sm:flex-row flex-col items-center sm:justify-start justify-center gap-10">
+                    <div className="w-36 h-36 flex items-center justify-center bg-[#e7e7e7] rounded-full">
+                      <img
+                        src={item.imageURL}
+                        className="w-[80%] h-[80%] object-contain"
+                        alt={`${item.name}-category`}
+                      />
+                    </div>
+                    <div className="flex flex-col sm:text-start text-center gap-3">
+                      <h2 className="text-4xl font-extrabold">{item.name}</h2>
+                      <p className="text-3xl">{item.productCount} Products</p>
+                    </div>
+                  </div>
+                </Link>
+              </SwiperSlide>
+            );
+          })}
     </Swiper>
   );
 };

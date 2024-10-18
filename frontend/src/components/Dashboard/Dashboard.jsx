@@ -3,12 +3,15 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { Data } from "../DataProvider/DataProvider";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export const Dashboard = () => {
   const { setIsUserLoggedIn, updatedUserDetails, userData, URL } =
     useContext(Data);
   const [profileImage, setProfileImage] = useState(null);
   const [isSideBar, setIsSideBar] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const handleUpdateProfileImage = async (e) => {
@@ -81,6 +84,7 @@ export const Dashboard = () => {
       if (data.message === "User image has null value") {
         setProfileImage("/images/user.png");
       } else if (data.message === "User image fetched successfully") {
+        setLoading(false);
         setProfileImage(data.image);
       }
     } catch (error) {
@@ -122,11 +126,15 @@ export const Dashboard = () => {
                     htmlFor="user-profile-image"
                     className="cursor-pointer"
                   >
-                    <img
-                      src={`${profileImage}`}
-                      className="w-[92%] h-[92%] rounded-full mx-auto object-cover"
-                      alt="user-profile"
-                    />
+                    {loading ? (
+                      <Skeleton circle={true} width={140} height={140} />
+                    ) : (
+                      <img
+                        src={`${profileImage}`}
+                        className="w-[92%] h-[92%] rounded-full mx-auto object-cover"
+                        alt="user-profile"
+                      />
+                    )}
                   </label>
                   <input
                     type="file"
@@ -138,10 +146,25 @@ export const Dashboard = () => {
                 </div>
                 <div className="w-full flex flex-col items-center">
                   <h1 className="text-3xl text-flex-furniture-950 font-bold leading-relaxed">
-                    {updatedUserDetails.firstName} {updatedUserDetails.lastName}
+                    {loading ? (
+                      <>
+                        <div className="text-center">
+                          <Skeleton width={175} height={25} />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        {updatedUserDetails.firstName}{" "}
+                        {updatedUserDetails.lastName}
+                      </>
+                    )}
                   </h1>
                   <h2 className="text-2xl text-flex-furniture-950 font-light tracking-wide leading-relaxed">
-                    {updatedUserDetails.email}
+                    {loading ? (
+                      <Skeleton width={120} height={25} />
+                    ) : (
+                      <>{updatedUserDetails.email}</>
+                    )}
                   </h2>
                 </div>
               </div>

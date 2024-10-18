@@ -8,13 +8,13 @@ import { Signin } from "./components/Signin/Signin";
 import { Signup } from "./components/Signup/Signup";
 import { Product } from "./components/Product/Product";
 import { Verification } from "./components/Verification/Verification";
-import { useContext } from "react";
-import { Data } from "./components/DataProvider/DataProvider";
-import { MyProfile } from "./components/MyProfile/MyProfile";
 import { Cart } from "./components/Cart/Cart";
 import { Dashboard } from "./components/Dashboard/Dashboard";
+import { MyProfile } from "./components/MyProfile/MyProfile";
 import { OrderList } from "./components/OrderList/OrderList";
 import { Settings } from "./components/Settings/Settings";
+import { useContext } from "react";
+import { Data } from "./components/DataProvider/DataProvider";
 
 export const App = () => {
   const { isUserLoggedIn } = useContext(Data);

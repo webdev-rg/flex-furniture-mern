@@ -183,7 +183,7 @@ export const Header = ({ isUserLoggedIn, cartDetails }) => {
             </form>
           </div>
         </div>
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 overflow-y-auto">
           {loading ? (
             <Loading />
           ) : products.length > 0 ? (

@@ -10,11 +10,11 @@ import {
 export const About = () => {
   return (
     <div className="w-full h-full py-40">
-      <div className="w-full flex flex-col items-center gap-8 py-6">
-        <h1 className="text-6xl text-flex-furniture-950 font-semibold tracking-wide">
+      <div className="w-full flex flex-col items-center gap-8 md:px-0 px-5 py-6">
+        <h1 className="text-6xl text-center text-flex-furniture-950 font-semibold tracking-wide">
           About Flex Furniture
         </h1>
-        <p className="text-4xl text-center text-[#848484] leading-relaxed">
+        <p className="sm:text-4xl text-2xl text-center text-[#848484] leading-relaxed">
           Flex Furniture was established in 1990, consectetur eleifend commodo
           at, consectetur
           <br /> eu justo. Sed viverra consectetur risus nec ultricies.
@@ -27,7 +27,7 @@ export const About = () => {
           alt="about-parallax-bg"
         />
       </div>
-      <div className="w-full px-32 py-20 grid grid-cols-2 gap-32">
+      <div className="w-full lg:px-32 px-5 lg:py-20 grid md:grid-cols-2 grid-cols-1 gap-32">
         <div className="w-full h-full">
           <div className="w-full h-full overflow-hidden group">
             <img
@@ -38,7 +38,7 @@ export const About = () => {
           </div>
         </div>
         <div className="w-full h-full">
-          <div className="w-full h-full py-20 flex flex-col gap-20">
+          <div className="w-full h-full lg:py-20 flex flex-col gap-20">
             <h1 className="text-5xl text-flex-furniture-950 font-bold">
               HOW WE WORK
             </h1>
@@ -47,7 +47,7 @@ export const About = () => {
                 <h1 className="text-3xl text-flex-furniture-950 font-bold">
                   Production Design
                 </h1>
-                <p className="text-3xl text-[#848484] font-medium tracking-wide leading-relaxed">
+                <p className="lg:text-3xl text-2xl text-[#848484] font-medium tracking-wide leading-relaxed">
                   Integer dignissim sagittis quam. Maecenas sem eros, rutrum
                   vitae risus eget, vulputate aliquam nisi.
                 </p>
@@ -56,7 +56,7 @@ export const About = () => {
                 <h1 className="text-3xl text-flex-furniture-950 font-bold">
                   Manufacturing
                 </h1>
-                <p className="text-3xl text-[#848484] font-medium tracking-wide leading-relaxed">
+                <p className="lg:text-3xl text-2xl text-[#848484] font-medium tracking-wide leading-relaxed">
                   Maecenas sem eros, rutrum vitae risus eget, vulputate aliquam
                   nisi ex gravida neque tempus
                 </p>
@@ -65,7 +65,7 @@ export const About = () => {
                 <h1 className="text-3xl text-flex-furniture-950 font-bold">
                   Marketing and Selling
                 </h1>
-                <p className="text-3xl text-[#848484] font-medium tracking-wide leading-relaxed">
+                <p className="lg:text-3xl text-2xl text-[#848484] font-medium tracking-wide leading-relaxed">
                   Rutrum vitae risus eget, vulputate aliquam nisi ex gravida
                   neque tempus.
                 </p>
@@ -74,7 +74,7 @@ export const About = () => {
           </div>
         </div>
       </div>
-      <div className="w-full grid grid-cols-4 gap-16 px-32 py-20">
+      <div className="w-full grid md:grid-cols-4 sm:grid-cols-2 gap-16 lg:px-32 px-5 py-20">
         <TeamCard
           image="/images/team-1.jpg"
           desig="CEO & FOUNDER"
@@ -92,24 +92,24 @@ export const About = () => {
           name="Isabella"
         />
       </div>
-      <div className="w-full grid grid-cols-6 gap-16 px-32 py-20">
+      <div className="w-full grid md:grid-cols-6 sm:grid-cols-3 grid-cols-2 gap-16 lg:px-32 px-5 py-20">
         <div className="w-full">
-          <img src="/images/brand-1.png" alt="brand-1" />
+          <img src="/images/brand-1.png" className="w-full" alt="brand-1" />
         </div>
         <div className="w-full">
-          <img src="/images/brand-2.png" alt="brand-2" />
+          <img src="/images/brand-2.png" className="w-full" alt="brand-2" />
         </div>
         <div className="w-full">
-          <img src="/images/brand-3.png" alt="brand-3" />
+          <img src="/images/brand-3.png" className="w-full" alt="brand-3" />
         </div>
         <div className="w-full">
-          <img src="/images/brand-4.png" alt="brand-4" />
+          <img src="/images/brand-4.png" className="w-full" alt="brand-4" />
         </div>
         <div className="w-full">
-          <img src="/images/brand-5.png" alt="brand-5" />
+          <img src="/images/brand-5.png" className="w-full" alt="brand-5" />
         </div>
         <div className="w-full">
-          <img src="/images/brand-6.png" alt="brand-6" />
+          <img src="/images/brand-6.png" className="w-full" alt="brand-6" />
         </div>
       </div>
     </div>
@@ -121,7 +121,7 @@ const TeamCard = ({ image, desig, name }) => {
     <div className="w-full h-full">
       <div className="w-full h-full flex flex-col gap-5">
         <div className="w-full h-full relative group">
-          <img src={image} alt="team-1" />
+          <img src={image} className="w-full" alt="team-1" />
           <div
             style={{ backgroundColor: "rgba(0, 0, 0, 0.65)" }}
             className="w-full h-full absolute top-0 left-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out"

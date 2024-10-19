@@ -3,58 +3,58 @@ import React from "react";
 export const Contact = () => {
   return (
     <div className="w-full h-full">
-      <div className="px-32 py-40">
-        <div className="w-full shadow-md px-20 py-28 flex justify-between gap-20">
-          <div className="w-[30%] flex flex-col gap-20">
+      <div className="lg:px-32 px-5 py-40">
+        <div className="w-full shadow-md lg:px-20 sm:px-14 px-6 lg:py-28 py-14 flex md:flex-row flex-col justify-between gap-20">
+          <div className="md:w-[30%] w-full flex flex-col gap-20">
             <h1 className="text-6xl text-flex-furniture-950 font-bold tracking-widest">
               Contact Us
             </h1>
-            <div className="w-full flex flex-col gap-14">
+            <div className="w-full flex gap-14 flex-wrap">
               <div className="flex flex-col gap-4">
-                <h1 className="text-5xl text-flex-furniture-950 font-semibold tracking-wide">
+                <h1 className="md:text-5xl text-3xl text-flex-furniture-950 font-semibold tracking-wide">
                   Call to Us:
                 </h1>
-                <p className="text-3xl text-[#8c8c8c] tracking-wide">
+                <p className="md:text-3xl text-2xl text-[#8c8c8c] tracking-wide">
                   We’re available 24/7, 7 days a week.
                 </p>
-                <p className="text-3xl text-flex-furniture-950 font-medium">
+                <p className="md:text-3xl text-2xl text-flex-furniture-950 font-medium">
                   +91 7485968574
                 </p>
               </div>
               <div className="flex flex-col gap-4">
-                <h1 className="text-5xl text-flex-furniture-950 font-semibold tracking-wide">
+                <h1 className="md:text-5xl text-3xl text-flex-furniture-950 font-semibold tracking-wide">
                   Write to Us:
                 </h1>
-                <p className="text-3xl text-[#8c8c8c] tracking-wide">
+                <p className="md:text-3xl text-2xl text-[#8c8c8c] tracking-wide">
                   Fill out our form and we will contact you within 24 hours.
                 </p>
-                <p className="text-3xl text-flex-furniture-950 font-medium">
+                <p className="md:text-3xl text-2xl text-flex-furniture-950 font-medium">
                   Email: support.flex24@gmail.com
                 </p>
               </div>
               <div className="flex flex-col gap-4">
-                <h1 className="text-5xl text-flex-furniture-950 font-semibold tracking-wide">
+                <h1 className="md:text-5xl text-3xl text-flex-furniture-950 font-semibold tracking-wide">
                   Headquarter:
                 </h1>
-                <p className="text-3xl text-[#8c8c8c] tracking-wide">
+                <p className="md:text-3xl text-2xl text-[#8c8c8c] tracking-wide">
                   Monday – Friday: 9:00-20:00
                 </p>
-                <p className="text-3xl text-[#8c8c8c] tracking-wide">
+                <p className="md:text-3xl text-2xl text-[#8c8c8c] tracking-wide">
                   Saturady: 11:00 – 15:00
                 </p>
-                <p className="text-3xl text-flex-furniture-950 font-medium">
+                <p className="md:text-3xl text-2xl text-flex-furniture-950 font-medium">
                   123 Atlantic, Brooklyn, New York, USA
                 </p>
               </div>
             </div>
           </div>
-          <div className="w-[70%] flex flex-col gap-20">
-            <h1 className="text-6xl text-flex-furniture-950 font-bold tracking-widest">
+          <div className="md:w-[70%] w-full flex flex-col gap-20">
+            <h1 className="sm:text-6xl text-4xl text-flex-furniture-950 font-bold tracking-widest">
               We would love to here from you.
             </h1>
             <div className="w-full">
               <form className="w-full flex flex-col gap-8">
-                <div className="w-full flex items-center justify-between gap-8">
+                <div className="w-full flex sm:flex-row flex-col items-center justify-between gap-8">
                   <div className="w-full h-24">
                     <input
                       type="text"

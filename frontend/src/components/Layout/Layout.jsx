@@ -15,7 +15,7 @@ export const Layout = () => {
     setIsLoading(true); // Show the preloader on route change
     const timer = setTimeout(() => {
       setIsLoading(false); // Hide the preloader after 1 second
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(timer); // Cleanup the timer on unmount
   }, [location]);

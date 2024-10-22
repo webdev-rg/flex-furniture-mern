@@ -81,6 +81,7 @@ export const Category = ({ prevButton, nextButton }) => {
       }}
       autoplay={{ delay: 3000 }}
       loop={true}
+      speed={2000}
       breakpoints={{
         1024: {
           slidesPerView: 4,

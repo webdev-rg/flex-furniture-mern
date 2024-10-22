@@ -77,6 +77,7 @@ export const Home = () => {
               }}
               autoplay={{ delay: 3000 }}
               loop={true}
+              speed={2000}
               dir="rtl"
             >
               <SwiperSlide className="w-full h-full">
@@ -148,6 +149,7 @@ export const Home = () => {
               }}
               autoplay={{ delay: 3000 }}
               loop={true}
+              speed={2000}
             >
               <SwiperSlide className="w-full h-full">
                 <div className="w-full h-full">
@@ -277,6 +279,7 @@ export const Home = () => {
           }}
           autoplay={{ delay: 3000 }}
           loop={true}
+          speed={1500}
           breakpoints={{
             1440: {
               slidesPerView: 4,
@@ -410,6 +413,7 @@ export const Home = () => {
           }}
           autoplay={{ delay: 3000 }}
           loop={true}
+          speed={1500}
           breakpoints={{
             1440: {
               slidesPerView: 4,

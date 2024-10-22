@@ -6,6 +6,7 @@ import { ScrollToTop } from "../ScrollToTop/ScrollToTop";
 import { Data } from "../DataProvider/DataProvider";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Preloader from "../Preloader/PreLoader";
 
 export const Shop = () => {
   const { products, setProducts, loading, setLoading, URL, handleGetProducts } =
@@ -45,6 +46,8 @@ export const Shop = () => {
 
   return (
     <>
+      <Preloader />
+
       {/* Scroll To Top */}
       <div className="fixed right-0 bottom-0">
         <ScrollToTop />

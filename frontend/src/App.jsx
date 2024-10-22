@@ -63,7 +63,7 @@ export const App = () => {
             }
           >
             <Route path="myprofile" element={<MyProfile />} />
-            <Route path="orders" element={<OrderList />} /> 
+            <Route path="orders" element={<OrderList />} />
             <Route path="settings" element={<Settings />} />
           </Route>
         </Route>

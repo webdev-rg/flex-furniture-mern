@@ -21,6 +21,7 @@ import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 import { Category } from "../Category/Category";
 import { Data } from "../DataProvider/DataProvider";
 import { ScrollToTop } from "../ScrollToTop/ScrollToTop";
+import Preloader from "../Preloader/PreLoader";
 
 export const Home = () => {
   const { URL } = useContext(Data);
@@ -56,6 +57,7 @@ export const Home = () => {
 
   return (
     <>
+      <Preloader />
       {/* Scroll To Top */}
       <div className="fixed right-0 bottom-0">
         <ScrollToTop />

@@ -19,7 +19,10 @@ const addToCart = async (req, res) => {
     totalPrice += price;
   }
 
-  const existingProduct = await CartModel.findOne({ productName: productName });
+  const existingProduct = await CartModel.findOne({
+    productName: productName,
+    userId: userId,
+  });
 
   if (existingProduct) {
     await CartModel.updateOne(

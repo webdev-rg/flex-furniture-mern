@@ -56,6 +56,8 @@ export const Checkout = () => {
         setTimeout(() => {
           navigate("/");
         }, 2000);
+      } else if (data.message === "You have already ordered this product") {
+        toast.info(`you have already ordered ${data.name}`);
       } else if (data.message === "Internal server error") {
         toast.error("Failed to place order.");
       }

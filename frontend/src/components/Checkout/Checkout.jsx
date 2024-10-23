@@ -41,7 +41,7 @@ export const Checkout = () => {
     }));
 
     try {
-      const response = await fetch(`http://localhost:1901/api/placeorder`, {
+      const response = await fetch(`${URL}/api/placeorder`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

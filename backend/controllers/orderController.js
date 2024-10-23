@@ -6,19 +6,18 @@ const createOrder = async (req, res) => {
     const orders = req.body.orders;
 
     for (const order of orders) {
-      const existingOrder = await OrderModel.find({
+      const existingOrder = await OrderModel.findOne({
         productName: order.productName,
         userId: order.userId,
       });
 
       if (existingOrder) {
-        return res
-          .status(400)
-          .send({
-            message: "You have already ordered this product",
-            name: order.productName,
-          });
+        return res.status(400).send({
+          message: "You have already ordered this product",
+          name: order.productName,
+        });
       }
+      return;
     }
 
     const savedOrders = [];

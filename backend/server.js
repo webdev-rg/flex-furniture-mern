@@ -6,6 +6,7 @@ const categoryRoute = require("./routes/categoryRoute");
 const productRoute = require("./routes/productRoute");
 const userRoute = require("./routes/userRoute");
 const cartRoute = require("./routes/cartRoute");
+const orderRoute = require("./routes/orderRoute");
 
 const app = express();
 const PORT = 1901;
@@ -25,8 +26,11 @@ app.use("/api", productRoute);
 //? Users API
 app.use("/api", userRoute);
 
-//? Add to cart API
+//? Cart API
 app.use("/api", cartRoute);
+
+//? Oder API
+app.use("/api", orderRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`);

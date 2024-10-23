@@ -149,6 +149,13 @@ export const Cart = () => {
     }
   };
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
+
   return (
     <>
       <ToastContainer />
@@ -167,7 +174,7 @@ export const Cart = () => {
                   <thead className="text-flex-furniture-950 bg-gray-100 text-left">
                     <tr>
                       <th scope="col" className="px-6 py-3 text-2xl">
-                        Product Name
+                        Product
                       </th>
                       <th scope="col" className="px-6 py-3 text-2xl">
                         Price
@@ -289,9 +296,12 @@ export const Cart = () => {
                 </h1>
               </div>
               <div className="py-8">
-                <button className="w-full py-5 text-2xl text-white font-semibold bg-flex-furniture-950">
+                <Link
+                  to="/checkout"
+                  className="inline-block w-full py-5 text-2xl text-center text-white font-semibold bg-flex-furniture-950"
+                >
                   PROCEED TO CHECKOUT
-                </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -54,7 +54,7 @@ export const Header = ({ isUserLoggedIn, cartDetails }) => {
   return (
     <>
       <header className="w-full h-32 border fixed top-0 left-0 lg:px-32 px-5 bg-white flex items-center justify-between z-20">
-        <div className="h-full flex items-center gap-10">
+        <div className="h-full flex items-center sm:gap-10 gap-5">
           <div className="">
             <CiMenuBurger
               className="text-4xl text-[#020d19] hover:text-slate-400 transition-all duration-300 cursor-pointer"
@@ -63,7 +63,7 @@ export const Header = ({ isUserLoggedIn, cartDetails }) => {
           </div>
           <div className="h-full flex items-center">
             <Link to="/">
-              <img className="w-80" src={logo} alt="logo" />
+              <img className="sm:w-80 w-60" src={logo} alt="logo" />
             </Link>
           </div>
         </div>

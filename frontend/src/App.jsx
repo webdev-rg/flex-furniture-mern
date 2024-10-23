@@ -15,11 +15,14 @@ import { OrderList } from "./components/OrderList/OrderList";
 import { Settings } from "./components/Settings/Settings";
 import { useContext } from "react";
 import { Data } from "./components/DataProvider/DataProvider";
+import { Checkout } from "./components/Checkout/Checkout";
+import { ToastContainer } from "react-toastify";
 
 export const App = () => {
   const { isUserLoggedIn } = useContext(Data);
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Home />} />
@@ -66,6 +69,7 @@ export const App = () => {
             <Route path="orders" element={<OrderList />} />
             <Route path="settings" element={<Settings />} />
           </Route>
+          <Route path="checkout" element={<Checkout />} />
         </Route>
       </Routes>
     </BrowserRouter>

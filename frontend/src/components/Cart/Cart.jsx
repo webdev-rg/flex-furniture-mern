@@ -19,9 +19,7 @@ export const Cart = () => {
   const [quantity, setQuantity] = useState([]);
 
   useEffect(() => {
-    if (userData._id) {
-      handleGetCartDetails(userData._id);
-    }
+    if (userData._id) handleGetCartDetails(userData._id);
   }, [userData._id]);
 
   useEffect(() => {
@@ -30,38 +28,43 @@ export const Cart = () => {
     }
   }, [cartDetails]);
 
-  const handleIncreaseQuantity = (index) => {
+  const handleIncreaseQuantity = async (index) => {
     const newQuantity = [...quantity];
     newQuantity[index] += 1;
     setQuantity(newQuantity);
+
+    // Update the quantity on the server
+    await handleUpdateSingleItemQuantity(index, newQuantity[index]);
   };
 
-  const handleDecreaseQuantity = (index) => {
+  const handleDecreaseQuantity = async (index) => {
     const newQuantity = [...quantity];
     if (newQuantity[index] > 1) {
       newQuantity[index] -= 1;
+      setQuantity(newQuantity);
+
+      // Update the quantity on the server
+      await handleUpdateSingleItemQuantity(index, newQuantity[index]);
     }
-    setQuantity(newQuantity);
   };
 
-  const total = cartDetails.reduce((acc, item, index) => {
-    return acc + item.productPrice * quantity[index];
-  }, 0);
-
-  const handleUpdateCart = async () => {
+  // Function to update a single item's quantity on the server
+  const handleUpdateSingleItemQuantity = async (index, newQuantity) => {
     setLoading(true);
     try {
-      const updatedCartItems = cartDetails.map((item, index) => ({
-        productId: item._id,
-        productQuantity: quantity[index],
-        totalPrice: item.productPrice * quantity[index],
-      }));
-      console.log(updatedCartItems);
-
+      const cartItem = cartDetails[index];
       const response = await fetch(`${URL}/api/updatecart/${userData._id}`, {
         method: "PUT",
         headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ cartItems: updatedCartItems }),
+        body: JSON.stringify({
+          cartItems: [
+            {
+              productId: cartItem._id,
+              productQuantity: newQuantity,
+              totalPrice: cartItem.productPrice * newQuantity,
+            },
+          ],
+        }),
       });
 
       const data = await response.json();
@@ -71,7 +74,7 @@ export const Cart = () => {
         data.message === "Cart item not found" ||
         data.message === "Error updating cart"
       ) {
-        return toast.error(`${data.message}`, {
+        toast.error(`${data.message}`, {
           position: "top-center",
           autoClose: 3000,
           hideProgressBar: false,
@@ -81,7 +84,9 @@ export const Cart = () => {
           progress: undefined,
           theme: "light",
         });
-      } else if (data.message === "Your Cart updated successfully") {
+      }
+
+      if (data.message === "Your Cart updated successfully") {
         toast.success(`${data.message}`, {
           position: "top-center",
           autoClose: 3000,
@@ -92,14 +97,17 @@ export const Cart = () => {
           progress: undefined,
           theme: "light",
         });
-        setLoading(false);
-        handleGetCartDetails(userData._id);
-        return;
       }
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
+
+  const total = cartDetails.reduce((acc, item, index) => {
+    return acc + item.productPrice * quantity[index];
+  }, 0);
 
   const handelDeleteCartItem = async (cartId) => {
     console.log(cartId);
@@ -257,14 +265,6 @@ export const Cart = () => {
                     )}
                   </tbody>
                 </table>
-              </div>
-              <div className="text-right">
-                <button
-                  className="px-10 py-3 text-2xl text-flex-furniture-950 font-semibold border border-flex-furniture-950 rounded-2xl hover:bg-flex-furniture-950 hover:text-white transition-all duration-200 ease-in-out"
-                  onClick={handleUpdateCart}
-                >
-                  Update
-                </button>
               </div>
             </div>
             <div className="md:w-[30%] w-full h-full bg-gray-100 p-8">

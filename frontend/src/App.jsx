@@ -16,13 +16,11 @@ import { Settings } from "./components/Settings/Settings";
 import { useContext } from "react";
 import { Data } from "./components/DataProvider/DataProvider";
 import { Checkout } from "./components/Checkout/Checkout";
-import { ToastContainer } from "react-toastify";
 
 export const App = () => {
   const { isUserLoggedIn } = useContext(Data);
   return (
     <BrowserRouter>
-      <ToastContainer />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Home />} />

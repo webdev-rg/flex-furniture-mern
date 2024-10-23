@@ -30,6 +30,7 @@ export const Checkout = () => {
   }, 0);
 
   const handleCreateOrder = async () => {
+    console.log("Function called");
     const orderItems = cartDetails.map((item, index) => ({
       productName: item.productName,
       productPrice: item.productPrice,
@@ -51,14 +52,17 @@ export const Checkout = () => {
 
       const data = await response.json();
       console.log(data);
-      if (data.message === "Your orders have been placed") {
+      if (data.message === "You have already ordered this product") {
+        toast.info(`you have already ordered ${data.name}`);
+        console.log(`you have already ordered ${data.name}`);
+      } else if (data.message === "Your orders have been placed") {
         toast.success("Order placed successfully!");
+        console.log("Order placed successfully!");
         setTimeout(() => {
           navigate("/");
         }, 2000);
-      } else if (data.message === "You have already ordered this product") {
-        toast.info(`you have already ordered ${data.name}`);
       } else if (data.message === "Internal server error") {
+        console.log("Internal server error");
         toast.error("Failed to place order.");
       }
     } catch (error) {

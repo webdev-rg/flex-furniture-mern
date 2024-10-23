@@ -110,7 +110,7 @@ export const Dashboard = () => {
         <div className="w-full h-full py-10">
           <div className="w-full h-full flex justify-between gap-10">
             <div
-              className={`md:w-[30%] sm:w-[45%] w-[90%] md:static absolute top-32 ${
+              className={`md:w-[30%] sm:w-[45%] w-[90%] md:static absolute z-10 top-32 ${
                 isSideBar ? "left-0" : "-left-full"
               } h-full p-10 bg-white md:border md:border-slate-200 md:rounded-2xl flex flex-col gap-5 transition-all duration-500 ease-in-out`}
             >
@@ -190,7 +190,7 @@ export const Dashboard = () => {
                       </h1>
                     </NavLink>
                   </li>
-                  {/* <li>
+                  <li>
                     <NavLink
                       to="/dashboard/orders"
                       className={({ isActive }) =>
@@ -208,7 +208,7 @@ export const Dashboard = () => {
                         My Order List
                       </h1>
                     </NavLink>
-                  </li> */}
+                  </li>
                   <li>
                     <NavLink
                       to="/dashboard/settings"

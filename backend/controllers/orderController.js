@@ -17,7 +17,6 @@ const createOrder = async (req, res) => {
           name: order.productName,
         });
       }
-      return;
     }
 
     const savedOrders = [];
@@ -39,6 +38,8 @@ const createOrder = async (req, res) => {
       savedOrders.push(savedOrder);
     }
 
+    console.log(savedOrders);
+
     for (const order of orders) {
       const deletePlacedOrders = await CartModel.deleteMany({
         productName: order.productName,
@@ -55,4 +56,21 @@ const createOrder = async (req, res) => {
   }
 };
 
-module.exports = { createOrder };
+const getUserOrders = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const userOrders = await OrderModel.find({ userId: userId });
+
+    if (!userOrders) {
+      return res.status(404).send({ message: "No orders" });
+    }
+
+    res.status(200).send({ message: "Orders found", orders: userOrders });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal server error" });
+  }
+};
+
+module.exports = { createOrder, getUserOrders };

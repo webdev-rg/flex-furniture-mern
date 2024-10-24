@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Loading } from "../Loading/Loading";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Data } from "../../../../frontend/src/components/DataProvider/DataProvider";
 
 export const Orders = () => {
-  const { URL } = useContext(Data);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 

@@ -8,6 +8,7 @@ import { Categories } from "./components/Categories/Categories";
 import { AddProductForm } from "./components/AddProductForm/AddProductForm";
 import { ProductList } from "./components/ProductList/ProductList";
 import { AdminDetails } from "./components/AdminDetails/AdminDetails";
+import { Orders } from "./components/Orders/Orders";
 
 export const App = () => {
   const [adminLoggedIn, setAdminLoggedIn] = useState(() => {
@@ -40,6 +41,7 @@ export const App = () => {
           <Route path="category-list" element={<Categories />} />
           <Route path="add-new-product" element={<AddProductForm />} />
           <Route path="product-list" element={<ProductList />} />
+          <Route path="orders" element={<Orders />} />
         </Route>
         <Route
           path="/admin-signin"

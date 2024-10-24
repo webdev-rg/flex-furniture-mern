@@ -82,7 +82,7 @@ export const Dashboard = ({ isLoggedIn }) => {
             </div>
             <div className="w-full">
               <NavLink
-                to="/"
+                to="/admin/orders"
                 className={({ isActive }) =>
                   `inline-block w-full px-10 py-6 ${
                     isActive ? "bg-slate-100" : ""
@@ -92,65 +92,6 @@ export const Dashboard = ({ isLoggedIn }) => {
                 Orders
               </NavLink>
             </div>
-            {/* <div
-              className={`w-full px-10 py-6 ${
-                activeTab === "add-new-category" ? "bg-slate-100" : ""
-              } rounded-2xl cursor-pointer hover:bg-slate-100 transition-all duration-300 ease-in-out`}
-              onClick={() => setActiveTab("add-new-category")}
-            >
-              <h1 className="text-3xl font-medium text-flex-furniture-950 tracking-wide flex items-center gap-3">
-                <Link to="/admin-panel/categories">
-                  <TbCategoryPlus /> Categories
-                </Link>
-              </h1>
-            </div>
-            <div
-              className={`w-full px-10 py-6 ${
-                activeTab === "add-new-product" ? "bg-slate-100" : ""
-              } rounded-2xl cursor-pointer hover:bg-slate-100 transition-all duration-300 ease-in-out`}
-              onClick={() => setActiveTab("add-new-product")}
-            >
-              <h1 className="text-3xl font-medium text-flex-furniture-950 tracking-wide flex items-center gap-3">
-                <Link to="/admin-panel/add-new-product">
-                  <TbShoppingCartPlus />
-                  Add New Product
-                </Link>
-              </h1>
-            </div>
-            <div
-              className={`w-full px-10 py-6 ${
-                activeTab === "product-list" ? "bg-slate-100" : ""
-              } rounded-2xl cursor-pointer hover:bg-slate-100 transition-all duration-300 ease-in-out`}
-              onClick={() => setActiveTab("product-list")}
-            >
-              <h1 className="text-3xl font-medium text-flex-furniture-950 tracking-wide flex items-center gap-3">
-                <Link to="/admin-panel/product-list">
-                  <TbList />
-                  Product List
-                </Link>
-              </h1>
-            </div>
-            <div
-              className={`w-full px-10 py-6 ${
-                activeTab === "user-list" ? "bg-slate-100" : ""
-              } rounded-2xl cursor-pointer hover:bg-slate-100 transition-all duration-300 ease-in-out`}
-              onClick={() => setActiveTab("user-list")}
-            >
-              <h1 className="text-3xl font-medium text-flex-furniture-950 tracking-wide flex items-center gap-3">
-                <TbUsers />
-                User List
-              </h1>
-            </div>
-            <div
-              className={`w-full px-10 py-6 ${
-                activeTab === "orders" ? "bg-slate-100" : ""
-              } rounded-2xl cursor-pointer hover:bg-slate-100 transition-all duration-300 ease-in-out`}
-              onClick={() => setActiveTab("orders")}
-            >
-              <h1 className="text-3xl font-medium text-flex-furniture-950 tracking-wide flex items-center gap-3">
-                Orders
-              </h1>
-            </div> */}
           </div>
         </div>
         <div className="w-[80%]">

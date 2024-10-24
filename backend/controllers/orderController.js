@@ -73,4 +73,19 @@ const getUserOrders = async (req, res) => {
   }
 };
 
-module.exports = { createOrder, getUserOrders };
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await OrderModel.find({});
+
+    if (!orders) {
+      return res.status(404).send({ message: "No orders" });
+    }
+
+    res.status(200).send({ message: "orders", orders: orders });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal server error" });
+  }
+};
+
+module.exports = { createOrder, getUserOrders, getAllOrders };

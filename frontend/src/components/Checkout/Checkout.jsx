@@ -54,15 +54,14 @@ export const Checkout = () => {
       console.log(data);
       if (data.message === "You have already ordered this product") {
         toast.info(`you have already ordered ${data.name}`);
-        console.log(`you have already ordered ${data.name}`);
-      } else if (data.message === "Your orders have been placed") {
+      } 
+      else if (data.message === "Your orders have been placed") {
         toast.success("Order placed successfully!");
-        console.log("Order placed successfully!");
         setTimeout(() => {
           navigate("/");
         }, 2000);
-      } else if (data.message === "Internal server error") {
-        console.log("Internal server error");
+      } 
+      else if (data.message === "Internal server error") {
         toast.error("Failed to place order.");
       }
     } catch (error) {

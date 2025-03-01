@@ -151,7 +151,7 @@ export const Verification = () => {
                 </label>
                 <div className="w-full h-24">
                   <input
-                    type="text"
+                    type="password"
                     name="verification-token"
                     id="verification-token"
                     value={verificationToken}

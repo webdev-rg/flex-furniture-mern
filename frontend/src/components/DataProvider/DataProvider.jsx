@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState } from "react";
 export const Data = createContext();
 
 export const DataProvider = ({ children }) => {
-  const URL = "https://flex-furniture-server.onrender.com";
+  const URL = "http://localhost:1901";
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(() => {
     return localStorage.getItem("userLoggedIn") === "true";
   });
@@ -74,11 +74,15 @@ export const DataProvider = ({ children }) => {
     try {
       const response = await fetch(`${URL}/api/getcartdetails/${userId}`);
 
+      if (response.status === 404) {
+        setCartDetails([]);
+        setLoading(false);
+        return;
+      }
+
       const data = await response.json();
 
-      if (data.message === "Cart details not found") {
-        setCartDetails([]);
-      } else if (data.message === "Cart details") {
+      if (data.message === "Cart details") {
         setCartDetails(data.cartData);
         setLoading(false);
       }
@@ -89,7 +93,7 @@ export const DataProvider = ({ children }) => {
 
   useEffect(() => {
     if (userData && userData._id) handleGetCartDetails(userData._id);
-  }, [cartDetails]);
+  }, []);
 
   return (
     <Data.Provider

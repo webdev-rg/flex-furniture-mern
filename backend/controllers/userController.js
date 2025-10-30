@@ -41,17 +41,51 @@ const userSignUp = async (req, res) => {
   }
 };
 
+// const userSignIn = async (req, res) => {
+//   console.log("SignIn")
+//   const { email } = req.body;
+
+//   try {
+//     const user = await UserModel.findOne({ email: email });
+
+//     if (!user) {
+//       return res.status(404).send({ message: "User not found" });
+//     } else if (!user.isVerified) {
+//       return res.status(404).send({ message: "Your account is not verified" });
+//     }
+
+//     const token = generateToken();
+//     const tokenExpirationTime = new Date(Date.now() + 5 * 60 * 1000);
+
+//     user.token = token;
+//     user.tokenExpiration = tokenExpirationTime;
+
+//     try {
+//       await user.save();
+//       console.log("User saved succefully");
+//     } catch (error) {
+//       console.error(error);
+//     }
+
+//     await sendVerificationToken(email, token);
+//     res
+//       .status(200)
+//       .send({ message: "Signin token has sent to your email", userData: user });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send({ message: "Error in signin" });
+//   }
+// };
+
 const userSignIn = async (req, res) => {
+  console.log("SignIn");
   const { email } = req.body;
 
   try {
-    const user = await UserModel.findOne({ email: email });
-
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
-    } else if (!user.isVerified) {
-      return res.status(404).send({ message: "Your account is not verified" });
-    }
+    const user = await UserModel.findOne({ email });
+    if (!user) return res.status(404).send({ message: "User not found" });
+    if (!user.isVerified)
+      return res.status(403).send({ message: "Your account is not verified" });
 
     const token = generateToken();
     const tokenExpirationTime = new Date(Date.now() + 5 * 60 * 1000);
@@ -61,17 +95,25 @@ const userSignIn = async (req, res) => {
 
     try {
       await user.save();
-      console.log("User saved succefully");
+      console.log("User saved successfully");
     } catch (error) {
-      console.error(error);
+      console.error("Error saving user:", error);
+      return res.status(500).send({ message: "Failed to update user token" });
     }
 
-    await sendVerificationToken(email, token);
-    res
+    try {
+      await sendVerificationToken(email, token);
+      console.log("Verification Token Sent");
+    } catch (error) {
+      console.error("Error sending email:", error);
+      return res.status(500).send({ message: "Failed to send email" });
+    }
+
+    return res
       .status(200)
       .send({ message: "Signin token has sent to your email", userData: user });
   } catch (error) {
-    console.error(error);
+    console.error("SignIn Error:", error);
     res.status(500).send({ message: "Error in signin" });
   }
 };

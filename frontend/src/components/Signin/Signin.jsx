@@ -51,7 +51,19 @@ export const Signin = () => {
           navigate("/verification");
         }, 2000);
       }
-    } catch (error) {}
+    } catch (error) {
+      toast.error("Something Went Wrong", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      console.error("Error: ", error);
+    }
   };
 
   return (

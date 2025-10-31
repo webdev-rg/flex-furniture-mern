@@ -41,42 +41,6 @@ const userSignUp = async (req, res) => {
   }
 };
 
-// const userSignIn = async (req, res) => {
-//   console.log("SignIn")
-//   const { email } = req.body;
-
-//   try {
-//     const user = await UserModel.findOne({ email: email });
-
-//     if (!user) {
-//       return res.status(404).send({ message: "User not found" });
-//     } else if (!user.isVerified) {
-//       return res.status(404).send({ message: "Your account is not verified" });
-//     }
-
-//     const token = generateToken();
-//     const tokenExpirationTime = new Date(Date.now() + 5 * 60 * 1000);
-
-//     user.token = token;
-//     user.tokenExpiration = tokenExpirationTime;
-
-//     try {
-//       await user.save();
-//       console.log("User saved succefully");
-//     } catch (error) {
-//       console.error(error);
-//     }
-
-//     await sendVerificationToken(email, token);
-//     res
-//       .status(200)
-//       .send({ message: "Signin token has sent to your email", userData: user });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send({ message: "Error in signin" });
-//   }
-// };
-
 const userSignIn = async (req, res) => {
   console.log("SignIn");
   const { email } = req.body;
